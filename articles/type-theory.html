@@ -1,0 +1,572 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Type Theory - the jtriley.eth book</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+    </head>
+    <body>
+    <div id="body-container">
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded "><a href="../introduction.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item expanded "><a href="../contributions-highlights.html"><strong aria-hidden="true">2.</strong> Contributions</a></li><li class="chapter-item expanded "><a href="../articles.html"><strong aria-hidden="true">3.</strong> Articles</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../articles/type-theory.html" class="active"><strong aria-hidden="true">3.1.</strong> Type Theory</a></li><li class="chapter-item expanded "><a href="../articles/the-edge-programming-language.html"><strong aria-hidden="true">3.2.</strong> The Edge Programming Language</a></li><li class="chapter-item expanded "><a href="../articles/the-vyper-compiler.html"><strong aria-hidden="true">3.3.</strong> The Vyper Compiler</a></li><li class="chapter-item expanded "><a href="../articles/evm-language-design.html"><strong aria-hidden="true">3.4.</strong> EVM Language Design</a></li><li class="chapter-item expanded "><a href="../articles/the-ether-deck.html"><strong aria-hidden="true">3.5.</strong> The Ether Deck</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">the jtriley.eth book</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="type-theory-for-people-with-shit-to-do"><a class="header" href="#type-theory-for-people-with-shit-to-do">Type Theory For People With Shit To Do</a></h1>
+<h2 id="introduction"><a class="header" href="#introduction">Introduction</a></h2>
+<p>Type theory is defined as the formal presentation of type systems. It is a complex topic composed of
+relatively simple primitives, but its relationship to category theory and its implementations
+ranging from the nonexistent to the strictly practical to the
+formalization-of-the-interconnectedness-of-all-things-in-the-universe leave it with a mixed,
+misunderstood, and often unfavorable view.</p>
+<pre><code>&quot;What the fuck is a type?&quot;
+
+- @Zac_Aztec (circa 2023)
+</code></pre>
+<p>The objective of this article is to begin from first principles and explain what types are, how they
+are composed, what their utility is, and how they map to commonly recognized programming languages.
+The explanations here are a bit abstract, but are intended to create a more fundamental model for
+reasoning about type theory and its application in programming.</p>
+<p>A rudimentary understanding of programming for this article is preferred, but not assumed.</p>
+<h2 id="primitive-type"><a class="header" href="#primitive-type">Primitive Type</a></h2>
+<p>The primitive type is generally enshrined in a programming language that represents one of a few
+categories of terms. These may include integers, decimal numbers, logical booleans, and so on.</p>
+<p>Some meta-languages (ML) do not enshrine any primitive types listed above but rather they rely on
+compositions of types to create types that are more useful for practical programs. This seems like
+an unhelpful explanation, but there is a chicken-and-egg problem of prerequisite knowledge to form a
+model about this. This will be explained throughout the article but for now take the following at
+face value and don't think too hard about it.</p>
+<ol>
+<li>It's types all the way down.</li>
+<li>Type is also a type.</li>
+</ol>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// rust example
+type MyEightBitUnsignedInteger = u8;
+type MyLogicalBoolean = bool;
+<span class="boring">}</span></code></pre></pre>
+<pre><code class="language-haskell">-- haskell example
+data Boolean = True | False
+</code></pre>
+<h2 id="function"><a class="header" href="#function">Function</a></h2>
+<p>The function is a mapping from one term to another. These terms may be of the same type or they may
+be of different types. Languages with &quot;first class function support&quot; or &quot;higher-order functions&quot;
+treat the function as its own type. This means functions can take terms as inputs and return terms
+as outputs that can be of any type including other functions.</p>
+<p>Higher-order functions also enable function composition. This is connected to category theory where
+given two functions, one that maps term A to term B and another that maps term B to term C, these
+two functions can be composed such that applying both functions sequentially, there exists a mapping
+from term A to term C. That is to say:</p>
+<ul>
+<li>if <code>A -&gt; B</code></li>
+<li>and <code>B -&gt; C</code></li>
+<li>then <code>A -&gt; B -&gt; C</code> exists</li>
+<li>therefore <code>A -&gt; C</code> exists</li>
+</ul>
+<p>Functions may be defined and applied. Function definition denotes how the function will map the
+input to the output while function application performs the mapping.</p>
+<p>This will be expanded upon in later sections, but technically Turing completeness, or the ability to
+operate on a theoretically infinitely sized input, is possible with only the following.</p>
+<ul>
+<li>terms: objects with or without types</li>
+<li>function definition: defining the map from one term to another</li>
+<li>function application: performing the mapping from one term to another</li>
+</ul>
+<pre><pre class="playground"><code class="language-rust">// rust example
+fn double(term: u8) -&gt; u8 {
+    return term * 2;
+}
+
+fn do_twice(func: Fn(u8) -&gt; u8, term: u8) -&gt; u8 {
+    return func(func(u8));
+}
+
+fn main() {
+    let result = do_twice(double, 10);
+}</code></pre></pre>
+<pre><code class="language-hs">-- haskell example
+double x = x * 2
+
+doTwice f x = f (f x)
+
+let result = doTwice double 2
+</code></pre>
+<h2 id="product-type"><a class="header" href="#product-type">Product Type</a></h2>
+<p>The product type is a compound structure consisting of two or more types. That is to say given two
+types A and B, a product type of A and B would internally contain both A and B. Some programming
+languages represent product types as &quot;structs&quot; or &quot;tuples&quot; where structs associate each internal
+type with an identifier while tuples associate each internal type with a numerical index. The terms
+associated with each internal type are often referred to as &quot;fields&quot;.</p>
+<p>The name &quot;product type&quot; relates to category theory, where a product type C is the direct product
+of types A and B.</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// rust example
+struct NamedProductType {
+    integerField: u8,
+    booleanField: bool,
+}
+
+type AnonymousProductType = (u8, bool);
+<span class="boring">}</span></code></pre></pre>
+<pre><code class="language-hs">-- haskell example
+data NamedProductType = NamedProductType { integerField :: Int, booleanField :: Bool }
+
+data AnonymousProductType = AnonymousProductType (Int, Bool)
+</code></pre>
+<h2 id="sum-type"><a class="header" href="#sum-type">Sum Type</a></h2>
+<p>The sum type, also known as a tagged union, is one of a set of types. That is to say given two types
+A and B, a sum type of A and B would contain either type A or type B. Some programming languages
+represent sum types as &quot;enums&quot; or &quot;unions&quot;. However, it is important to note that not all
+programming languages with an &quot;enum&quot; type are sum types. In languages where the variants, or
+members, of the enum are simply names with no internal type, these are generally defined in the
+language as enumerations over integers or natural numbers.</p>
+<p>The name &quot;sum type&quot; relates to category theory, where a sum type C is a categorical sum of types A
+and B.</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// rust example
+enum TaggedUnion {
+    IntegerVariant(u8),
+    BooleanVariant(bool),
+}
+
+enum Enumeration {
+    VariantA,
+    VariantB,
+}
+<span class="boring">}</span></code></pre></pre>
+<pre><code class="language-hs">-- haskell example
+data TaggedUnion = IntegerVariant Int | BooleanVariant Bool
+
+data Enumeration = VariantA | VariantB
+</code></pre>
+<h2 id="polymorphism"><a class="header" href="#polymorphism">Polymorphism</a></h2>
+<p>Polymorphism applies a single interface to terms of different types. It is divided broadly into
+three forms. Note that some programming languages can contain one, two, or all three forms of
+polymorphism.</p>
+<h3 id="ad-hoc-polymorphism"><a class="header" href="#ad-hoc-polymorphism">Ad Hoc Polymorphism</a></h3>
+<p>Ad hoc polymorphism refers to polymorphic functions whose behavior is dependent on the type of the
+arguments. This is often referred to as as function overloading. In some languages, &quot;operator
+overloading&quot; is also enabled such that arithmetic, bitwise, assignment, and logical operators can be
+overridden to contain custom functionality. Since operators are, in a sense, functions with syntax
+sugar, function and operator overloading are the same.</p>
+<p>Overloading operators is particularly useful because the algebraic laws that apply to  expressions
+also apply to more abstract objects. For example, the commutative law of addition applies to both
+integers and elliptic curve points. The commutative property of elliptic curve point arithmetic
+enables protocols like the Diffie-Hellman key exchange protocol to exist, therefore, programming
+languages with operator overloading could allow the addition of elliptic curve points to use the
+addition (<code>+</code>) operator.</p>
+<pre><code class="language-rs">// rust example
+struct EllipticCurvePoint {
+    x: FieldElement,
+    y: FieldElement,
+}
+
+impl EllipticCurvePoint {
+    pub fn generator_point() -&gt; Self {
+        // ..
+    }
+}
+
+impl Add for EllipticCurvePoint {
+    // ..
+}
+
+fn main() {
+    let g = EllipticCurvePoint::generator_point();
+
+    let g1 = g + g;
+}
+</code></pre>
+<h3 id="parametric-polymorphism"><a class="header" href="#parametric-polymorphism">Parametric Polymorphism</a></h3>
+<p>Parametric polymorphism allows functions and data types to be provided with generic data types which
+are then instantiated with other types as needed. Languages with parametric polymorphism often have
+two different sets of arguments, one containing types and the other containing expressions.</p>
+<p>When parametric polymorphic code is compiled, a process called monomorphization is performed. This
+transforms polymorphic code to monomorphic code by essentially creating copies of functions and data
+types for each unique type parameter.</p>
+<p>A useful way to consider parametric polymorphism is given a type <code>T&lt;U&gt;</code> where <code>T</code> is the type and
+<code>U</code> is a type parameter to <code>T</code>, &quot;for every possible type <code>U</code>, there exists a distinct type <code>T&lt;U&gt;</code>&quot;.
+Reread that last sentence, it is important and prerequisite to later sections.</p>
+<pre><code class="language-rs">// rust example
+struct PolymorphicStruct&lt;T&gt; {
+    polymorphic_field: T,
+}
+
+fn polymorphic_function&lt;T&gt;(argument: PolymorphicStruct&lt;T&gt;) -&gt; T {
+    return argument.polymorphic_field;
+}
+
+fn main() {
+    let integer_struct: PolymorphicStruct&lt;u8&gt; = PolymorphicStruct {
+        polymorphic_field: 1,
+    };
+
+    let integer: u8 = polymorphic_function::&lt;u8&gt;(integer_struct);
+
+    let boolean_struct = PolymorphicStruct {
+        polymorphic_field: true,
+    };
+
+    let boolean: bool = polymorphic_function::&lt;bool&gt;(boolean_struct);
+}
+</code></pre>
+<h3 id="subtype-polymorphism"><a class="header" href="#subtype-polymorphism">Subtype Polymorphism</a></h3>
+<p>Subtype polymorphism, or subtyping, is a type system containing relationships between supertypes and
+subtypes where functions and data types written for a given supertype are also applicable to elements
+of each of its subtypes.</p>
+<p>It is important to note that subtyping is not the same as inheritance from object-oriented languages,
+as subtyping is the relationship between types or interfaces whereas inheritance is the relationship
+between implementations. In some object-oriented languages, subtyping is called interface inheritance
+while inheritance is referred to implementation inheritance.</p>
+<pre><pre class="playground"><code class="language-rust">// rust example
+trait Supertype {
+    fn id(self: Self) -&gt; Self;
+}
+
+fn identity&lt;S: Supertype&gt;(term: S) -&gt; S {
+    return term.id();
+}
+
+struct IntegerSubtype(u8);
+
+impl Supertype for IntegerSubtype {
+    fn id(self: Self) -&gt; Self {
+        return IntegerSubtype(self.0);
+    }
+}
+
+struct BooleanSubtype(bool);
+
+impl Supertype for BooleanSubtype {
+    fn id(self: Self) -&gt; Self {
+        return BooleanSubtype(self.0);
+    }
+}
+
+fn main() {
+    let integer_term = IntegerSubtype(1);
+    let integer_term = identity(integer_term);
+
+    let boolean_term = BooleanSubtype(true);
+    let boolean_term = identity(boolean_term);
+}</code></pre></pre>
+<h2 id="dependent-type"><a class="header" href="#dependent-type">Dependent Type</a></h2>
+<p>Dependent types are types that depend on other types or values.
+<a href="#parametric-polymorphism">Parametric polymorphism</a> is a form of dependent typing, as types depend
+on other types, but this is not the whole picture. A dependent type may depend on other types and
+on values.</p>
+<p>A useful way to consider dependent types is given a type <code>T&lt;U, n&gt;</code> where <code>T</code> is the type, <code>U</code> is a
+type parameter, and <code>n</code> is a value parameter to <code>T</code>, &quot;for every possible type <code>U</code> and every possible
+value <code>n</code>, there exists a distinct type <code>T&lt;U, n&gt;</code>. Reread that last sentence. Now read it again.</p>
+<p>There are very few languages that have true dependent typing. Coq, Idris, Agda, Lean, and a few
+others contain dependent types. These are often considered too far into theory territory, though
+they carry unique benefits in terms of program correctness, compile-time formal verification, and
+theorem proving.</p>
+<p>Rust has a rudimentary form with its &quot;const generic&quot; system, but this is not a fully realized
+dependent type.</p>
+<p>In the examples below, the Rust code used is pseudocode, meant to mimic the syntax of Rust but with
+dependent types for the sake of demonstration. Notice the return type and how it contains a value
+expression. In the example, <code>T</code> is the internal type of a vector <code>Vec</code> and <code>n</code> is its length.</p>
+<pre><code class="language-rs">// pseudo-rust example
+type Vec&lt;T, n&gt;; // ..
+
+fn append(lhs: Vec&lt;T, n&gt;, rhs: Vec&lt;T, m&gt;) -&gt; Vec&lt;T, n + m&gt; {
+    // ..
+}
+</code></pre>
+<pre><code class="language-lean">/- lean example -/
+inductive Vect (α : Type u) : Nat → Type u where
+   | nil : Vect α 0
+   | cons : α → Vect α n → Vect α (n + 1)
+</code></pre>
+<h2 id="theorem-proving"><a class="header" href="#theorem-proving">Theorem Proving</a></h2>
+<p>This section is much less concrete, both because this is the topic of thousands of pages in academic
+papers and because my personal understanding of this is not fully developed. Instead the objective
+is to present the value of such systems from a high level.</p>
+<p>Theorem proving is a use case for type systems where theorems are proven during compile time. In
+some cases, the compiler does not even generate code, it simply proves a theorem and its successful
+execution indicates a valid proof.</p>
+<p>So why is this useful?</p>
+<p>This is useful because the declaration of a type <em>is a theorem</em> and the existence of a term with the
+declared type <em>is a proof</em> that the type exists. Consider the following example, eloquently
+explained by <a href="https://github.com/jwiegley">John Wiegley</a>.</p>
+<pre><code>If you declare, say, an `Integer` type, you are creating a theorem that says &quot;there exists a value
+of type `Integer`.&quot; When you assign a value to that type, say `10`, if the program compiles, the
+number `10` is a proof that there exists an `Integer`!
+</code></pre>
+<p>Combine this knowledge with <a href="#parametric-polymorphism">parametric polymorphism</a> and
+<a href="#dependent-type">dependent types</a> and you can prove surprisingly complex systems. Revisit the
+pseudo-Rust example with dependent types and describe this as a set of theorems and proofs.</p>
+<blockquote>
+<p>Theorem: &quot;There exists a distinct vector <code>Vec</code> for all types <code>T</code> and all lengths <code>n</code>&quot;</p>
+<p>Proof: <code>let vec: Vec&lt;u8, 2&gt; = Vec::from([1_u8, 2_u8]);</code></p>
+</blockquote>
+<blockquote>
+<p>Theorem: &quot;There exists a function <code>append</code> that, for two distinct vectors <code>Vec</code> with type <code>T</code> and
+of lengths <code>n</code> and <code>m</code> respectively, constructs a new vector <code>Vec</code> of type <code>T</code> and of length
+<code>n + m</code>.&quot;</p>
+<p>Proof: <code>let both: Vec&lt;u8, 4&gt; = append(vec, vec);</code></p>
+</blockquote>
+<p>As mentioned above, this is an incredibly deep topic and has more information to explore than could
+ever be condensed into a reasonably sized article, so we will leave this topic for now.</p>
+<h2 id="the-lambda-cube"><a class="header" href="#the-lambda-cube">The Lambda Cube</a></h2>
+<pre><code>    λω-------------λC
+    /|             /|
+   / |            / |
+  /  |           /  |
+λ2---+---------λP2  |
+ |   |          |   |
+ |  λω_---------+-λPω_
+ |  /           |  /
+ | /            | /
+ |/             |/
+λ-&gt;------------λP
+</code></pre>
+<p>If you truly have shit to do, this is not strictly necessary, so you can close the article and be on
+your way. <em>This is deep in theory territory and here there be lambdas.</em></p>
+<p>The lambda-cube, aka λ-cube, is a framework introduced to explore the dimensions that map simply
+typed lambda calculus to the calculus of constructions.</p>
+<pre><code>&quot;wot&quot;
+
+- @tomscott (circa 2013)
+</code></pre>
+<p>In the example above, consider the bottom left point on the cube, λ-&gt; to be simply typed lambda
+calculus and the upper right point on the cube, λC to be the calculus of constructions.</p>
+<p>In human words, the simply typed lambda calculus is nothing but terms and functions that operate on
+those terms. As mentioned in the <a href="#function">function type section</a>, this is technically turing
+complete. Meanwhile, the calculus of constructions is the generalization of lambda calculus where
+terms and types are the same.</p>
+<pre><code>&quot;what&quot;
+
+- @steveaustinBSR (circa 2001)
+</code></pre>
+<p>Before diving into each point on the cube, it may be useful to mention the Curry-Howard
+correspondence. This indicates a direct relationship between programs and proofs. As mentioned in
+the <a href="#theorem-proving">theorem proving section</a>. This means there is a correspondence in terms and
+types. This is why the calculus of constructions is possible; terms and types are not related to one
+another, they <em>are</em> one another. Languages that are designed with this in mind offer proof
+assistants that can formally prove program correctness during compilation.</p>
+<p>Back to the lambda cube. The x (<code>--</code>), y (<code>|</code>), and z (<code>/</code>) axes each correspond to a dimension of
+the type system.</p>
+<ul>
+<li>x : corresponds to dependent types</li>
+<li>y : corresponds to polymorphism</li>
+<li>z : corresponds to type operators</li>
+</ul>
+<p>λ-&gt; aka Simply Typed Lambda Calculus introduces terms, definition of functions that map terms to
+terms, and the application of functions to terms.</p>
+<p>λ2 aka System F introduces polymorphism, where terms can depend on types.</p>
+<p>λP aka First-Order Predicate Calculus introduces dependent types, where types can depend on terms.</p>
+<p>λω_ aka System Fω_ introduces type constructors, where types can depend on other types.</p>
+<p>λω aka System Fω is a composition of λω_ and λ2, introducing polymorphic type constructors, where
+terms can depend on types and types can depend on types.</p>
+<p>λ2P aka Second-Order Predicate Calculus is a composition of λP and λ2, introducing polymorphic
+dependent types, where terms can depend on types and types can depend on terms.</p>
+<p>λPω_ aka Weak Higher-Order Predicate Calculus is a composition of λω_ and λP, introducing types that
+can depend on terms and types that can depend on types.</p>
+<p>λC aka Calculus of Constructions is the composition of λ2, λP, and λω_ completing the lambda cube,
+introducing terms that depend on types, types that depend on terms, and types that depend on types.</p>
+<h2 id="conclusion"><a class="header" href="#conclusion">Conclusion</a></h2>
+<p>This is where our type theory deep dive stops for now. In summary, we have explored simply types
+from <a href="#primitive-type">primitives</a> to <a href="#function">functions</a>, algebraic data types from
+<a href="#product-type">product</a> to <a href="#sum-type">sum</a> types, and higher-order types like
+<a href="#polymorphism">polymorphic</a> and <a href="#dependent-type">dependent</a>. We also began to scratch the surface
+on how these could be applied to things such as theorem proving and correctness checking. Finally,
+we took a look at the dimensionality of type systems ranging from lisp-like simply typed lambda
+calculus to the coq-like calculus of constructions.</p>
+<p>The primary takeaway here is to consider, for any language we see, how the designers of these
+languages have considered the structure of their type system, what consequences these designs have
+on the extensibility, correctness, and readability of the language, and how can we take full
+advantage of the tools provided to us through the type system to create robust, correct, and
+performant systems.</p>
+<pre><code>&quot;.. finally, our code can be perfect.&quot;
+
+- @noboilerplate (circa 2022)
+</code></pre>
+<p>Until next time, good hacking 🤘</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../articles.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next" href="../articles/the-edge-programming-language.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../articles.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next" href="../articles/the-edge-programming-language.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr.min.js"></script>
+        <script src="../mark.min.js"></script>
+        <script src="../searcher.js"></script>
+
+        <script src="../clipboard.min.js"></script>
+        <script src="../highlight.js"></script>
+        <script src="../book.js"></script>
+
+        <!-- Custom JS scripts -->
+        <script src="../src/static/solidity.min.js"></script>
+
+
+    </div>
+    </body>
+</html>

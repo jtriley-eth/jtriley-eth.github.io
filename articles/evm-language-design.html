@@ -1,0 +1,701 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>EVM Language Design - the jtriley.eth book</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+    </head>
+    <body>
+    <div id="body-container">
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded "><a href="../introduction.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item expanded "><a href="../contributions-highlights.html"><strong aria-hidden="true">2.</strong> Contributions</a></li><li class="chapter-item expanded "><a href="../articles.html"><strong aria-hidden="true">3.</strong> Articles</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../articles/type-theory.html"><strong aria-hidden="true">3.1.</strong> Type Theory</a></li><li class="chapter-item expanded "><a href="../articles/the-edge-programming-language.html"><strong aria-hidden="true">3.2.</strong> The Edge Programming Language</a></li><li class="chapter-item expanded "><a href="../articles/the-vyper-compiler.html"><strong aria-hidden="true">3.3.</strong> The Vyper Compiler</a></li><li class="chapter-item expanded "><a href="../articles/evm-language-design.html" class="active"><strong aria-hidden="true">3.4.</strong> EVM Language Design</a></li><li class="chapter-item expanded "><a href="../articles/the-ether-deck.html"><strong aria-hidden="true">3.5.</strong> The Ether Deck</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">the jtriley.eth book</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="evm-language-design"><a class="header" href="#evm-language-design">EVM Language Design</a></h1>
+<p><em>jtriley.eth; 15 March, 2023</em></p>
+<hr />
+<p>The Ethereum Virtual Machine (EVM) is a 256-bit, stack-based, globally accessible Turing machine.
+Due to the stark difference in architecture from other virtual and physical machines,
+domain-specific languages (DSL's) are all but a necessity.</p>
+<p>In this article we will examine the state of the art in EVM DSL design. We will cover the Solidity,
+Vyper, Fe, Huff, Yul, and ETK, using the most recent compiler versions at the time of writing.</p>
+<h2 id="versions"><a class="header" href="#versions">Versions</a></h2>
+<ul>
+<li>Solidity: 0.8.19 </li>
+<li>Vyper: 0.3.7</li>
+<li>Fe: 0.21.0</li>
+<li>Huff: 0.3.1</li>
+<li>ETK: 0.2.1</li>
+<li>Yul: 0.8.19</li>
+</ul>
+<p>This article assumes a basic understanding of the EVM, stack machines, and programming in general.</p>
+<h2 id="ethereum-virtual-machine-overview"><a class="header" href="#ethereum-virtual-machine-overview">Ethereum Virtual Machine Overview</a></h2>
+<p>As mentioned, the EVM is a 256 bit stack-based Turing machine. However, there are a few features
+that should be introduced before diving into the compilers that target it.</p>
+<p>Since the EVM is Turing complete, it suffers from the halting problem. In short, this means that
+there is no way to be certain that a program will terminate in the future before executing it. The
+solution to this problem in the EVM is to meter compute units in <code>gas</code>, which in general is
+proportional to the physical resources required to execute the instruction. The amount of gas per
+transaction is limited and the initiator of the transaction must pay an amount of Ether proportional
+to the gas expended for the duration of the transaction. One of the many effects of this decision is
+that if there are two functionally identical smart contracts but one of them manages to execute with
+less gas consumption for the same task, there is an economic incentive to use the more efficient of
+the two. This has lead to protocols competing for extreme gas efficiency and engineers forming
+personal brands around minimizing gas consumption for a given task (myself included).</p>
+<p>Additionally, when a contract is called, it creates an execution context. Within this context, the
+contract has a stack to manipulate and operate on, a linear memory instance to read and write, a
+local persistent storage for the contract to read and write, and data attached to the call,
+<code>calldata</code>, that may be read but not written.</p>
+<p>An important note about memory is while its size is not deterministically <code>capped</code>, it is still
+limited. The gas cost of expanding memory is dynamic; once it reaches a threshold, the cost of
+expanding memory is quadratic, that is to say the gas cost is proportional to the additional memory
+allocation squared.</p>
+<p>Contracts may also call to other contracts using a few different instructions. The <code>call</code>
+instruction sends data and optionally, Ether, to a target contract, which then creates its own
+execution context that persists until the target contract’s execution halts. The <code>staticcall</code>
+instruction is the same as <code>call</code>, but with an additional check that asserts no part of the global
+state is updated until the static call completes. Finally, the <code>delegatecall</code> instruction behaves
+like <code>call</code> except it preserves some environment information from the previous context. This is
+generally used for external libraries and proxy contracts.</p>
+<h2 id="why-language-design-is-important"><a class="header" href="#why-language-design-is-important">Why Language Design is Important</a></h2>
+<p>Smart contract DSL's are a necessity for interacting with atypical architectures and while compiler
+toolchains such as LLVM exist, relying on them for smart contracts where program correctness and
+computational efficiency are critical is less than ideal.</p>
+<p>Program correctness is of the utmost importance, as smart contracts are immutable by default and
+given the properties of blockchain virtual environments (VM's), smart contracts are a popular choice
+for financial applications. While solutions exist for upgradeability within the EVM, it is a patch
+at best and arbitrary code execution vulnerability at worst.</p>
+<p>As mentioned above, computational efficiency is also critical, as there is economic advantage to
+minimize compute, but not at the expense of security.</p>
+<p>In short, EVM DSL's have to balance program correctness with gas efficiency, each making different
+tradeoffs to accomplish one or the other without sacrificing too much flexibility.</p>
+<h2 id="language-overview"><a class="header" href="#language-overview">Language Overview</a></h2>
+<p>For each language we will describe notable features and design choices and include a simple smart
+contract that tracks and increments a <code>count</code> value that may be read externally. Language
+popularity, where applicable is determined based on total value locked (TVL) statistics from
+<a href="https://defillama.com/languages">Defi Llama</a>.</p>
+<h3 id="solidity"><a class="header" href="#solidity">Solidity</a></h3>
+<p>Solidity is a high level language whose syntax resembles C, Java, and Javascript. It is the most
+popular language by TVL with a lead over the next EVM DSL by a factor of ten. For code reuse, it
+uses object oriented patterns where smart contracts are treated as class objects that take advantage
+of multiple inheritance. The compiler is written in C++, with plans to migrate to Rust in a future
+release.</p>
+<p>Variable contract fields are stored in persistent storage unless their value is known at compile
+time (constant) or at deploy time (immutable). Methods are defined within the scope of the contract
+and may be declared as pure, view, payable, or by default, non-payable but state-modifying. Pure
+methods do not read from the execution environment and they may not read or write persistent
+storage; that is to say, given the same input(s), pure methods will always return the same output(s)
+and they will never create side effects. View methods may read from persistent storage or execution
+environment, but they may not write to persistent storage and they may not create side effects, such
+as appending transaction logs. Payable methods may read and write persistent storage, read from the
+execution environment, produce side effects, and can receive Ether which is optionally attached with
+the call. Non-payable methods are the same as payable methods, but they have a runtime check to
+assert there is no Ether attached to the current execution context.</p>
+<blockquote>
+<p>Note: Attaching Ether to a transaction is separate from paying the gas fees, attached Ether is
+received by the contract, which may choose to accept or reject it by reverting the context.</p>
+</blockquote>
+<p>Methods may also specify one of four visibility modifiers when declared within the scope of a
+contract; they may be private, internal, public, or external. Private methods are accessible
+internally via <code>jump</code> instructions within the current contract. Any inheriting contracts may not
+access private methods directly. Internal methods are also internally accessible via jump
+instructions, however, inheriting contracts may use internal methods directly. Public methods can be
+accessed by external contracts via <code>call</code> instructions, creating a new execution context and they
+may be accessed internally with jumps when the method is called directly. Public methods may also be
+accessed from the same contract but in a new execution context via a <code>call</code> by prepending <code>this.</code> to
+the method call. External methods may only be accessed by a <code>call</code> instruction, either from a
+different contract or within the same contract, by prepending <code>this.</code> to the method to call.</p>
+<blockquote>
+<p>Note: <code>jump</code> instructions manipulate the program counter, <code>call</code> instructions create a new
+execution context for the duration of the target contract's execution. It is much more gas
+efficient to use jumps instead of calls when possible.</p>
+</blockquote>
+<p>Solidity also features libraries that may be defined in one of three ways. First is the external
+library, which is a stateless contract that is separately deployed to the chain, dynamically linked
+to the calling contract, and is accessed via a <code>delegatecall</code> instruction. This is the least common
+approach, as tooling around external libraries is subpar, <code>delegatecall</code> is expensive as it must
+load additional code from persistent storage, and it requires multiple transactions for deployment.
+Internal libraries are defined in the same way as external libraries, except every method must be
+defined as internal. At compile time, internal libraries are embedded into the final contract and
+unused methods in the library are removed during the dead-code analysis phase. Third is similar to
+the internal library, but instead of defining data structures and functionality within a library
+block, they are defined at the file level and can be imported and used within the final contract
+directly. The third method offers better ergonomics with custom data structures, application of
+functions to structures in the global scope, and, to a limited degree, aliasing operators to certain
+functions.</p>
+<p>The compiler offers two optimization pipelines. First is the instruction-level optimizer, which
+performs optimization passes on the final bytecode. The second and more recent addition uses the Yul
+language (detailed later) as an intermediate representation (IR) in the compilation process, which
+then performs optimization passes on the generated Yul code.</p>
+<p>To interface with public and external methods in contracts, Solidity specifies an Application Binary
+Interface (ABI) standard for interfacing with its contracts. The Solidity ABI, at the time of
+writing, is treated as the defacto standard for EVM DSL's. Ethereum Request for Comment (ERC)
+standards that specify an external interface universally do so in accordance with Solidity's ABI
+specification and style-guide. Other languages tend to conform to Solidity's ABI specification with
+rare and minor deviations.</p>
+<p>Solidity also offers inline Yul blocks, allowing low level access to the EVM instruction set. The
+Yul blocks contain a subset of Yul functionality detailed in the Yul section. This is most commonly
+used for gas optimization, taking advantage of features not supported in the high level syntax, and
+customizing layouts of storage, memory, and calldata.</p>
+<p>Due to Solidity's popularity, developer tooling is very mature and well designed. Foundry is a tool
+that particularly stands out in this regard.</p>
+<p>A simple contract in Solidity may be defined as follows:</p>
+<pre><code class="language-solidity">// SPDX-License-Identifier: MIT
+pragma solidity 0.8.19;
+
+contract CountTracker {
+    uint256 public count;
+
+    function increment() external {
+        count += 1;
+    }
+}
+</code></pre>
+<h3 id="vyper"><a class="header" href="#vyper">Vyper</a></h3>
+<p>Vyper is a high level language with Python-like syntax. It is nearly a Python subset with only a few
+minor exceptions. It is the second most popular EVM DSL at the time of writing. Vyper optimizes for
+safety, readability, audit-ability, and gas efficiency. It opts out of object oriented patterns,
+inline assembly, and, at the time of writing, does not support code reuse. The compiler is written
+in Python.</p>
+<p>Variables stored in persistent storage are declared at the file level. If their value is known at
+compile time, they may be declared as <code>constant</code>, if their value is known at deploy time, they may
+be declared as <code>immutable</code>, if they are marked public, the final contract will expose a read-only
+function for that variable. Constant and immutable values are accessed internally by their names,
+but mutable variables in persistent storage may be accessed by prepending <code>self.</code> to the variable
+name. This is useful in preventing namespace collisions between storage variables and function
+arguments and local variables.</p>
+<p>Functions are defined much like Solidity, but with a pythonic syntax, opting for function attributes
+to indicate visibility and mutability. Functions marked <code>@external</code> are accessible from external
+contracts via a <code>call</code> instruction. Functions marked <code>@internal</code> are accessible only from within the
+same contract and must be prefixed with <code>self.</code>. Functions marked <code>@pure</code> may not read from the
+execution environment or persistent storage and they may not write persistent storage or create any
+side effects. Functions marked <code>@view</code> may read from the execution environment or persistent
+storage, but they may not write to persistent storage or create side effects. Functions marked
+<code>@payable</code> may read or write persistent storage, create side effects, read from the execution
+environment, and may receive Ether attached to the call. Functions without a mutability attribute
+are non-payable, that is they are the same as payable functions but without the ability to receive
+Ether.</p>
+<p>The Vyper compiler also opts to store local variables in memory rather than on the stack. This
+allows for simpler and generally more efficient contracts, as well as fixes a common error seen in
+other high level languages, the <code>stack too deep</code> error. However, this comes with a few tradeoffs.</p>
+<p>First, since memory layout must be known at compile time, the maximum capacity of dynamic types must
+also be known at compile time. There is also the tradeoff of large memory allocations resulting in
+non-linear gas consumption as mentioned in the EVM overview section. However, this gas cost remains
+negligible for many use cases.</p>
+<p>While Vyper does not support inline assembly, it enables more built-in functions to ensure nearly
+every feature in Solidity and Yul is also accessible in Vyper. Low level bitwise operations,
+external calls, and proxy contract operations are accessible via built-ins and custom storage
+layouts are possible by providing an override file at compile time.</p>
+<p>While Vyper does not have such an extensive suite of developer tooling, Vyper has more tightly
+integrated tooling and can also be plugged into Solidity developer tooling. Notable Vyper tooling
+includes the Titanaboa interpreter with many built-in tools for EVM and Vyper related
+experimentation and development as well as Dasy, a Lisp built on top of Vyper that features
+compile-time code execution.</p>
+<p>A simple contract in Vyper may be defined as follows:</p>
+<pre><code class="language-py"># @version 0.3.7
+
+counter: public(uint256)
+
+@external
+def increment():
+    self.counter += 1
+</code></pre>
+<h3 id="fe"><a class="header" href="#fe">Fe</a></h3>
+<p>Fe is a high level language with Rust-like syntax. It is currently under active development with
+most features yet to come. The compiler is mostly written in Rust, however, it uses Yul as its IR,
+relying on the Yul optimizer which is currently written in C++. This is expected to change with the
+inclusion of their rust-native backend, Sonatina. Fe uses modules for code sharing, thus object
+oriented patterns are not used and instead code is reused via a module-based system where variables,
+types, and functions are declared within a module and are importable in a similar way to Rust.</p>
+<p>Persistent storage variables are declared at the contract level and are not publicly accessible
+without a manually defined getter function. Constants may be declared at the file or module level
+and are accessible internally within the contract. Immutable, deploy time variables are currently
+not supported.</p>
+<p>Methods may be declared at the module level or within a contract. By default, they are pure and
+private. To make a contract method public, its definition must be prefixed with the <code>pub</code> keyword.
+This makes it accessible externally. To read from the persistent storage variables, the first
+argument in the method must be <code>self</code>, which gives the method read-only access to any local storage
+variable by prefixing <code>self.</code> to the variable name. To read and write persistent storage, the first
+argument must be <code>mut self</code>. The <code>mut</code> keyword indicates the contract's storage is mutable for the
+duration of the method's execution. Accessing environment variables is done by passing the method a
+<code>Context</code> argument. Usually named <code>ctx</code>, the context type implements methods that read the execution
+environment's values.</p>
+<p>Functions and custom types may be declared at the module level. Module items are all private by
+default and are inaccessible unless prefixed with the <code>pub</code> keyword. This is not to be confused with
+the contract-level <code>pub</code> keyword, though. Public members of a module are accessible only internally
+within the final contract or other modules.</p>
+<p>At the time of writing, inline assembly is not supported and instead, instructions are wrapped by
+compiler intrinsics, or special functions that are resolved to instructions at compile time.</p>
+<p>Fe intends to follow Rust’s syntax as well as its type system, enabling type aliasing, enums with
+subtypes, traits, and generics. At the time of writing this is limited, but in progress. Traits can
+be defined and implemented for different types but generics are not supported, nor are trait
+constraints. Enums support subtypes and may have methods implemented on them but they are not
+possible to encode in external functions. While Fe’s type system is still developing, it shows
+promise in enabling more safe and compile-time checked code for developers to write.</p>
+<p>A simple contract in Fe may be defined as follows:</p>
+<pre><code class="language-rs">contract CountTracker {
+    count: u256
+
+    pub fn count(self) -&gt; u256 {
+        return self.count
+    }
+
+    pub fn increment(mut self) {
+        self.count += 1
+    }
+}
+</code></pre>
+<h3 id="huff"><a class="header" href="#huff">Huff</a></h3>
+<p>Huff is an assembly language with manual stack control and minimal abstractions on the EVM's
+instruction set. Code reuse is enabled by <code>#include</code> directives that resolve any included Huff files
+at compile time. Originally written by the Aztec team for extremely optimized elliptic curve
+arithmetic, the compiler was later rewritten in Typescript, then again in Rust.</p>
+<p>Constants must be defined at compile time, immutables are currently unsupported, and persistent
+storage variables are not explicitly defined in the language. Since named storage variables are a
+high level abstraction, writing to persistent storage is done in Huff by using the storage opcodes,
+<code>sstore</code> to write and <code>sload</code> to read. Custom storage layouts may be user defined or it can follow
+the convention of starting at zero and incrementing with each variable by using the
+<code>FREE_STORAGE_POINTER</code> compiler intrinsic. Making storage variables accessible externally requires
+manually defining a code path that can read and return the variable to the caller.</p>
+<p>External functions are also abstractions introduced by high level languages, so there is no concept
+of external functions in Huff. However, most projects follow, to varying degrees, the ABI
+specifications of other high level languages, most commonly Solidity. A common pattern is to define
+a <code>dispatcher</code> that loads raw calldata and uses it to check for matching function selectors. If one
+is met, then its subsequent code is executed. Since dispatchers are user defined, they may follow
+different patterns for dispatching. Solidity orders the selectors in its dispatcher alphabetically
+by name, Vyper orders the selectors numerically and performs a binary search at runtime, most Huff
+dispatchers are ordered by expected function use frequency, and rarely, jump tables are used. At the
+time of writing, jump tables are not natively supported in the EVM, so introspection instructions
+like <code>codecopy</code> are required to make this possible.</p>
+<p>Internal function are defined with the <code>#define fn</code> directive and may accept template arguments for
+flexibility and the expected stack depth at the start and end of the function. Since these functions
+are internal, they are not accessible externally and <code>jump</code> instructions are used to interact with
+it internally.</p>
+<p>Other control flow such as conditionals and loops can be defined with jump destinations. Jump
+destinations are defined with an identifier followed by a colon. They may be jumped to by pushing
+the identifier and executing a jump instruction. This is resolved to bytecode offsets at compile
+time.</p>
+<p>Macros are defined with the <code>#define macro</code> directive and are otherwise syntactically identical to
+internal functions. They key difference is macros do not generate <code>jump</code> instructions at compile
+time, rather, the body of the macro is duplicated directly into each invocation within the file.</p>
+<p>This creates the tradeoff of less arbitrary jumps to the benefit of runtime gas costs and at the
+expense of overall codesize when called more than once. The <code>MAIN</code> macro is treated as the
+contract's entry-point and the first instruction inside its body will be the first instruction in
+the runtime bytecode.</p>
+<p>Other intrinsics compiler intrinsics include event hash generation for logging, function selector
+generation for dispatching, error selector generation for error handling, and introspection
+intrinsics such as codesize checkers for internal functions and macros.</p>
+<p>A simple contract in Huff may be defined as follows:</p>
+<blockquote>
+<p>Note: The stack comments such as <code>// [count]</code> are not required or enforced, they are just commonly
+used to indicate the stack's state at the end of that line's execution.</p>
+</blockquote>
+<pre><code class="language-solidity">#define constant COUNT_SLOT = FREE_STORAGE_POINTER()
+
+#define macro MAIN() = takes (0) returns (0) {
+    0x00 calldataload 0xe0 shr
+    dup1 __FUNC_SIG(&quot;count&quot;) eq is_count jumpi
+    dup1 __FUNC_SIG(&quot;increment&quot;) eq is_increment jumpi
+    pop 0x00 dup1 revert
+
+    is_count:
+        [COUNT_SLOT]    // [count_slot]
+        sload           // [count]
+        0x00            // [pointer, count]
+        mstore          // []
+        msize           // [size]
+        0x00            // [pointer, size]
+        return          // return to caller
+
+    is_increment:
+        [COUNT_SLOT]    // [count_slot]
+        sload           // [count]
+        0x01            // [one, count]
+        add             // [count_plus_one]
+        [COUNT_SLOT]    // [count_slot, count_plus_one]
+        swap1           // [count_plus_one, count_slot]
+        sstore          // []
+        stop            // halt execution
+}
+</code></pre>
+<h3 id="etk"><a class="header" href="#etk">ETK</a></h3>
+<p>EVM Tool Kit, or ETK, is an assembly language with manual stack management and minimal abstractions.
+Code can be reused by the <code>%include</code> and <code>%import</code> directives. The compiler is written in Rust.</p>
+<p>A notable difference between Huff and ETK is Huff adds minor abstractions for initcode, also known
+as constructor code, which may be overridden by defining a special <code>CONSTRUCTOR</code> macro. In ETK,
+these are not abstracted away, the initcode and runtime code must be defined together.</p>
+<p>Much like Huff, ETK reads and writes persistent storage via the <code>sload</code> and <code>sstore</code> instructions.
+There are no constant or immutable keywords, however, constants can be emulated with one of two
+kinds of macros in ETK, expression macros. Expression macros do not resolve to instructions, but
+rather numeric values that can be used in other instructions. For example, it may not generate a
+<code>push</code> instruction in its entirety, but it may generate a number to be included in a <code>push</code>
+instruction.</p>
+<p>As previously mentioned, external functions are high level language concepts, so exposing code paths
+externally requires the creation of a function selector dispatcher.</p>
+<p>Internal functions are not explicitly definable like in other languages, instead jump destinations
+can be given user-defined aliases and jumped to by their name. This also allows for other control
+flow such as loops and conditionals.</p>
+<p>As previously mentioned, ETK supports two kinds of macros. First is the expression macro, which may
+take an arbitrary number of arguments and return a numeric value that may be used with other
+instructions. Expression macros do not generate instructions, they generate immediate, or constant,
+values. Instruction macros, however, accept an arbitrary number of arguments and generate an
+arbitrary number of instructions at compile time. Instruction macros in ETK behave similarly to how
+Huff macros behave.</p>
+<p>A simple ETK contract may be defined as follows:</p>
+<pre><code class="language-solidity">// initcode.etk
+%push(end - start)
+dup1
+%push(start)
+returndatasize
+codecopy
+returndatasize
+return
+
+start:
+%include(&quot;main.etk&quot;)
+end:
+
+// main.etk
+
+%def slot()
+    0x00
+%end
+
+start:
+    push1 0x00
+    calldataload
+    push1 0xe0
+    shr
+    dup1
+    push4 selector(&quot;count()&quot;)
+    eq
+    push1 is_count
+    jumpi
+    push4 selector(&quot;increment()&quot;)
+    eq
+    push1 is_increment
+    jumpi
+    push1 0x00
+    dup1
+    revert
+    is_count:
+        jumpdest
+        push1 slot()
+        sload
+        push1 0x00
+        mstore
+        msize
+        push1 0x00
+        return
+    is_increment:
+        jumpdest
+        push1 slot()
+        sload
+        push1 0x01
+        add
+        push1 slot()
+        sstore
+        stop
+end:
+</code></pre>
+<h3 id="yul"><a class="header" href="#yul">Yul</a></h3>
+<p>Yul is an assembly language with high level control flow and largely abstracted stack management. It
+is a part of the Solidity toolchain and may optionally be used within the Solidity compilation
+pipeline. Code reuse is not supported in Yul, as it is meant to be a compilation target rather than
+a standalone language. The compiler is written in C++ with plans to migrate to Rust with the rest of
+the Solidity pipeline.</p>
+<p>In Yul, code is separated into objects which may contain code, data, and nested objects. As such,
+there are no constants or external functions. A function selector dispatcher will need to be defined
+to expose code paths externally.</p>
+<p>Most instructions, disregarding stack and control flow instructions, are exposed as functions in
+Yul. For example, an instruction that pops two values and pushes one would be wrapped in a function
+that takes two arguments and returns one. Instructions can be nested for brevity, or they can be
+assigned to temporary variables that may be passed to other instructions. A conditional branch may
+use an <code>if</code> block that executes if a value is nonzero, but there is no <code>else</code> block, so handling
+multiple codepaths would require a <code>switch</code> that may handle an arbitrary number of cases and a
+<code>default</code> fallback option. Looping may be performed with the <code>for</code> loop; while its syntax looks
+different from other high level languages, it provides the same basic functionality. Internal
+functions may be defined with the <code>function</code> keyword and resembles a similar syntax to high level
+languages’ function definitions.</p>
+<p>Most functionality in Yul is exposed within Solidity using inline assembly blocks. This allows
+developers to break abstraction and write either custom functionality or use features available in
+Yul before they are available in the high level syntax. However, using this feature requires a deep
+understanding of Solidity’s behavior in regards to calldata, memory, and storage.</p>
+<p>There are also functions unique to standalone Yul dialects. The <code>datasize</code>, <code>dataoffset</code>, and
+<code>datacopy</code> functions operate on Yul objects by their string alias. The <code>setimmutable</code> and
+<code>loadimmutable</code> functions allow immutable arguments to be set and loaded in the constructor, though
+their use is limited. The <code>linkersymbol</code> function allows for dynamic external library linking. The
+<code>memoryguard</code> function indicates to the compiler that only a given memory range will be allocated,
+allowing the compiler to perform additional optimizations with memory beyond the guard. Finally,
+<code>verbatim</code> allows for instructions unknown to the Yul compiler to be used.</p>
+<p>A simple Yul contract may be defined as follows:</p>
+<pre><code class="language-solidity">object &quot;CounterTracker&quot; {
+    code {
+        let runtimesize := datasize(&quot;runtime&quot;)
+        datacopy(0x00, dataoffset(&quot;runtime&quot;), runtimesize)
+        return(0x00, runtimesize)
+    }
+    object `runtime` {
+        code {
+            switch shr(0xe0, calldataload(0x00))
+            case 0x06661abd {
+                count()
+            }
+            case 0xd09de08a {
+                increment()
+            }
+            default {
+                revert(0x00, 0x00)
+            }
+
+            function count() {
+                mstore(0x00, sload(0x00))
+                return(0x00, 0x20)
+            }
+
+            function increment() {
+                sstore(0x00, add(0x01, sload(0x00)))
+            }
+        }
+    }
+}
+</code></pre>
+<h2 id="features-of-a-great-evm-dsl"><a class="header" href="#features-of-a-great-evm-dsl">Features of a Great EVM DSL</a></h2>
+<p>A great EVM DSL would learn from the pros and cons of each language listed here and more. The basics
+includes nearly everything featured in modern languages such as conditionals, pattern matching,
+loops, functions, and more. Code should be explicit with minimal implicit abstractions usually added
+for the sake of code aesthetic or readability. In high stakes, correctness critical environments,
+each line should be explicitly interpretable. In addition, a well defined module system should be at
+the core of any great language. It should be clear what items are defined in what scope, and what
+may be accessed. By default, every item in a module should be private, with only explicitly public
+items exposed externally. Reusing code within a single project is a start, but there should also be
+a tightly integrated package manager for using externally defined code.</p>
+<p>As mentioned previously, efficiency is important in resource constrained environments like the EVM.
+Efficiency is achieved by providing low cost abstractions such as compile-time code execution via
+macros, a rich type system for creating well designed, reusable libraries, and wrappers for common
+on-chain interactions. Macros generate code at compile time, which is great for reducing boilerplate
+on common operations and in cases like Huff, it can be used to make a code size vs runtime
+efficiency tradeoff. A rich type system allows for more expressive code, more compile-time checks to
+catch bugs before runtime, and, when coupled with type-checked compiler intrinsics, it may remove
+most of the need for inline assembly. Generics also allow for nullable values such as external code
+to be wrapped in <code>option</code> types or fallible operations like external calls to be wrapped in <code>result</code>
+types. These two types are an example of how library writers can force developers to handle each
+outcome by either defining both codepaths or reverting the transaction on the failed outcome.
+Remember, however, that these are compile-time abstractions and are resolved to simple conditional
+jumps at runtime. Forcing the developer to handle every outcome at compile-time increases the
+initial development time, but to the benefit of far fewer surprises at runtime.</p>
+<p>Flexibility is also important for developer ergonomics, so while the default scenario for complex
+operations should be the safe and possibly less efficient route, sometimes a more efficient codepath
+or unsupported feature needs to be used. For this, inline assembly should be exposed to the
+developer, but with zero guard rails. Solidity’s inline assembly has some guard rails for the sake
+of simplicity and better optimizer passes, but when a developer needs full control of the execution
+environment, they should be granted exactly that.</p>
+<p>Miscellaneous features that would be nice to include would be attributes for functions and other
+items to be manipulated at compile time. An <code>inline</code> attribute may take the body of a simple
+function and duplicate it to each invocation instead of creating more jumps for efficiency. An
+<code>abi</code> attribute may allow for a manual override of the ABI generated for a given external function
+to accommodate languages with different code style conventions. An optionally defined, configurable
+function dispatcher that allows for customization within a high level language would allow for
+additional optimizations for codepaths expected to be used more often, for example, checking if the
+selector is <code>transfer</code> or <code>transferFrom</code> before <code>name</code>, would be a great addition as well.</p>
+<h2 id="conclusions"><a class="header" href="#conclusions">Conclusions</a></h2>
+<p>EVM smart contract DSL design has come a long way and has a long way to go. Each language makes its
+own unique design decisions and I look forward to seeing how each of these develop in the future. As
+developers, it is in our best interest to learn as many languages as possible for a few reasons.
+First, learning many languages and seeing how they differ and how they are similar will deepen our
+understanding of programming and the underlying machine architecture. Second, it is well understood
+within the tech community that languages have deep network effects and strong retention properties.
+It is no mistake that large scale actors are all building their own programming languages from C#,
+Swift, and Kotlin to Solidity, Sway, and Cairo. Learning to switch between these languages
+seamlessly offers unparalleled flexibility in a software engineering career. Finally, it is
+important to understand the absurd amount of work that goes into each and every one of these
+languages. While none are perfect, countless talented people have dedicated massive amounts of
+effort into creating a safe and pleasant experience for developers like us.</p>
+<p>I hope you enjoyed this brief dive into the state of EVM DSL design, if you enjoyed this article and
+want to see more, subscribe below and follow me on <a href="https://twitter.com/jtriley_eth">Twitter</a> for
+regular updates.</p>
+<p>Until next time, good hacking 🤘</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../articles/the-vyper-compiler.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next" href="../articles/the-ether-deck.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../articles/the-vyper-compiler.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next" href="../articles/the-ether-deck.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr.min.js"></script>
+        <script src="../mark.min.js"></script>
+        <script src="../searcher.js"></script>
+
+        <script src="../clipboard.min.js"></script>
+        <script src="../highlight.js"></script>
+        <script src="../book.js"></script>
+
+        <!-- Custom JS scripts -->
+        <script src="../src/static/solidity.min.js"></script>
+
+
+    </div>
+    </body>
+</html>

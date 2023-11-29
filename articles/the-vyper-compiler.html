@@ -1,0 +1,467 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>The Vyper Compiler - the jtriley.eth book</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+    </head>
+    <body>
+    <div id="body-container">
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded "><a href="../introduction.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item expanded "><a href="../contributions-highlights.html"><strong aria-hidden="true">2.</strong> Contributions</a></li><li class="chapter-item expanded "><a href="../articles.html"><strong aria-hidden="true">3.</strong> Articles</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../articles/type-theory.html"><strong aria-hidden="true">3.1.</strong> Type Theory</a></li><li class="chapter-item expanded "><a href="../articles/the-edge-programming-language.html"><strong aria-hidden="true">3.2.</strong> The Edge Programming Language</a></li><li class="chapter-item expanded "><a href="../articles/the-vyper-compiler.html" class="active"><strong aria-hidden="true">3.3.</strong> The Vyper Compiler</a></li><li class="chapter-item expanded "><a href="../articles/evm-language-design.html"><strong aria-hidden="true">3.4.</strong> EVM Language Design</a></li><li class="chapter-item expanded "><a href="../articles/the-ether-deck.html"><strong aria-hidden="true">3.5.</strong> The Ether Deck</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">the jtriley.eth book</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="the-vyper-compiler"><a class="header" href="#the-vyper-compiler">The Vyper Compiler</a></h1>
+<p><em>jtriley.eth; 05 August, 2023</em></p>
+<hr />
+<p>The <a href="https://docs.vyperlang.org/en/stable/">Vyper programming language</a> is a statically typed,
+Pythonic, high level, domain-specific smart contract language for the Ethereum Virtual Machine
+(EVM). It focuses on readability and high levels of abstraction from the EVM’s instruction set. In
+this article we will dive into not just the semantics of the Vyper language, but some behaviors of
+the Vyper compiler such as memory and storage layout as of version 0.3.7. This article assumes
+beginner to intermediate knowledge of the EVM, <a href="https://docs.soliditylang.org/en/latest/">Solidity</a>,
+and smart contract engineering, but no prior knowledge of Vyper.</p>
+<h2 id="syntax"><a class="header" href="#syntax">Syntax</a></h2>
+<h3 id="variables"><a class="header" href="#variables">Variables</a></h3>
+<h4 id="types"><a class="header" href="#types">Types</a></h4>
+<p>Vyper's types include primitives such as signed and unsigned integers, address, fixed point
+decimals, statically sized bytes, and boolean. Complex types include user-defined structs,
+user-defined enums, dynamically sized arrays, dynamically sized strings and bytes, and storage
+mappings. All types must be explicitly declared.</p>
+<blockquote>
+<p>Note, the enum type is listed under complex types, though it is a compile time abstraction over 256
+bit bitmaps.</p>
+</blockquote>
+<blockquote>
+<p>Note, dynamic types must have an upper bound known at compile time, this is required for storage,
+memory, and calldata values and has a direct impact on memory and storage scheduling.</p>
+</blockquote>
+<h4 id="scoping"><a class="header" href="#scoping">Scoping</a></h4>
+<p>Variables declared at the global scope are treated as persistent storage variables, accessible as
+members of the <code>self</code> object. Storage variables are internal by default, that is to say, they are
+not directly accessible via an external call. A storage variable who’s type is wrapped by <code>public</code>
+will generate a getter function at compile time. A storage variable who’s type is wrapped by
+<code>constant</code> is directly accessible without the <code>self</code> object and must be defined at compile time. A
+storage variable who’s type is wrapped by <code>immutable</code> behaves as constants do, but they may be
+defined in the initialization function rather than at compile time (more on this in the functions
+section).</p>
+<p>Variables declared in the scope of a function, loop, or branch (local variables) are accessible
+until the end of the current scope. Local variables are stored in memory based on the memory layout
+specified under the compiler behavior section.</p>
+<h3 id="control-flow"><a class="header" href="#control-flow">Control Flow</a></h3>
+<h4 id="branches"><a class="header" href="#branches">Branches</a></h4>
+<p>Conditional branches in Vyper may be defined with the <code>if</code>, <code>elif</code>, and <code>else</code> keywords similar to
+Python. The <code>if</code> keyword must be followed by a boolean expression that, if resolved to true, the
+subsequent block would be executed. The <code>elif</code> keyword is syntax sugar over <code>else if</code> and must be
+followed by a boolean expression that, if resolved to true, the subsequent block would be executed.
+The <code>else</code> keyword must be followed by a block to be executed if the previous <code>if</code> or <code>elif</code>
+expression resolved to false.</p>
+<h4 id="iteration"><a class="header" href="#iteration">Iteration</a></h4>
+<p>Arrays and integer ranges may be iterated with the <code>for</code> keyword. Arrays may be iterated by each
+element while integers may be iterated from a start value to a stop value using the built-in range
+function.</p>
+<h3 id="functions"><a class="header" href="#functions">Functions</a></h3>
+<p>Functions are declared with optional decorators, typed argument(s), return type(s), and a body.</p>
+<h4 id="decorators"><a class="header" href="#decorators">Decorators</a></h4>
+<p>Decorators are prefixed by <code>@</code> and must be on the line(s) directly above their function.</p>
+<p>The external decorator makes the function externally accessible outside of the contract. Arguments
+are encoded in calldata and the return keyword returns the data back to the external caller as
+returndata.</p>
+<p>The internal decorator makes the function only accessible internally within the same contract.
+Arguments are pointers to memory and the return keyword leaves the relevant pointers on the stack.</p>
+<blockquote>
+<p>Note, the difference in behavior between internal and external functions are largely consistent
+across EVM languages, despite minor implementation differences.</p>
+</blockquote>
+<p>The mutability decorators are pure, view, and payable. Pure functions neither read nor write state
+and have no side effects. View functions may read but do not write state and have no side effects.
+Payable functions may read and write state, may have side effects, and may receive a non-zero amount
+of Ether attached to the call. By default, a function is non-payable, which behaves the same as a
+payable function, but with the exception that if a non-zero amount of Ether is attached to the call,
+execution will revert.</p>
+<p>The nonreentrant decorator wraps the function with a reentrancy lock. This asserts the function has
+not been called recursively, which prevents same-function reentrancy. Each nonreentrant decorator
+must be defined with a string, serving as a <code>key</code>. Functions with matching keys are wrapped with the
+same lock, which prevents cross-function reentrancy.</p>
+<h4 id="special-functions"><a class="header" href="#special-functions">Special Functions</a></h4>
+<p>The initialization function <code>__init__</code> defines behavior during the creation of the contract. In this
+function, immutable variables must be assigned, storage variables may be assigned, and other code
+may be executed. At the end of the initialization function, the runtime bytecode is implicitly
+returned, completing the deployment of the contract.</p>
+<p>The default function <code>__default__</code> defines behavior when the contract is called but no other
+function is matched. This is comparable to Solidity’s fallback function. Adding the payable
+decorator to the default function is comparable to Solidity’s receive function.</p>
+<h3 id="events"><a class="header" href="#events">Events</a></h3>
+<p>Events may be defined with a name, typed arguments, and optionally up to three indexed arguments.
+Events may be logged using the log keyword in a non-payable or payable function. An indexed argument
+is defined as such by wrapping its type with <code>indexed</code>.</p>
+<h3 id="built-ins"><a class="header" href="#built-ins">Built-ins</a></h3>
+<p>Vyper has a number of built-in functions that perform a range of operations from type-checked low
+level operations to elliptic curve arithmetic.</p>
+<h4 id="chain-interactions"><a class="header" href="#chain-interactions">Chain Interactions</a></h4>
+<p>Chain interaction functions perform operations such as blueprint and proxy deployment and low level
+external calls, logging, and reverting.</p>
+<h4 id="cryptography"><a class="header" href="#cryptography">Cryptography</a></h4>
+<p>Cryptography functions include elliptic curve point addition and multiplication on the AltBN128
+curve, public key recovery from an SECP256k1 signature, and hashing with the Keccak256 and SHA256
+hashing algorithms.</p>
+<h4 id="data-manipulation"><a class="header" href="#data-manipulation">Data Manipulation</a></h4>
+<p>Data manipulation functions include concatenation, type conversion, and slicing. This also includes
+integer to string conversion and 32 byte extraction from dynamic byte arrays.</p>
+<h4 id="maths"><a class="header" href="#maths">Maths</a></h4>
+<p>Math functions include absolute value, rounding, min and max comparisons, max value for a data type,
+modular arithmetic, unchecked arithmetic, and square root operations.</p>
+<h4 id="utilities"><a class="header" href="#utilities">Utilities</a></h4>
+<p>Utility functions include environment information, the empty version of a data type, dynamic type
+length, application binary interface (ABI) encoding, and logging to the console in development
+environments.</p>
+<h2 id="compiler-behavior"><a class="header" href="#compiler-behavior">Compiler Behavior</a></h2>
+<h3 id="intermediate-representation"><a class="header" href="#intermediate-representation">Intermediate Representation</a></h3>
+<p>The intermediate representation (IR) in the Vyper compiler is represented in a Lisp-like syntax
+where each expression has a <code>valency</code> of zero or one where one indicates the expression returns a
+stack value.</p>
+<blockquote>
+<p>Note, in the following descriptions, compilation may not always map expressions directly to
+opcodes. For example, an integer literal may map to a <code>push</code> instruction or if the optimizer finds
+an opportunity to duplicate a value instead it may do so.</p>
+</blockquote>
+<h4 id="simple-expressions"><a class="header" href="#simple-expressions">Simple Expressions</a></h4>
+<p>Integer literals have valency of one and may map to a literal push instruction.</p>
+<p>EVM opcode expressions are interpreted recursively in reverse. Nested expressions are evaluated
+first an expressions are evaluated right to left. The following expression stores the value two in
+slot one.</p>
+<pre><code># ir
+(sstore 1 2)
+
+# opcodes
+push1 0x02
+push1 0x01
+sstore
+</code></pre>
+<p><code>With</code> expressions define a variable name, initial value, and a scope in which the variable may be
+used. Variables may be shadowed in the defined scope. The valency depends on the valency of the
+sub-expression.</p>
+<pre><code># ir
+(with x 1
+    (mstore 32 x))
+
+# opcodes
+push1 0x01
+push1 0x20
+mstore
+</code></pre>
+<p><code>Set</code> expressions mutate the value of the variable. This expression has a valency of zero.</p>
+<pre><code># ir
+(with x 1
+   (set x (add x 1)))
+
+# opcodes
+push1 0x01
+push1 0x01
+add
+</code></pre>
+<h4 id="sequential-expressions"><a class="header" href="#sequential-expressions">Sequential Expressions</a></h4>
+<p><code>Seq</code> expressions contain a series of expressions. The final expression determines the valency
+while all other expressions with non-zero valency have their values popped off the stack.</p>
+<pre><code># ir
+(seq
+    (call gas address 0 0 0 0 0)
+    (call gas caller 0 0 0 0 0))
+
+# opcodes
+push0
+push0
+push0
+push0
+push0
+address
+gas
+call
+pop
+push0
+push0
+push0
+push0
+push0
+caller
+gas
+call
+</code></pre>
+<h4 id="control-flow-1"><a class="header" href="#control-flow-1">Control Flow</a></h4>
+<p>Jump destinations may be aliased using the <code>label</code> expression and jumped to with the <code>goto</code>
+expression.</p>
+<p>An <code>if</code> expression takes a valency one expression and if the stack value is zero, it executes a
+second expression, else it executes a third.</p>
+<pre><code>(if
+    &lt;condition_expr&gt;
+    &lt;truthy_expr&gt;
+    &lt;falsy_expr&gt;)
+</code></pre>
+<p>A <code>repeat</code> expression contains an iterator variable name, initial value, number of iterations, an
+upper bound to the number of iterations checked at runtime, and a body to execute on each iteration.
+The <code>break</code> expression cleans the stack and exits the loop, <code>continue</code> increments the loop counter
+and continues at the loop’s start, and <code>cleanup_repeat</code> cleans the loop state from the stack.</p>
+<pre><code>(repeat
+    &lt;var_name&gt;
+    &lt;initial&gt;
+    &lt;iterations&gt;
+    &lt;upper_bound&gt;
+    &lt;body&gt;)
+</code></pre>
+<h4 id="opcode-like-abstractions"><a class="header" href="#opcode-like-abstractions">Opcode-like Abstractions</a></h4>
+<p>There are opcode-like expressions that create minor abstractions over the EVM opcodes. The <code>assert</code>
+expression is an assertion, <code>assert_unreachable</code> reverts if a condition evaluates to non-zero, <code>ge</code>
+is greater-than-or-equal-to, <code>le</code> is less-than-or-equal-to<code>, prefixing the previous two with </code>s<code>does the same with signed integers,</code>ne<code>is not-equal,</code>select<code>is a conditional expression similar to</code>if<code>but is intended to be branchless. The</code>sha_32<code>and</code>sha_64<code>expressions hash either 32 or 64 bytes of memory, respectively. The</code>ceil32` expression rounds its input to the nearest multiple of
+32.</p>
+<blockquote>
+<p>Note: the <code>select</code> boolean expression must resolve to one or zero, any other is undefined
+behavior.</p>
+</blockquote>
+<h3 id="storage-layout"><a class="header" href="#storage-layout">Storage Layout</a></h3>
+<p>The storage layout of a Vyper contract starts at zero and increments by the number of slots each
+variable occupies. Value are never packed in storage, even in structs, everything is padded to a
+full 32 byte word.</p>
+<p>Reentrancy locks generated by the nonreentrant keys occupy the first N slots of storage where N is
+the number of unique keys in the contract.</p>
+<p>Primitive types occupy one slot each, structs occupy one slot for each field, statically sized
+arrays are laid out in storage sequentially, dynamically sized arrays occupy one slot for the length
+then N slots where N is the maximum capacity of the array, and mapping slots are generated by
+hashing the storage index concatenated with the key.</p>
+<blockquote>
+<p>Note, Solidity does the opposite, with the key before the storage index. Additionally, dynamic
+arrays occupy sequential slots since their upper bound is known at compile time while in Solidity,
+the upper bound is not known so the array is stored at the hash of the storage index to minimize
+the risk of slot collision.</p>
+</blockquote>
+<p>The default storage layout may be overridden at compile time using a JSON file specifying the
+variable name, the type, and slot index to use instead. This enables the use of Ethereum Improvement
+Proposals (EIPs) that specify storage slots.</p>
+<h3 id="memory-layout"><a class="header" href="#memory-layout">Memory Layout</a></h3>
+<p>Vyper memory is laid out in increments of 32 byte words. While EVM memory is linear and accessed by
+the byte index, the term <code>slot</code> in this section refers to a 32 byte word stored at a memory index
+that is a multiple of 32.</p>
+<p>The first two slots of memory are used as scratch-space for hashing data. Starting at slot three,
+variables are stored in memory sequentially based on when they come into scope. Function arguments
+come into scope first, therefore they are copied to memory. Then, for each variable definition, a
+value is written to memory. Variables are dropped at the end of their local scope, so variables
+defined in conditional and loop statements as well as internal function calls are dropped and
+overwritten when possible to save memory.</p>
+<blockquote>
+<p>Note, Vyper stores all variables in memory, including primitives, while Solidity stores primitives
+on the stack with only minor exceptions.</p>
+</blockquote>
+<p>Primitive types occupy one slot, statically sized arrays occupy N slots where N is the length, and
+structs occupy one slot for every field. Dynamically sized arrays occupy one slot for the length,
+then they reserve N slots where N is the maximum capacity of the array. The exception is dynamically
+sized byte arrays and strings, which are tightly packed, but still reserve N slots of memory where N
+is the length divided by 32, rounded up.</p>
+<h3 id="calldata-layout"><a class="header" href="#calldata-layout">Calldata Layout</a></h3>
+<p>Calldata in Vyper is laid out in accordance with Solidity’s ABI specification. The only divergence
+is the user-defined enum. Vyper’s enum is an abstraction over a bitmap represented as a uint256
+while Solidity’s enum is an abstraction over sequential uint8 values, which may cause compatibility
+issues if developers port enums between languages.</p>
+<h2 id="conclusions"><a class="header" href="#conclusions">Conclusions</a></h2>
+<p>The Vyper compiler, despite front end trade-offs such as compile time dynamic type upper bounds and
+back end inefficiencies in caching and duplication, is a well designed machine. Its source code
+being written in Python serves as both a simple entry point into compiler contributions and as a
+reference to better comprehend the stages of compilation and the internal data structures and
+algorithms it takes to convert developer intents to EVM bytecode. While its abstractions may seem
+limiting to engineers that prefer low level control, its built-in functions enable type-checked low
+cost abstractions that aren’t built into the language itself and the optimizer is surprisingly
+efficient. Despite visible inefficiencies in the compiler output, its runtime bytecode size and gas
+efficiency rival that of even low level languages such as Yul.</p>
+<p>I hope this article was informative for the beginner, intermediate, and advanced Vyper engineers
+alike. I personally learned a lot about the compiler during this deep dive and if you would like to
+see what went into this, below are some tools and resources used for this article.</p>
+<ul>
+<li><a href="">Vyper Deep Dive Github</a></li>
+<li><a href="">Heimdall Decompiler / Disassembler</a></li>
+<li><a href="">Foundry Scripts / Debugger</a></li>
+<li><a href="">Vyper Compiler</a></li>
+<li><a href="">Vyper Documentation</a></li>
+</ul>
+<p>If you enjoy this kind of content, consider subscribing below and until next time, good hacking 🤘</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../articles/the-edge-programming-language.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next" href="../articles/evm-language-design.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../articles/the-edge-programming-language.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next" href="../articles/evm-language-design.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr.min.js"></script>
+        <script src="../mark.min.js"></script>
+        <script src="../searcher.js"></script>
+
+        <script src="../clipboard.min.js"></script>
+        <script src="../highlight.js"></script>
+        <script src="../book.js"></script>
+
+        <!-- Custom JS scripts -->
+        <script src="../src/static/solidity.min.js"></script>
+
+
+    </div>
+    </body>
+</html>

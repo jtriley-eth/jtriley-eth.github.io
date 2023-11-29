@@ -1,0 +1,1905 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>the jtriley.eth book</title>
+        <meta name="robots" content="noindex" />
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+    </head>
+    <body>
+    <div id="body-container">
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded "><a href="introduction.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item expanded "><a href="contributions-highlights.html"><strong aria-hidden="true">2.</strong> Contributions</a></li><li class="chapter-item expanded "><a href="articles.html"><strong aria-hidden="true">3.</strong> Articles</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="articles/type-theory.html"><strong aria-hidden="true">3.1.</strong> Type Theory</a></li><li class="chapter-item expanded "><a href="articles/the-edge-programming-language.html"><strong aria-hidden="true">3.2.</strong> The Edge Programming Language</a></li><li class="chapter-item expanded "><a href="articles/the-vyper-compiler.html"><strong aria-hidden="true">3.3.</strong> The Vyper Compiler</a></li><li class="chapter-item expanded "><a href="articles/evm-language-design.html"><strong aria-hidden="true">3.4.</strong> EVM Language Design</a></li><li class="chapter-item expanded "><a href="articles/the-ether-deck.html"><strong aria-hidden="true">3.5.</strong> The Ether Deck</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">the jtriley.eth book</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="introduction"><a class="header" href="#introduction">Introduction</a></h1>
+<div style="display:flex;width:100%;justify-content:center;">
+    <img src="static/jtriley.png" width="300px" style="border-radius:150px;" />
+</div>
+<p>My name is Riley (jtriley). I'm a smart contract engineer specializing in language design, the
+Ethereum Virtual Machine, runtime efficiency optimization, and technical writing. I also
+authored the <a href="https://eips.ethereum.org/EIPS/eip-6909">Minimal Multi-Token Interface</a> Ethereum
+Improvement Proposal and have contributed to multiple open source smart contract libraries and
+projects.</p>
+<p>For more on my personal experience, see the <a href="./contributions-highlights.html">Contribution Highlights</a>
+page and for my previous articles see the <a href="./articles.html">Articles</a> section.</p>
+<h2 id="quicc-links"><a class="header" href="#quicc-links">Quicc Links</a></h2>
+<ul>
+<li><a href="https://github.com/jtriley-eth">GitHub</a></li>
+<li><a href="https://jtriley.substack.com">Substack</a></li>
+<li><a href="https://twitter.com/jtriley_eth">The Website Application Formerly Known As &quot;Twitter&quot;</a></li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div><h2 id="contributions"><a class="header" href="#contributions">Contributions</a></h2>
+<ul>
+<li><a href="contributions-highlights.html#contributions">Contributions</a>
+<ul>
+<li><a href="contributions-highlights.html#eip-6909">EIP-6909</a></li>
+<li><a href="contributions-highlights.html#solady">Solady</a></li>
+<li><a href="contributions-highlights.html#snekmate">Snekmate</a></li>
+<li><a href="contributions-highlights.html#uniswap-v4-flashloan-template">Uniswap V4 Flashloan Template</a></li>
+<li><a href="contributions-highlights.html#huff-style-guide">Huff Style Guide</a></li>
+<li><a href="contributions-highlights.html#artemis">Artemis</a></li>
+<li><a href="contributions-highlights.html#ether-deck">Ether Deck</a></li>
+<li><a href="contributions-highlights.html#counter-exploit-toolkit">Counter Exploit Toolkit</a></li>
+</ul>
+</li>
+</ul>
+<h3 id="eip-6909"><a class="header" href="#eip-6909">EIP-6909</a></h3>
+<p>The <a href="https://eips.ethereum.org/EIPS/eip-6909">EIP-6909 Minimal Multi-Token Interface</a> is a
+simplified and more efficient alternative to the 
+<a href="https://eips.ethereum.org/EIPS/eip-1155">EIP-1155 Multi-Token Standard</a>.</p>
+<p>This removes the callbacks which often go unused, removes the constraints on batching to open the
+design space for bespoke batch implementations, removes the token recipient contract check, and
+specifies a hybrid operator-allowance permission system.</p>
+<p>Links:</p>
+<ul>
+<li><a href="https://eips.ethereum.org/EIPS/eip-6909">Specification</a></li>
+<li><a href="https://ethereum-magicians.org/t/eip-6909-multi-token-standard/13891">Discussion</a></li>
+<li><a href="https://github.com/jtriley-eth/ERC-6909">Reference Implementation</a></li>
+<li><a href="https://github.com/jtriley-eth/erc6909-examples">Example Usage</a></li>
+</ul>
+<h3 id="solady"><a class="header" href="#solady">Solady</a></h3>
+<p>milady.</p>
+<p>The <a href="https://github.com/Vectorized/solady">Solady</a> repository contains optimized Solidity snippets.
+The scope of my contributions are on the implementation of an upgradeable proxy conforming to
+<a href="https://eips.ethereum.org/EIPS/eip-1967">EIP-1967 Proxy Storage Slots</a>.</p>
+<p>We implemented the
+<a href="https://github.com/Vectorized/solady/blob/main/src/utils/ERC1967Factory.sol">ERC1967Factory</a> which
+deploys an EIP-1967 compliant proxy contract based on a prototype written in the Huff assembly
+language under the name <a href="https://github.com/jtriley-eth/minimum-viable-proxy">Minimum Viable Proxy</a>.</p>
+<p>Links:</p>
+<ul>
+<li><a href="https://github.com/Vectorized/solady/blob/main/src/utils/ERC1967Factory.sol">Factory</a></li>
+<li><a href="https://eips.ethereum.org/EIPS/eip-1967">EIP-1967 Specification</a></li>
+<li><a href="https://github.com/jtriley-eth/minimum-viable-proxy">Prototype Implementation</a></li>
+<li><a href="https://x.com/jtriley_eth/status/1642984618277359616">Overview Thread</a></li>
+</ul>
+<h3 id="snekmate"><a class="header" href="#snekmate">Snekmate</a></h3>
+<p>The <a href="https://github.com/pcaversaccio/snekmate">Snekmate</a> repository contains modular, optimized
+Vyper contracts. The scope of my contributions are on the implementation of the
+<a href="https://eips.ethereum.org/EIPS/eip-1155">EIP-1155 Multi-Token Standard</a>.</p>
+<p>We implemented the specification in Vyper with modularity as a primary focus ahead of the planned
+module system for the Vyper language.</p>
+<blockquote>
+<p>Lore: This implementation eventually lead to the creation of the <a href="contributions-highlights.html#eip-6909">EIP-6909</a>
+specification.</p>
+</blockquote>
+<p>Links:</p>
+<ul>
+<li><a href="https://github.com/pcaversaccio/snekmate/blob/main/src/tokens/ERC1155.vy">EIP-1155</a></li>
+<li><a href="https://eips.ethereum.org/EIPS/eip-1155">Specification</a></li>
+</ul>
+<h3 id="uniswap-v4-flashloan-template"><a class="header" href="#uniswap-v4-flashloan-template">Uniswap V4 Flashloan Template</a></h3>
+<p>The <a href="https://github.com/jtriley-eth/uni-v4-core-flashloans">Uniswap V4 Flashloan Template</a> was built
+as a simple example of how to use the Uniswap V4 flash accounting systems for arbitrage or
+liquidations. The singleton architecture for Uniswap V4 enables high volume atomic flash loans.</p>
+<p>Links:</p>
+<ul>
+<li><a href="https://github.com/jtriley-eth/uni-v4-core-flashloans">Implementation</a></li>
+<li><a href="https://github.com/Uniswap/v4-core">Uniswap V4 Core</a></li>
+</ul>
+<h3 id="huff-style-guide"><a class="header" href="#huff-style-guide">Huff Style Guide</a></h3>
+<p>The <a href="https://github.com/jtriley-eth/huff-style-guide">Huff Style Guide</a> serves as a mostly
+reasonable style guideline for production Huff contracts. It focuses on readability, documentation,
+and intuitive control flow. It is inspired by AirBnB's
+<a href="https://github.com/airbnb/javascript">Javascript Style Guide</a>.</p>
+<p>Links:</p>
+<ul>
+<li><a href="https://github.com/jtriley-eth/huff-style-guide">Style Guide</a></li>
+</ul>
+<h3 id="artemis"><a class="header" href="#artemis">Artemis</a></h3>
+<p>Paradigm's <a href="https://github.com/paradigmxyz/artemis">Artemis</a> MEV framework focuses on simplicity,
+modularity, and performance. The scope of my contributions are on the Huff language implementation
+of the <a href="https://github.com/paradigmxyz/artemis/blob/main/crates/strategies/opensea-sudo-arb/contracts/src/huff/SudoOpenseaArb.huff">SudoSwap x Opensea arbitrage strategy</a>.</p>
+<p>The Huff implementation saves around 3800 gas per transaction when executing SudoSwap x Opensea
+arbitrage transactions and still maintains feature parity with the Solidity implementation.</p>
+<blockquote>
+<p>Lore: This implementation eventually lead to the creation of the
+<a href="https://github.com/jtriley-eth/huff-style-guide">Huff Style Guide</a>.</p>
+</blockquote>
+<p>Links:</p>
+<ul>
+<li><a href="https://github.com/paradigmxyz/artemis">Artemis</a></li>
+<li><a href="https://github.com/paradigmxyz/artemis/blob/main/crates/strategies/opensea-sudo-arb/contracts">Strategy Documentation</a></li>
+</ul>
+<h3 id="ether-deck"><a class="header" href="#ether-deck">Ether Deck</a></h3>
+<p>The <a href="https://github.com/jtriley-eth/ether-deck">Ether Deck</a> is an EVM multi-signature smart wallet
+built for power users. Its calldata encoding scheme is bespoke, featuring custom function selectors,
+packed pre-ordered signatures, and a fallback mechanism to enable extensibility. Extensibility
+includes token recipient extensions, call aggregation, batch storage readers, and more.</p>
+<p>The Ether Deck is a nod to the term &quot;cyberdeck&quot; referred to in cyberpunk media as personal
+computers, often pieced together by hackers and techies. All naming schemes in the deck, for better
+or for worse, all followed cyberpunk media, with multi-signature calls named &quot;syscalls&quot;, extensions
+named &quot;shards&quot;, and the batch storage reader named &quot;spider&quot;.</p>
+<p>Links:</p>
+<ul>
+<li><a href="https://github.com/jtriley-eth/ether-deck">Implementation</a></li>
+<li><a href="./articles.html#the-ether-deck">Article</a></li>
+</ul>
+<h3 id="counter-exploit-toolkit"><a class="header" href="#counter-exploit-toolkit">Counter Exploit Toolkit</a></h3>
+<blockquote>
+<p>Warning: Research Purposes Only. Don't rug people. Don't rug yourself. Don't get rugged.</p>
+</blockquote>
+<p>The <a href="https://github.com/jtriley-eth/counter-exploit-toolkit">Counter Exploit Toolkit</a> is both an
+experiment of the security implications of upgradeable proxies and a commentary on court-ordered
+smart contract mutation.</p>
+<p>Upgradeable proxies can be upgraded to arbitrary addresses. This contract, if upgraded to, can
+manipulate arbitrary storage slots which may contain accounting logic, remove tokens or ether, and
+if any account has an EIP-20 style approval on the contract it may steal the tokens from the account
+in question.</p>
+<ul>
+<li><a href="https://github.com/jtriley-eth/counter-exploit-toolkit">Counter Exploit Toolkit</a></li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div><h2 id="articles"><a class="header" href="#articles">Articles</a></h2>
+<ul>
+<li><a href="articles.html#articles">Articles</a>
+<ul>
+<li><a href="articles.html#the-vyper-compiler">The Vyper Compiler</a></li>
+<li><a href="articles.html#the-ether-deck">The Ether Deck</a></li>
+<li><a href="articles.html#ethereum-virtual-machine-language-design">Ethereum Virtual Machine Language Design</a></li>
+<li><a href="articles.html#constructing-zk-snark-circuits">Constructing ZK-SNARK Circuits</a></li>
+<li><a href="articles.html#the-fuel-vm-architecture">The Fuel VM Architecture</a></li>
+</ul>
+</li>
+</ul>
+<h3 id="the-vyper-compiler"><a class="header" href="#the-vyper-compiler">The Vyper Compiler</a></h3>
+<p><a href="https://open.substack.com/pub/jtriley/p/the-vyper-compiler?r=1qyfrf&amp;utm_campaign=post&amp;utm_medium=web">The Vyper Compiler</a>
+is a deep dive into the behavior of the Vyper language's compiler, from its syntax to its
+intermediate representation to its generated bytecode.</p>
+<h3 id="the-ether-deck"><a class="header" href="#the-ether-deck">The Ether Deck</a></h3>
+<p><a href="https://open.substack.com/pub/jtriley/p/the-ether-deck?r=1qyfrf&amp;utm_campaign=post&amp;utm_medium=web">The Ether Deck</a>
+is an article diving into the Ether Deck project, an optimized EVM multi-signature smart wallet
+implemented in the Huff language. See more about the projects in the
+<a href="./contributions-highlights.html#ether-deck">contributions</a> section.</p>
+<h3 id="ethereum-virtual-machine-language-design"><a class="header" href="#ethereum-virtual-machine-language-design">Ethereum Virtual Machine Language Design</a></h3>
+<p><a href="https://open.substack.com/pub/jtriley/p/ethereum-virtual-machine-language?r=1qyfrf&amp;utm_campaign=post&amp;utm_medium=web">Ethereum Virtual Machine Language Design</a>
+is an exploration of the state of the art in EVM smart contract domain specific languages. It
+examines the syntax, abstractions, and behaviors of Solidity, Vyper, Fe, Huff, ETK, and Yul.</p>
+<h3 id="constructing-zk-snark-circuits"><a class="header" href="#constructing-zk-snark-circuits">Constructing ZK-SNARK Circuits</a></h3>
+<p><a href="https://open.substack.com/pub/jtriley/p/constructing-zk-snark-circuits?r=1qyfrf&amp;utm_campaign=post&amp;utm_medium=web">Constructing ZK-SNARK Circuits</a>
+is a guide to creating ZK-SNARK circuits with the Halo2 crate built by the ZCash team and used by
+other organizations creating PLONKish circuits. This uses Rust in an attempt to understand how the
+higher level ZK-SNARK domain specific languages behave under the hood.</p>
+<h3 id="the-fuel-vm-architecture"><a class="header" href="#the-fuel-vm-architecture">The Fuel VM Architecture</a></h3>
+<p><a href="https://open.substack.com/pub/jtriley/p/the-fuel-virtual-machine-architecture?r=1qyfrf&amp;utm_campaign=post&amp;utm_medium=web">The Fuel VM Architecture</a>
+is a deep dive into the Fuel VM architecture and how it differs from the Ethereum VM.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="type-theory-for-people-with-shit-to-do"><a class="header" href="#type-theory-for-people-with-shit-to-do">Type Theory For People With Shit To Do</a></h1>
+<h2 id="introduction-1"><a class="header" href="#introduction-1">Introduction</a></h2>
+<p>Type theory is defined as the formal presentation of type systems. It is a complex topic composed of
+relatively simple primitives, but its relationship to category theory and its implementations
+ranging from the nonexistent to the strictly practical to the
+formalization-of-the-interconnectedness-of-all-things-in-the-universe leave it with a mixed,
+misunderstood, and often unfavorable view.</p>
+<pre><code>&quot;What the fuck is a type?&quot;
+
+- @Zac_Aztec (circa 2023)
+</code></pre>
+<p>The objective of this article is to begin from first principles and explain what types are, how they
+are composed, what their utility is, and how they map to commonly recognized programming languages.
+The explanations here are a bit abstract, but are intended to create a more fundamental model for
+reasoning about type theory and its application in programming.</p>
+<p>A rudimentary understanding of programming for this article is preferred, but not assumed.</p>
+<h2 id="primitive-type"><a class="header" href="#primitive-type">Primitive Type</a></h2>
+<p>The primitive type is generally enshrined in a programming language that represents one of a few
+categories of terms. These may include integers, decimal numbers, logical booleans, and so on.</p>
+<p>Some meta-languages (ML) do not enshrine any primitive types listed above but rather they rely on
+compositions of types to create types that are more useful for practical programs. This seems like
+an unhelpful explanation, but there is a chicken-and-egg problem of prerequisite knowledge to form a
+model about this. This will be explained throughout the article but for now take the following at
+face value and don't think too hard about it.</p>
+<ol>
+<li>It's types all the way down.</li>
+<li>Type is also a type.</li>
+</ol>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// rust example
+type MyEightBitUnsignedInteger = u8;
+type MyLogicalBoolean = bool;
+<span class="boring">}</span></code></pre></pre>
+<pre><code class="language-haskell">-- haskell example
+data Boolean = True | False
+</code></pre>
+<h2 id="function"><a class="header" href="#function">Function</a></h2>
+<p>The function is a mapping from one term to another. These terms may be of the same type or they may
+be of different types. Languages with &quot;first class function support&quot; or &quot;higher-order functions&quot;
+treat the function as its own type. This means functions can take terms as inputs and return terms
+as outputs that can be of any type including other functions.</p>
+<p>Higher-order functions also enable function composition. This is connected to category theory where
+given two functions, one that maps term A to term B and another that maps term B to term C, these
+two functions can be composed such that applying both functions sequentially, there exists a mapping
+from term A to term C. That is to say:</p>
+<ul>
+<li>if <code>A -&gt; B</code></li>
+<li>and <code>B -&gt; C</code></li>
+<li>then <code>A -&gt; B -&gt; C</code> exists</li>
+<li>therefore <code>A -&gt; C</code> exists</li>
+</ul>
+<p>Functions may be defined and applied. Function definition denotes how the function will map the
+input to the output while function application performs the mapping.</p>
+<p>This will be expanded upon in later sections, but technically Turing completeness, or the ability to
+operate on a theoretically infinitely sized input, is possible with only the following.</p>
+<ul>
+<li>terms: objects with or without types</li>
+<li>function definition: defining the map from one term to another</li>
+<li>function application: performing the mapping from one term to another</li>
+</ul>
+<pre><pre class="playground"><code class="language-rust">// rust example
+fn double(term: u8) -&gt; u8 {
+    return term * 2;
+}
+
+fn do_twice(func: Fn(u8) -&gt; u8, term: u8) -&gt; u8 {
+    return func(func(u8));
+}
+
+fn main() {
+    let result = do_twice(double, 10);
+}</code></pre></pre>
+<pre><code class="language-hs">-- haskell example
+double x = x * 2
+
+doTwice f x = f (f x)
+
+let result = doTwice double 2
+</code></pre>
+<h2 id="product-type"><a class="header" href="#product-type">Product Type</a></h2>
+<p>The product type is a compound structure consisting of two or more types. That is to say given two
+types A and B, a product type of A and B would internally contain both A and B. Some programming
+languages represent product types as &quot;structs&quot; or &quot;tuples&quot; where structs associate each internal
+type with an identifier while tuples associate each internal type with a numerical index. The terms
+associated with each internal type are often referred to as &quot;fields&quot;.</p>
+<p>The name &quot;product type&quot; relates to category theory, where a product type C is the direct product
+of types A and B.</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// rust example
+struct NamedProductType {
+    integerField: u8,
+    booleanField: bool,
+}
+
+type AnonymousProductType = (u8, bool);
+<span class="boring">}</span></code></pre></pre>
+<pre><code class="language-hs">-- haskell example
+data NamedProductType = NamedProductType { integerField :: Int, booleanField :: Bool }
+
+data AnonymousProductType = AnonymousProductType (Int, Bool)
+</code></pre>
+<h2 id="sum-type"><a class="header" href="#sum-type">Sum Type</a></h2>
+<p>The sum type, also known as a tagged union, is one of a set of types. That is to say given two types
+A and B, a sum type of A and B would contain either type A or type B. Some programming languages
+represent sum types as &quot;enums&quot; or &quot;unions&quot;. However, it is important to note that not all
+programming languages with an &quot;enum&quot; type are sum types. In languages where the variants, or
+members, of the enum are simply names with no internal type, these are generally defined in the
+language as enumerations over integers or natural numbers.</p>
+<p>The name &quot;sum type&quot; relates to category theory, where a sum type C is a categorical sum of types A
+and B.</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>// rust example
+enum TaggedUnion {
+    IntegerVariant(u8),
+    BooleanVariant(bool),
+}
+
+enum Enumeration {
+    VariantA,
+    VariantB,
+}
+<span class="boring">}</span></code></pre></pre>
+<pre><code class="language-hs">-- haskell example
+data TaggedUnion = IntegerVariant Int | BooleanVariant Bool
+
+data Enumeration = VariantA | VariantB
+</code></pre>
+<h2 id="polymorphism"><a class="header" href="#polymorphism">Polymorphism</a></h2>
+<p>Polymorphism applies a single interface to terms of different types. It is divided broadly into
+three forms. Note that some programming languages can contain one, two, or all three forms of
+polymorphism.</p>
+<h3 id="ad-hoc-polymorphism"><a class="header" href="#ad-hoc-polymorphism">Ad Hoc Polymorphism</a></h3>
+<p>Ad hoc polymorphism refers to polymorphic functions whose behavior is dependent on the type of the
+arguments. This is often referred to as as function overloading. In some languages, &quot;operator
+overloading&quot; is also enabled such that arithmetic, bitwise, assignment, and logical operators can be
+overridden to contain custom functionality. Since operators are, in a sense, functions with syntax
+sugar, function and operator overloading are the same.</p>
+<p>Overloading operators is particularly useful because the algebraic laws that apply to  expressions
+also apply to more abstract objects. For example, the commutative law of addition applies to both
+integers and elliptic curve points. The commutative property of elliptic curve point arithmetic
+enables protocols like the Diffie-Hellman key exchange protocol to exist, therefore, programming
+languages with operator overloading could allow the addition of elliptic curve points to use the
+addition (<code>+</code>) operator.</p>
+<pre><code class="language-rs">// rust example
+struct EllipticCurvePoint {
+    x: FieldElement,
+    y: FieldElement,
+}
+
+impl EllipticCurvePoint {
+    pub fn generator_point() -&gt; Self {
+        // ..
+    }
+}
+
+impl Add for EllipticCurvePoint {
+    // ..
+}
+
+fn main() {
+    let g = EllipticCurvePoint::generator_point();
+
+    let g1 = g + g;
+}
+</code></pre>
+<h3 id="parametric-polymorphism"><a class="header" href="#parametric-polymorphism">Parametric Polymorphism</a></h3>
+<p>Parametric polymorphism allows functions and data types to be provided with generic data types which
+are then instantiated with other types as needed. Languages with parametric polymorphism often have
+two different sets of arguments, one containing types and the other containing expressions.</p>
+<p>When parametric polymorphic code is compiled, a process called monomorphization is performed. This
+transforms polymorphic code to monomorphic code by essentially creating copies of functions and data
+types for each unique type parameter.</p>
+<p>A useful way to consider parametric polymorphism is given a type <code>T&lt;U&gt;</code> where <code>T</code> is the type and
+<code>U</code> is a type parameter to <code>T</code>, &quot;for every possible type <code>U</code>, there exists a distinct type <code>T&lt;U&gt;</code>&quot;.
+Reread that last sentence, it is important and prerequisite to later sections.</p>
+<pre><code class="language-rs">// rust example
+struct PolymorphicStruct&lt;T&gt; {
+    polymorphic_field: T,
+}
+
+fn polymorphic_function&lt;T&gt;(argument: PolymorphicStruct&lt;T&gt;) -&gt; T {
+    return argument.polymorphic_field;
+}
+
+fn main() {
+    let integer_struct: PolymorphicStruct&lt;u8&gt; = PolymorphicStruct {
+        polymorphic_field: 1,
+    };
+
+    let integer: u8 = polymorphic_function::&lt;u8&gt;(integer_struct);
+
+    let boolean_struct = PolymorphicStruct {
+        polymorphic_field: true,
+    };
+
+    let boolean: bool = polymorphic_function::&lt;bool&gt;(boolean_struct);
+}
+</code></pre>
+<h3 id="subtype-polymorphism"><a class="header" href="#subtype-polymorphism">Subtype Polymorphism</a></h3>
+<p>Subtype polymorphism, or subtyping, is a type system containing relationships between supertypes and
+subtypes where functions and data types written for a given supertype are also applicable to elements
+of each of its subtypes.</p>
+<p>It is important to note that subtyping is not the same as inheritance from object-oriented languages,
+as subtyping is the relationship between types or interfaces whereas inheritance is the relationship
+between implementations. In some object-oriented languages, subtyping is called interface inheritance
+while inheritance is referred to implementation inheritance.</p>
+<pre><pre class="playground"><code class="language-rust">// rust example
+trait Supertype {
+    fn id(self: Self) -&gt; Self;
+}
+
+fn identity&lt;S: Supertype&gt;(term: S) -&gt; S {
+    return term.id();
+}
+
+struct IntegerSubtype(u8);
+
+impl Supertype for IntegerSubtype {
+    fn id(self: Self) -&gt; Self {
+        return IntegerSubtype(self.0);
+    }
+}
+
+struct BooleanSubtype(bool);
+
+impl Supertype for BooleanSubtype {
+    fn id(self: Self) -&gt; Self {
+        return BooleanSubtype(self.0);
+    }
+}
+
+fn main() {
+    let integer_term = IntegerSubtype(1);
+    let integer_term = identity(integer_term);
+
+    let boolean_term = BooleanSubtype(true);
+    let boolean_term = identity(boolean_term);
+}</code></pre></pre>
+<h2 id="dependent-type"><a class="header" href="#dependent-type">Dependent Type</a></h2>
+<p>Dependent types are types that depend on other types or values.
+<a href="articles/type-theory.html#parametric-polymorphism">Parametric polymorphism</a> is a form of dependent typing, as types depend
+on other types, but this is not the whole picture. A dependent type may depend on other types and
+on values.</p>
+<p>A useful way to consider dependent types is given a type <code>T&lt;U, n&gt;</code> where <code>T</code> is the type, <code>U</code> is a
+type parameter, and <code>n</code> is a value parameter to <code>T</code>, &quot;for every possible type <code>U</code> and every possible
+value <code>n</code>, there exists a distinct type <code>T&lt;U, n&gt;</code>. Reread that last sentence. Now read it again.</p>
+<p>There are very few languages that have true dependent typing. Coq, Idris, Agda, Lean, and a few
+others contain dependent types. These are often considered too far into theory territory, though
+they carry unique benefits in terms of program correctness, compile-time formal verification, and
+theorem proving.</p>
+<p>Rust has a rudimentary form with its &quot;const generic&quot; system, but this is not a fully realized
+dependent type.</p>
+<p>In the examples below, the Rust code used is pseudocode, meant to mimic the syntax of Rust but with
+dependent types for the sake of demonstration. Notice the return type and how it contains a value
+expression. In the example, <code>T</code> is the internal type of a vector <code>Vec</code> and <code>n</code> is its length.</p>
+<pre><code class="language-rs">// pseudo-rust example
+type Vec&lt;T, n&gt;; // ..
+
+fn append(lhs: Vec&lt;T, n&gt;, rhs: Vec&lt;T, m&gt;) -&gt; Vec&lt;T, n + m&gt; {
+    // ..
+}
+</code></pre>
+<pre><code class="language-lean">/- lean example -/
+inductive Vect (α : Type u) : Nat → Type u where
+   | nil : Vect α 0
+   | cons : α → Vect α n → Vect α (n + 1)
+</code></pre>
+<h2 id="theorem-proving"><a class="header" href="#theorem-proving">Theorem Proving</a></h2>
+<p>This section is much less concrete, both because this is the topic of thousands of pages in academic
+papers and because my personal understanding of this is not fully developed. Instead the objective
+is to present the value of such systems from a high level.</p>
+<p>Theorem proving is a use case for type systems where theorems are proven during compile time. In
+some cases, the compiler does not even generate code, it simply proves a theorem and its successful
+execution indicates a valid proof.</p>
+<p>So why is this useful?</p>
+<p>This is useful because the declaration of a type <em>is a theorem</em> and the existence of a term with the
+declared type <em>is a proof</em> that the type exists. Consider the following example, eloquently
+explained by <a href="https://github.com/jwiegley">John Wiegley</a>.</p>
+<pre><code>If you declare, say, an `Integer` type, you are creating a theorem that says &quot;there exists a value
+of type `Integer`.&quot; When you assign a value to that type, say `10`, if the program compiles, the
+number `10` is a proof that there exists an `Integer`!
+</code></pre>
+<p>Combine this knowledge with <a href="articles/type-theory.html#parametric-polymorphism">parametric polymorphism</a> and
+<a href="articles/type-theory.html#dependent-type">dependent types</a> and you can prove surprisingly complex systems. Revisit the
+pseudo-Rust example with dependent types and describe this as a set of theorems and proofs.</p>
+<blockquote>
+<p>Theorem: &quot;There exists a distinct vector <code>Vec</code> for all types <code>T</code> and all lengths <code>n</code>&quot;</p>
+<p>Proof: <code>let vec: Vec&lt;u8, 2&gt; = Vec::from([1_u8, 2_u8]);</code></p>
+</blockquote>
+<blockquote>
+<p>Theorem: &quot;There exists a function <code>append</code> that, for two distinct vectors <code>Vec</code> with type <code>T</code> and
+of lengths <code>n</code> and <code>m</code> respectively, constructs a new vector <code>Vec</code> of type <code>T</code> and of length
+<code>n + m</code>.&quot;</p>
+<p>Proof: <code>let both: Vec&lt;u8, 4&gt; = append(vec, vec);</code></p>
+</blockquote>
+<p>As mentioned above, this is an incredibly deep topic and has more information to explore than could
+ever be condensed into a reasonably sized article, so we will leave this topic for now.</p>
+<h2 id="the-lambda-cube"><a class="header" href="#the-lambda-cube">The Lambda Cube</a></h2>
+<pre><code>    λω-------------λC
+    /|             /|
+   / |            / |
+  /  |           /  |
+λ2---+---------λP2  |
+ |   |          |   |
+ |  λω_---------+-λPω_
+ |  /           |  /
+ | /            | /
+ |/             |/
+λ-&gt;------------λP
+</code></pre>
+<p>If you truly have shit to do, this is not strictly necessary, so you can close the article and be on
+your way. <em>This is deep in theory territory and here there be lambdas.</em></p>
+<p>The lambda-cube, aka λ-cube, is a framework introduced to explore the dimensions that map simply
+typed lambda calculus to the calculus of constructions.</p>
+<pre><code>&quot;wot&quot;
+
+- @tomscott (circa 2013)
+</code></pre>
+<p>In the example above, consider the bottom left point on the cube, λ-&gt; to be simply typed lambda
+calculus and the upper right point on the cube, λC to be the calculus of constructions.</p>
+<p>In human words, the simply typed lambda calculus is nothing but terms and functions that operate on
+those terms. As mentioned in the <a href="articles/type-theory.html#function">function type section</a>, this is technically turing
+complete. Meanwhile, the calculus of constructions is the generalization of lambda calculus where
+terms and types are the same.</p>
+<pre><code>&quot;what&quot;
+
+- @steveaustinBSR (circa 2001)
+</code></pre>
+<p>Before diving into each point on the cube, it may be useful to mention the Curry-Howard
+correspondence. This indicates a direct relationship between programs and proofs. As mentioned in
+the <a href="articles/type-theory.html#theorem-proving">theorem proving section</a>. This means there is a correspondence in terms and
+types. This is why the calculus of constructions is possible; terms and types are not related to one
+another, they <em>are</em> one another. Languages that are designed with this in mind offer proof
+assistants that can formally prove program correctness during compilation.</p>
+<p>Back to the lambda cube. The x (<code>--</code>), y (<code>|</code>), and z (<code>/</code>) axes each correspond to a dimension of
+the type system.</p>
+<ul>
+<li>x : corresponds to dependent types</li>
+<li>y : corresponds to polymorphism</li>
+<li>z : corresponds to type operators</li>
+</ul>
+<p>λ-&gt; aka Simply Typed Lambda Calculus introduces terms, definition of functions that map terms to
+terms, and the application of functions to terms.</p>
+<p>λ2 aka System F introduces polymorphism, where terms can depend on types.</p>
+<p>λP aka First-Order Predicate Calculus introduces dependent types, where types can depend on terms.</p>
+<p>λω_ aka System Fω_ introduces type constructors, where types can depend on other types.</p>
+<p>λω aka System Fω is a composition of λω_ and λ2, introducing polymorphic type constructors, where
+terms can depend on types and types can depend on types.</p>
+<p>λ2P aka Second-Order Predicate Calculus is a composition of λP and λ2, introducing polymorphic
+dependent types, where terms can depend on types and types can depend on terms.</p>
+<p>λPω_ aka Weak Higher-Order Predicate Calculus is a composition of λω_ and λP, introducing types that
+can depend on terms and types that can depend on types.</p>
+<p>λC aka Calculus of Constructions is the composition of λ2, λP, and λω_ completing the lambda cube,
+introducing terms that depend on types, types that depend on terms, and types that depend on types.</p>
+<h2 id="conclusion"><a class="header" href="#conclusion">Conclusion</a></h2>
+<p>This is where our type theory deep dive stops for now. In summary, we have explored simply types
+from <a href="articles/type-theory.html#primitive-type">primitives</a> to <a href="articles/type-theory.html#function">functions</a>, algebraic data types from
+<a href="articles/type-theory.html#product-type">product</a> to <a href="articles/type-theory.html#sum-type">sum</a> types, and higher-order types like
+<a href="articles/type-theory.html#polymorphism">polymorphic</a> and <a href="articles/type-theory.html#dependent-type">dependent</a>. We also began to scratch the surface
+on how these could be applied to things such as theorem proving and correctness checking. Finally,
+we took a look at the dimensionality of type systems ranging from lisp-like simply typed lambda
+calculus to the coq-like calculus of constructions.</p>
+<p>The primary takeaway here is to consider, for any language we see, how the designers of these
+languages have considered the structure of their type system, what consequences these designs have
+on the extensibility, correctness, and readability of the language, and how can we take full
+advantage of the tools provided to us through the type system to create robust, correct, and
+performant systems.</p>
+<pre><code>&quot;.. finally, our code can be perfect.&quot;
+
+- @noboilerplate (circa 2022)
+</code></pre>
+<p>Until next time, good hacking 🤘</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="the-edge-programming-language"><a class="header" href="#the-edge-programming-language">The Edge Programming Language</a></h1>
+<p><em>jtriley.eth; 06 November, 2023</em></p>
+<hr />
+<p>Recently, I wrote an article on the state of the art in Ethereum Virtual Machine language design. It
+spoke about all of the high and low level languages in use today and their benefits. This is a
+follow up to the previous article.</p>
+<p>It is only fitting that, as a follow up, I am calling for the abandonment of the state of the art in
+pursuit of a fundamentally different approach; one that enables maximal developer control, defines
+clear abstractions, and one that promotes emergent abstractions over imposed abstractions.</p>
+<h2 id="motivations"><a class="header" href="#motivations">Motivations</a></h2>
+<blockquote>
+<p>“If I had asked people what they wanted, they would have said faster horses”</p>
+<p>— Henry Ford, Rust advocates</p>
+</blockquote>
+<p>At the time of writing, Solidity dominates the smart contract language design space. Client
+interfaces only implement Solidity’s Application Binary Interface (ABI), New Ethereum Improvement
+Proposals (EIPs) implicitly use Solidity’s ABI, debuggers operate on Solidity source maps, and even
+other smart contract languages start at Solidity’s base layer of abstraction and attempt to deviate
+from the same bedrock with minor syntax differences and backend improvements.</p>
+<p>Vyper has an excellent intermediate representation (IR), Fe has a novel model for bringing context
+and system functionality into local scopes, Solidity is beginning to improve on modular and
+functional code independent of contract objects. However, each language starts from the same
+principles. Contracts are objects, code is reused primarily via inheritance if at all, and the
+syntax is designed to look general purpose except where the EVM prohibits reasonable abstraction.</p>
+<h3 id="adoption-games"><a class="header" href="#adoption-games">Adoption Games</a></h3>
+<p>Adoption of smart contract languages is zero-sum when nothing novel is created from divergent
+patterns. Engineers and companies are expected to use their own resources to learn a new language,
+but the opportunity is only sufficient when the new language does what the old may not. Gas
+efficiency and compiler performance are huge improvements to developer and user experiences, but are
+not sufficient for adoption.</p>
+<p>Zero-sum adoption games invariably devolve into code snippet dunking, cherry picked gas benchmarks,
+and culture wars.</p>
+<p>Adoption becomes positive-sum when and only when a new language enables constructs and functionality
+not possible in the status quo. Resource investments are justified as teams reach the limits of what
+Solidity can do (see: Seaport).</p>
+<h3 id="solidity-20"><a class="header" href="#solidity-20">“Solidity 2.0”</a></h3>
+<p>The meta for zero-sum adoption is a so-called “Solidity 2.0”, a language that looks and behaves like
+Solidity, but with abstract data types and improved gas efficiency. This means generics, possibly
+even trait or typeclass constraints, a better front end to generate better middle end code, and an
+intermediate representation that does not take multiple IRL minutes to optimize.</p>
+<p>This is not a terrible idea, but it still misses the mark and still falls into the same adoption
+game trap as every other underfunded compiler in the space.</p>
+<h3 id="status-quo-disruption"><a class="header" href="#status-quo-disruption">Status Quo Disruption</a></h3>
+<p>The status quo exists for a reason, it is the meta. The contract-as-an-object model has served the
+EVM space well for subtyping interfaces, abstracting data serialization, and creating high level
+concepts on top of which we can build composable protocols.</p>
+<p>However, we are reaching the limits of this abstraction stack. Assets cannot be efficiently
+transferred without assembly, memory is allocated as if a garbage collector or memory management
+runtime exists when it does not, inheritance tree complexity cascades as poor storage pointer
+support prefers abstract contracts over custom data types and functions, and the type system suffers
+from an identity crisis teetering between disallowing implicit type casts and allowing function
+pointer poisoning.</p>
+<h2 id="edge"><a class="header" href="#edge">Edge</a></h2>
+<p>The solution to status quo ossification, solidity lookalikes, and zero-sum adoption games is Edge.
+Edge begins from first principles and uses a relatively simple type system to construct novel
+abstraction stacks starting as low as type checked opcodes and going as high as generic contract
+objects.</p>
+<p>Did you know, in a 2021 report on smart contracts (PDF) by Trail of Bits, it was found that around
+90% of all EVM smart contracts are at least 56% similar, with 7% being completely identical? This is
+not a signal of lack of innovation, rather it is a signal that code reuse demands the most
+attention.</p>
+<p>Clear semantics for namespaces and modules makes code reusable, parametric polymorphism (generics)
+and subtyping (traits) make reusable code worth writing, and annotations for all EVM data locations
+minimizes semantics imposed by the compiler.</p>
+<p>Minimizing compiler semantic imposition improves granularity of developer control without relying on
+backdoors such as inline assembly. Inline assembly should always be enabled but outside of the
+standard library, its use should be considered a failure of the compiler. Practical inline assembly
+is used for a single reason, the developer has more context than can be provided to the compiler.
+This may be in the form of more efficient memory usage, arbitrary storage writes, bespoke
+serialization and deserialization, and unconventional storage methods.</p>
+<h2 id="from-first-principles"><a class="header" href="#from-first-principles">From First Principles</a></h2>
+<p>Languages like Huff and ETK are special, they remove the guard rails and compiler-imposed
+abstractions, they leave only the EVM and aliases over it. In the EVM there are no data types, no
+functions, no encoding schemes, there is the word and the instruction.</p>
+<h3 id="primitive-data-types"><a class="header" href="#primitive-data-types">Primitive Data Types</a></h3>
+<p>The word and the instruction are maximally flexible, the word may be a jump target, a condition, an
+external address, a data pointer, or just an arithmetic operand. The instruction does not care about
+the structure of the data. The conditional jump instruction will jump if the condition is a non-zero
+word. The call instruction does not care the call target is greater than 20 bytes. We could create a
+data type called <code>word</code> to have this in the language.</p>
+<pre><code class="language-rs">let myVariable: word = 0;
+</code></pre>
+<p>While this is maximally flexible, it is error prone, it performs no checks. From this, what data
+types are useful to derive?</p>
+<p>First, there are 7 distinct data locations that may be loaded to the stack or copied to memory:</p>
+<ul>
+<li>Storage: persistent disk storage (load, store)</li>
+<li>Transient Storage: temporary memory storage (load, store)</li>
+<li>Memory: linear read/write data buffer (load, store)</li>
+<li>Calldata: linear read-only data buffer (load, copy)</li>
+<li>Returndata: linear read-only data buffer (load, copy)</li>
+<li>Code: linear read-only data buffer (copy)</li>
+<li>External Code: linear read-only data buffer (copy)</li>
+</ul>
+<p>Since each has its own set of instructions, it would make sense for a language to construct data
+pointer types for each.</p>
+<pre><code class="language-rs">let myStoragePtr: &amp;s ptr = 0;
+let myTransientPtr: &amp;t ptr = 0;
+let myMemoryPtr: &amp;m ptr = 0;
+let myCalldataPtr: &amp;cd ptr = 0;
+let myReturndataPtr: &amp;r ptr = 0;
+let myCodePtr: &amp;co ptr = 0;
+let myExtCodePtr: &amp;ec ptr = 0;
+</code></pre>
+<blockquote>
+<p>It is worth noting that pointers may point to arbitrary data types.</p>
+<p>Solidity enables pointers only to complex data types.</p>
+</blockquote>
+<p>Additionally, constraints on integer sizes and signage are sensible, so we create <code>intN</code> and <code>uintN</code>
+which are signed and unsigned integers. Casting to a larger integer size is a no-op, but casting
+downward may require a check such that the new integer size has not overflowed.</p>
+<pre><code class="language-rs">let myInteger: u256 = 0;
+let mySmolInteger: u1 = 0;
+</code></pre>
+<p>Of course, not all numbers are created equal, a number of zero or one may be a boolean and a 20 byte
+number may be an address.</p>
+<pre><code class="language-rs">let myBool: bool = true;
+let myAddr: addr = 0x00..00;
+</code></pre>
+<p>This alone is enough to construct typed instructions where types must be explicitly declared or cast
+into the correct type for function execution.</p>
+<pre><code class="language-rs">fn call(
+    gas: u256,
+    target: addr,
+    value: u256,
+    argPtr: &amp;m ptr,
+    argLen: u256,
+    retPtr: &amp;m ptr,
+    retLen: u256,
+) -&gt; bool;
+</code></pre>
+<p>Our call instruction can now be checked at compile time that the target is an address, the argument
+and returndata pointers are memory pointers, and that the call returns a value of zero or one.</p>
+<h3 id="complex-data-types"><a class="header" href="#complex-data-types">Complex Data Types</a></h3>
+<p>Primitive data types are useful, but structured data types are also important more complex
+interactions and computations.</p>
+<p>The product type, aka structs and tuples, is important for grouping a number of different items with
+different data types together.</p>
+<pre><code class="language-rs">type MyStruct = { a: u8, b: u256 };
+
+type MyPackedStruct = packed { a: u8, b: u8 };
+
+type MyTuple = (u8, u256);
+</code></pre>
+<p>The sum type, aka enum or union, is important for representing one of a number of different states,
+where each state may have different items and data types.</p>
+<pre><code class="language-rs">type MyEnum = First | Second;
+
+type MyUnion =
+    | Rgb({ r: u8, g: u8, b: u8 })
+    | Hex(u24);
+</code></pre>
+<p>Functions, while simply a code pointer to jump to and from with a sequence of instructions at the
+jump target, are also, fundamentally, a data type. A function’s type, also known as its signature,
+is a transition from input arguments to output arguments.</p>
+<pre><code class="language-rs">type MyFunction = (u8, u8) -&gt; (bool, u16);
+</code></pre>
+<h3 id="control-flow"><a class="header" href="#control-flow">Control Flow</a></h3>
+<p>Reading procedures start to finish unconditionally is not very useful, and while code pointers can
+be used for jumping, we can add syntax sugar over this to make it more ergonomic.</p>
+<h4 id="loops"><a class="header" href="#loops">Loops</a></h4>
+<p>The simple loop block with optional <code>continue</code> and <code>break</code> keywords is a simple but powerful
+abstraction.</p>
+<pre><code class="language-rs">loop {
+    break;
+    continue;
+}
+</code></pre>
+<p>More familiar loops can map directly to the underlying loop in a desugaring step.</p>
+<pre><code class="language-rs">// while loop
+while (condition) { .. }
+
+loop {
+    if (!condition) break;
+    ..
+}
+
+// for loop
+for (let i = 0; i &lt; list.len(); i++) { .. }
+
+let i = 0;
+loop {
+    if (i &gt;= list.length()) break;
+    ..
+    i++;
+}
+</code></pre>
+<h4 id="branching"><a class="header" href="#branching">Branching</a></h4>
+<p>Branching based on boolean expressions and pattern matching is useful both for all the obvious
+reasons and for program correctness. Exhaustive pattern matching helps program correctness when
+pattern matching union data types.</p>
+<pre><code class="language-rs">if (myBool) { } else { }
+
+if (myOption matches Option::Some(n)) { n; } else { }
+
+match myOption {
+    Some(n) =&gt; { n; },
+    None =&gt; { },
+}
+</code></pre>
+<h3 id="functions"><a class="header" href="#functions">Functions</a></h3>
+<p>Grouping instructions together into a code block with input and output values is good for
+modularity, code reuse, and in some cases, reducing code size. We define functions as follows.</p>
+<pre><code class="language-rs">fn myOtherAddFn(a: u256, b: u256) -&gt; u256 {
+    return a + b;
+}
+</code></pre>
+<h3 id="inline-assembly"><a class="header" href="#inline-assembly">Inline Assembly</a></h3>
+<p>Inline assembly should ideally be limited to the standard library, however its use is a critical
+component in allowing developers to break all abstractions and operate on opcodes directly.</p>
+<pre><code class="language-rs">fn double(a: u8) -&gt; u8 {
+    asm (a) -&gt; (a) {
+        push1 0x02
+        mul
+    }
+    return a;
+}
+</code></pre>
+<h3 id="parametric-polymorphism-1"><a class="header" href="#parametric-polymorphism-1">Parametric Polymorphism</a></h3>
+<p>Writing libraries in Solidity is challenging because to make the library generic every single type
+must have its own function. That is to say, libraries use monomorphic data types in their
+construction.</p>
+<p>Library engineers are vital users of any language. Parametric polymorphism is a core component of a
+great library system. Polymorphism refers to the ability to use different data types for the same
+purpose, and parametric refers to a set of type parameters to other data types.</p>
+<pre><code class="language-rs">type MyGenericEnum&lt;T&gt; =
+    | Some(T)
+    | None;
+
+type MyGenericFunction&lt;T&gt; = (T, T) -&gt; T;
+</code></pre>
+<h3 id="subtyping"><a class="header" href="#subtyping">Subtyping</a></h3>
+<p>Subtyping, the constraining of otherwise generic data types to have certain constants, functions,
+and types associated with it, is also incredibly useful in constructing correctness focused systems
+and clean abstractions.</p>
+<pre><code class="language-rs">trait MyTrait {
+    type MyType;
+
+    const MY_CONST: MyType;
+
+    fn toMyType(self: Self) -&gt; MyType;
+}
+</code></pre>
+<h3 id="modules"><a class="header" href="#modules">Modules</a></h3>
+<p>Modules, or libraries, is the other core component necessary to create quality, reusable code. This
+is relatively simple, conceptually.</p>
+<pre><code class="language-rs">pub mod MyModule {
+    pub mod MyNestedModule {
+        pub type MyType = u8;
+   }
+}
+
+use MyModule::MyNestedModule::MyType;
+
+type MyOtherType = MyType;
+</code></pre>
+<h3 id="contracts"><a class="header" href="#contracts">Contracts</a></h3>
+<p>A contract object, in Solidity, is a collection of external functions that operate on its local
+state. Interfaces and abstract contracts may behave like subtypes, constraining minimum function
+implementations for the contract.</p>
+<p>However, all contracts in the EVM are first and foremost single entry point executables. In this way
+it is similar to Rust and C programs, where the <code>main</code> function is the entry point of the program.</p>
+<h4 id="abi"><a class="header" href="#abi">ABI</a></h4>
+<p>The ABI is a syntax sugar construct that enables both contract interface subtyping and calldata
+pattern matching.</p>
+<pre><code class="language-rs">abi MyABI {
+    fn myFn(a: u8) -&gt; u8;
+}
+
+fn main() {
+    match sig&lt;MyABI&gt;() {
+        MyABI::myFn(a) =&gt; { return a; },
+        _ =&gt; revert(),
+    }
+}
+</code></pre>
+<h4 id="contract-abi"><a class="header" href="#contract-abi">Contract ABI</a></h4>
+<p>Contracts behave similarly to structs where ABI’s can constrain the interface and external functions
+behave similarly to other high level languages like Solidity.</p>
+<pre><code class="language-rs">contract MyContract {
+    let myNumber: u8 = 0;
+}
+
+impl MyContract: MyABI {
+    fn myFn(a: u8) -&gt; u8 {
+        return a + self.myNumber;
+    }
+}
+</code></pre>
+<blockquote>
+<p>Note that the <code>self</code> syntax is experimental and is subject to change.</p>
+</blockquote>
+<h3 id="comptime"><a class="header" href="#comptime">Comptime</a></h3>
+<p>Comptime, or compile time, is a keyword enabling zero-cost abstractions through compile time code
+execution.</p>
+<p>Comptime branches perform conditional compilation based on constant values.</p>
+<pre><code class="language-rs">comptime if CONFIG.CHAINID == 1 {
+    tstore(slot, 1);
+} else {
+    sstore(slot, 1);
+}
+</code></pre>
+<p>Comptime functions are evaluated and resolved at compile time. If the function may not be resolved,
+a compiler error is thrown.</p>
+<pre><code class="language-rs">comptime fn eip1967slot(slotName: &amp;m String) -&gt; u256 {
+    return keccak256(slotName) - 1;
+}
+
+sstore(
+    eip1967slot(&quot;eip1967.proxy.implementation&quot;.toString()),
+    caller(),
+);
+</code></pre>
+<h2 id="to-a-new-abstraction-stack"><a class="header" href="#to-a-new-abstraction-stack">To A New Abstraction Stack</a></h2>
+<p>These fundamental building blocks enable both the definition of other languages’ constructs within
+Edge and more. Constructs could be type checked SSTORE2 implementations, in memory hash maps,
+Solidity ABI encoders, compressed ABI encoders, elliptic curve data types and methods, and even
+nested virtual machines with no stack overhead.</p>
+<p>The granularity of Huff with the type system and compile time code execution of a high level
+language offers an unparalleled developer experience and enables functionality not possible in any
+smart contract language. When developers want to break abstraction and create novel patterns, they
+can do so without breaking out of the language with assembly blocks, they can simply change imports
+and use lower level APIs developed over the EVM.</p>
+<p>Solidity remains a great introductory language for developers to create and deploy an NFT in a dozen
+or so lines of code. This is not the target audience of Edge. Edge is for experienced engineers and
+teams that need more than what Solidity can offer. Edge is for choosing granularity of abstraction
+without sacrificing important correctness checks within the language’s type system.</p>
+<p>To a new abstraction stack. Good hacking 🤘</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="the-vyper-compiler-1"><a class="header" href="#the-vyper-compiler-1">The Vyper Compiler</a></h1>
+<p><em>jtriley.eth; 05 August, 2023</em></p>
+<hr />
+<p>The <a href="https://docs.vyperlang.org/en/stable/">Vyper programming language</a> is a statically typed,
+Pythonic, high level, domain-specific smart contract language for the Ethereum Virtual Machine
+(EVM). It focuses on readability and high levels of abstraction from the EVM’s instruction set. In
+this article we will dive into not just the semantics of the Vyper language, but some behaviors of
+the Vyper compiler such as memory and storage layout as of version 0.3.7. This article assumes
+beginner to intermediate knowledge of the EVM, <a href="https://docs.soliditylang.org/en/latest/">Solidity</a>,
+and smart contract engineering, but no prior knowledge of Vyper.</p>
+<h2 id="syntax"><a class="header" href="#syntax">Syntax</a></h2>
+<h3 id="variables"><a class="header" href="#variables">Variables</a></h3>
+<h4 id="types"><a class="header" href="#types">Types</a></h4>
+<p>Vyper's types include primitives such as signed and unsigned integers, address, fixed point
+decimals, statically sized bytes, and boolean. Complex types include user-defined structs,
+user-defined enums, dynamically sized arrays, dynamically sized strings and bytes, and storage
+mappings. All types must be explicitly declared.</p>
+<blockquote>
+<p>Note, the enum type is listed under complex types, though it is a compile time abstraction over 256
+bit bitmaps.</p>
+</blockquote>
+<blockquote>
+<p>Note, dynamic types must have an upper bound known at compile time, this is required for storage,
+memory, and calldata values and has a direct impact on memory and storage scheduling.</p>
+</blockquote>
+<h4 id="scoping"><a class="header" href="#scoping">Scoping</a></h4>
+<p>Variables declared at the global scope are treated as persistent storage variables, accessible as
+members of the <code>self</code> object. Storage variables are internal by default, that is to say, they are
+not directly accessible via an external call. A storage variable who’s type is wrapped by <code>public</code>
+will generate a getter function at compile time. A storage variable who’s type is wrapped by
+<code>constant</code> is directly accessible without the <code>self</code> object and must be defined at compile time. A
+storage variable who’s type is wrapped by <code>immutable</code> behaves as constants do, but they may be
+defined in the initialization function rather than at compile time (more on this in the functions
+section).</p>
+<p>Variables declared in the scope of a function, loop, or branch (local variables) are accessible
+until the end of the current scope. Local variables are stored in memory based on the memory layout
+specified under the compiler behavior section.</p>
+<h3 id="control-flow-1"><a class="header" href="#control-flow-1">Control Flow</a></h3>
+<h4 id="branches"><a class="header" href="#branches">Branches</a></h4>
+<p>Conditional branches in Vyper may be defined with the <code>if</code>, <code>elif</code>, and <code>else</code> keywords similar to
+Python. The <code>if</code> keyword must be followed by a boolean expression that, if resolved to true, the
+subsequent block would be executed. The <code>elif</code> keyword is syntax sugar over <code>else if</code> and must be
+followed by a boolean expression that, if resolved to true, the subsequent block would be executed.
+The <code>else</code> keyword must be followed by a block to be executed if the previous <code>if</code> or <code>elif</code>
+expression resolved to false.</p>
+<h4 id="iteration"><a class="header" href="#iteration">Iteration</a></h4>
+<p>Arrays and integer ranges may be iterated with the <code>for</code> keyword. Arrays may be iterated by each
+element while integers may be iterated from a start value to a stop value using the built-in range
+function.</p>
+<h3 id="functions-1"><a class="header" href="#functions-1">Functions</a></h3>
+<p>Functions are declared with optional decorators, typed argument(s), return type(s), and a body.</p>
+<h4 id="decorators"><a class="header" href="#decorators">Decorators</a></h4>
+<p>Decorators are prefixed by <code>@</code> and must be on the line(s) directly above their function.</p>
+<p>The external decorator makes the function externally accessible outside of the contract. Arguments
+are encoded in calldata and the return keyword returns the data back to the external caller as
+returndata.</p>
+<p>The internal decorator makes the function only accessible internally within the same contract.
+Arguments are pointers to memory and the return keyword leaves the relevant pointers on the stack.</p>
+<blockquote>
+<p>Note, the difference in behavior between internal and external functions are largely consistent
+across EVM languages, despite minor implementation differences.</p>
+</blockquote>
+<p>The mutability decorators are pure, view, and payable. Pure functions neither read nor write state
+and have no side effects. View functions may read but do not write state and have no side effects.
+Payable functions may read and write state, may have side effects, and may receive a non-zero amount
+of Ether attached to the call. By default, a function is non-payable, which behaves the same as a
+payable function, but with the exception that if a non-zero amount of Ether is attached to the call,
+execution will revert.</p>
+<p>The nonreentrant decorator wraps the function with a reentrancy lock. This asserts the function has
+not been called recursively, which prevents same-function reentrancy. Each nonreentrant decorator
+must be defined with a string, serving as a <code>key</code>. Functions with matching keys are wrapped with the
+same lock, which prevents cross-function reentrancy.</p>
+<h4 id="special-functions"><a class="header" href="#special-functions">Special Functions</a></h4>
+<p>The initialization function <code>__init__</code> defines behavior during the creation of the contract. In this
+function, immutable variables must be assigned, storage variables may be assigned, and other code
+may be executed. At the end of the initialization function, the runtime bytecode is implicitly
+returned, completing the deployment of the contract.</p>
+<p>The default function <code>__default__</code> defines behavior when the contract is called but no other
+function is matched. This is comparable to Solidity’s fallback function. Adding the payable
+decorator to the default function is comparable to Solidity’s receive function.</p>
+<h3 id="events"><a class="header" href="#events">Events</a></h3>
+<p>Events may be defined with a name, typed arguments, and optionally up to three indexed arguments.
+Events may be logged using the log keyword in a non-payable or payable function. An indexed argument
+is defined as such by wrapping its type with <code>indexed</code>.</p>
+<h3 id="built-ins"><a class="header" href="#built-ins">Built-ins</a></h3>
+<p>Vyper has a number of built-in functions that perform a range of operations from type-checked low
+level operations to elliptic curve arithmetic.</p>
+<h4 id="chain-interactions"><a class="header" href="#chain-interactions">Chain Interactions</a></h4>
+<p>Chain interaction functions perform operations such as blueprint and proxy deployment and low level
+external calls, logging, and reverting.</p>
+<h4 id="cryptography"><a class="header" href="#cryptography">Cryptography</a></h4>
+<p>Cryptography functions include elliptic curve point addition and multiplication on the AltBN128
+curve, public key recovery from an SECP256k1 signature, and hashing with the Keccak256 and SHA256
+hashing algorithms.</p>
+<h4 id="data-manipulation"><a class="header" href="#data-manipulation">Data Manipulation</a></h4>
+<p>Data manipulation functions include concatenation, type conversion, and slicing. This also includes
+integer to string conversion and 32 byte extraction from dynamic byte arrays.</p>
+<h4 id="maths"><a class="header" href="#maths">Maths</a></h4>
+<p>Math functions include absolute value, rounding, min and max comparisons, max value for a data type,
+modular arithmetic, unchecked arithmetic, and square root operations.</p>
+<h4 id="utilities"><a class="header" href="#utilities">Utilities</a></h4>
+<p>Utility functions include environment information, the empty version of a data type, dynamic type
+length, application binary interface (ABI) encoding, and logging to the console in development
+environments.</p>
+<h2 id="compiler-behavior"><a class="header" href="#compiler-behavior">Compiler Behavior</a></h2>
+<h3 id="intermediate-representation"><a class="header" href="#intermediate-representation">Intermediate Representation</a></h3>
+<p>The intermediate representation (IR) in the Vyper compiler is represented in a Lisp-like syntax
+where each expression has a <code>valency</code> of zero or one where one indicates the expression returns a
+stack value.</p>
+<blockquote>
+<p>Note, in the following descriptions, compilation may not always map expressions directly to
+opcodes. For example, an integer literal may map to a <code>push</code> instruction or if the optimizer finds
+an opportunity to duplicate a value instead it may do so.</p>
+</blockquote>
+<h4 id="simple-expressions"><a class="header" href="#simple-expressions">Simple Expressions</a></h4>
+<p>Integer literals have valency of one and may map to a literal push instruction.</p>
+<p>EVM opcode expressions are interpreted recursively in reverse. Nested expressions are evaluated
+first an expressions are evaluated right to left. The following expression stores the value two in
+slot one.</p>
+<pre><code># ir
+(sstore 1 2)
+
+# opcodes
+push1 0x02
+push1 0x01
+sstore
+</code></pre>
+<p><code>With</code> expressions define a variable name, initial value, and a scope in which the variable may be
+used. Variables may be shadowed in the defined scope. The valency depends on the valency of the
+sub-expression.</p>
+<pre><code># ir
+(with x 1
+    (mstore 32 x))
+
+# opcodes
+push1 0x01
+push1 0x20
+mstore
+</code></pre>
+<p><code>Set</code> expressions mutate the value of the variable. This expression has a valency of zero.</p>
+<pre><code># ir
+(with x 1
+   (set x (add x 1)))
+
+# opcodes
+push1 0x01
+push1 0x01
+add
+</code></pre>
+<h4 id="sequential-expressions"><a class="header" href="#sequential-expressions">Sequential Expressions</a></h4>
+<p><code>Seq</code> expressions contain a series of expressions. The final expression determines the valency
+while all other expressions with non-zero valency have their values popped off the stack.</p>
+<pre><code># ir
+(seq
+    (call gas address 0 0 0 0 0)
+    (call gas caller 0 0 0 0 0))
+
+# opcodes
+push0
+push0
+push0
+push0
+push0
+address
+gas
+call
+pop
+push0
+push0
+push0
+push0
+push0
+caller
+gas
+call
+</code></pre>
+<h4 id="control-flow-2"><a class="header" href="#control-flow-2">Control Flow</a></h4>
+<p>Jump destinations may be aliased using the <code>label</code> expression and jumped to with the <code>goto</code>
+expression.</p>
+<p>An <code>if</code> expression takes a valency one expression and if the stack value is zero, it executes a
+second expression, else it executes a third.</p>
+<pre><code>(if
+    &lt;condition_expr&gt;
+    &lt;truthy_expr&gt;
+    &lt;falsy_expr&gt;)
+</code></pre>
+<p>A <code>repeat</code> expression contains an iterator variable name, initial value, number of iterations, an
+upper bound to the number of iterations checked at runtime, and a body to execute on each iteration.
+The <code>break</code> expression cleans the stack and exits the loop, <code>continue</code> increments the loop counter
+and continues at the loop’s start, and <code>cleanup_repeat</code> cleans the loop state from the stack.</p>
+<pre><code>(repeat
+    &lt;var_name&gt;
+    &lt;initial&gt;
+    &lt;iterations&gt;
+    &lt;upper_bound&gt;
+    &lt;body&gt;)
+</code></pre>
+<h4 id="opcode-like-abstractions"><a class="header" href="#opcode-like-abstractions">Opcode-like Abstractions</a></h4>
+<p>There are opcode-like expressions that create minor abstractions over the EVM opcodes. The <code>assert</code>
+expression is an assertion, <code>assert_unreachable</code> reverts if a condition evaluates to non-zero, <code>ge</code>
+is greater-than-or-equal-to, <code>le</code> is less-than-or-equal-to<code>, prefixing the previous two with </code>s<code>does the same with signed integers,</code>ne<code>is not-equal,</code>select<code>is a conditional expression similar to</code>if<code>but is intended to be branchless. The</code>sha_32<code>and</code>sha_64<code>expressions hash either 32 or 64 bytes of memory, respectively. The</code>ceil32` expression rounds its input to the nearest multiple of
+32.</p>
+<blockquote>
+<p>Note: the <code>select</code> boolean expression must resolve to one or zero, any other is undefined
+behavior.</p>
+</blockquote>
+<h3 id="storage-layout"><a class="header" href="#storage-layout">Storage Layout</a></h3>
+<p>The storage layout of a Vyper contract starts at zero and increments by the number of slots each
+variable occupies. Value are never packed in storage, even in structs, everything is padded to a
+full 32 byte word.</p>
+<p>Reentrancy locks generated by the nonreentrant keys occupy the first N slots of storage where N is
+the number of unique keys in the contract.</p>
+<p>Primitive types occupy one slot each, structs occupy one slot for each field, statically sized
+arrays are laid out in storage sequentially, dynamically sized arrays occupy one slot for the length
+then N slots where N is the maximum capacity of the array, and mapping slots are generated by
+hashing the storage index concatenated with the key.</p>
+<blockquote>
+<p>Note, Solidity does the opposite, with the key before the storage index. Additionally, dynamic
+arrays occupy sequential slots since their upper bound is known at compile time while in Solidity,
+the upper bound is not known so the array is stored at the hash of the storage index to minimize
+the risk of slot collision.</p>
+</blockquote>
+<p>The default storage layout may be overridden at compile time using a JSON file specifying the
+variable name, the type, and slot index to use instead. This enables the use of Ethereum Improvement
+Proposals (EIPs) that specify storage slots.</p>
+<h3 id="memory-layout"><a class="header" href="#memory-layout">Memory Layout</a></h3>
+<p>Vyper memory is laid out in increments of 32 byte words. While EVM memory is linear and accessed by
+the byte index, the term <code>slot</code> in this section refers to a 32 byte word stored at a memory index
+that is a multiple of 32.</p>
+<p>The first two slots of memory are used as scratch-space for hashing data. Starting at slot three,
+variables are stored in memory sequentially based on when they come into scope. Function arguments
+come into scope first, therefore they are copied to memory. Then, for each variable definition, a
+value is written to memory. Variables are dropped at the end of their local scope, so variables
+defined in conditional and loop statements as well as internal function calls are dropped and
+overwritten when possible to save memory.</p>
+<blockquote>
+<p>Note, Vyper stores all variables in memory, including primitives, while Solidity stores primitives
+on the stack with only minor exceptions.</p>
+</blockquote>
+<p>Primitive types occupy one slot, statically sized arrays occupy N slots where N is the length, and
+structs occupy one slot for every field. Dynamically sized arrays occupy one slot for the length,
+then they reserve N slots where N is the maximum capacity of the array. The exception is dynamically
+sized byte arrays and strings, which are tightly packed, but still reserve N slots of memory where N
+is the length divided by 32, rounded up.</p>
+<h3 id="calldata-layout"><a class="header" href="#calldata-layout">Calldata Layout</a></h3>
+<p>Calldata in Vyper is laid out in accordance with Solidity’s ABI specification. The only divergence
+is the user-defined enum. Vyper’s enum is an abstraction over a bitmap represented as a uint256
+while Solidity’s enum is an abstraction over sequential uint8 values, which may cause compatibility
+issues if developers port enums between languages.</p>
+<h2 id="conclusions"><a class="header" href="#conclusions">Conclusions</a></h2>
+<p>The Vyper compiler, despite front end trade-offs such as compile time dynamic type upper bounds and
+back end inefficiencies in caching and duplication, is a well designed machine. Its source code
+being written in Python serves as both a simple entry point into compiler contributions and as a
+reference to better comprehend the stages of compilation and the internal data structures and
+algorithms it takes to convert developer intents to EVM bytecode. While its abstractions may seem
+limiting to engineers that prefer low level control, its built-in functions enable type-checked low
+cost abstractions that aren’t built into the language itself and the optimizer is surprisingly
+efficient. Despite visible inefficiencies in the compiler output, its runtime bytecode size and gas
+efficiency rival that of even low level languages such as Yul.</p>
+<p>I hope this article was informative for the beginner, intermediate, and advanced Vyper engineers
+alike. I personally learned a lot about the compiler during this deep dive and if you would like to
+see what went into this, below are some tools and resources used for this article.</p>
+<ul>
+<li><a href="articles/">Vyper Deep Dive Github</a></li>
+<li><a href="articles/">Heimdall Decompiler / Disassembler</a></li>
+<li><a href="articles/">Foundry Scripts / Debugger</a></li>
+<li><a href="articles/">Vyper Compiler</a></li>
+<li><a href="articles/">Vyper Documentation</a></li>
+</ul>
+<p>If you enjoy this kind of content, consider subscribing below and until next time, good hacking 🤘</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="evm-language-design"><a class="header" href="#evm-language-design">EVM Language Design</a></h1>
+<p><em>jtriley.eth; 15 March, 2023</em></p>
+<hr />
+<p>The Ethereum Virtual Machine (EVM) is a 256-bit, stack-based, globally accessible Turing machine.
+Due to the stark difference in architecture from other virtual and physical machines,
+domain-specific languages (DSL's) are all but a necessity.</p>
+<p>In this article we will examine the state of the art in EVM DSL design. We will cover the Solidity,
+Vyper, Fe, Huff, Yul, and ETK, using the most recent compiler versions at the time of writing.</p>
+<h2 id="versions"><a class="header" href="#versions">Versions</a></h2>
+<ul>
+<li>Solidity: 0.8.19 </li>
+<li>Vyper: 0.3.7</li>
+<li>Fe: 0.21.0</li>
+<li>Huff: 0.3.1</li>
+<li>ETK: 0.2.1</li>
+<li>Yul: 0.8.19</li>
+</ul>
+<p>This article assumes a basic understanding of the EVM, stack machines, and programming in general.</p>
+<h2 id="ethereum-virtual-machine-overview"><a class="header" href="#ethereum-virtual-machine-overview">Ethereum Virtual Machine Overview</a></h2>
+<p>As mentioned, the EVM is a 256 bit stack-based Turing machine. However, there are a few features
+that should be introduced before diving into the compilers that target it.</p>
+<p>Since the EVM is Turing complete, it suffers from the halting problem. In short, this means that
+there is no way to be certain that a program will terminate in the future before executing it. The
+solution to this problem in the EVM is to meter compute units in <code>gas</code>, which in general is
+proportional to the physical resources required to execute the instruction. The amount of gas per
+transaction is limited and the initiator of the transaction must pay an amount of Ether proportional
+to the gas expended for the duration of the transaction. One of the many effects of this decision is
+that if there are two functionally identical smart contracts but one of them manages to execute with
+less gas consumption for the same task, there is an economic incentive to use the more efficient of
+the two. This has lead to protocols competing for extreme gas efficiency and engineers forming
+personal brands around minimizing gas consumption for a given task (myself included).</p>
+<p>Additionally, when a contract is called, it creates an execution context. Within this context, the
+contract has a stack to manipulate and operate on, a linear memory instance to read and write, a
+local persistent storage for the contract to read and write, and data attached to the call,
+<code>calldata</code>, that may be read but not written.</p>
+<p>An important note about memory is while its size is not deterministically <code>capped</code>, it is still
+limited. The gas cost of expanding memory is dynamic; once it reaches a threshold, the cost of
+expanding memory is quadratic, that is to say the gas cost is proportional to the additional memory
+allocation squared.</p>
+<p>Contracts may also call to other contracts using a few different instructions. The <code>call</code>
+instruction sends data and optionally, Ether, to a target contract, which then creates its own
+execution context that persists until the target contract’s execution halts. The <code>staticcall</code>
+instruction is the same as <code>call</code>, but with an additional check that asserts no part of the global
+state is updated until the static call completes. Finally, the <code>delegatecall</code> instruction behaves
+like <code>call</code> except it preserves some environment information from the previous context. This is
+generally used for external libraries and proxy contracts.</p>
+<h2 id="why-language-design-is-important"><a class="header" href="#why-language-design-is-important">Why Language Design is Important</a></h2>
+<p>Smart contract DSL's are a necessity for interacting with atypical architectures and while compiler
+toolchains such as LLVM exist, relying on them for smart contracts where program correctness and
+computational efficiency are critical is less than ideal.</p>
+<p>Program correctness is of the utmost importance, as smart contracts are immutable by default and
+given the properties of blockchain virtual environments (VM's), smart contracts are a popular choice
+for financial applications. While solutions exist for upgradeability within the EVM, it is a patch
+at best and arbitrary code execution vulnerability at worst.</p>
+<p>As mentioned above, computational efficiency is also critical, as there is economic advantage to
+minimize compute, but not at the expense of security.</p>
+<p>In short, EVM DSL's have to balance program correctness with gas efficiency, each making different
+tradeoffs to accomplish one or the other without sacrificing too much flexibility.</p>
+<h2 id="language-overview"><a class="header" href="#language-overview">Language Overview</a></h2>
+<p>For each language we will describe notable features and design choices and include a simple smart
+contract that tracks and increments a <code>count</code> value that may be read externally. Language
+popularity, where applicable is determined based on total value locked (TVL) statistics from
+<a href="https://defillama.com/languages">Defi Llama</a>.</p>
+<h3 id="solidity"><a class="header" href="#solidity">Solidity</a></h3>
+<p>Solidity is a high level language whose syntax resembles C, Java, and Javascript. It is the most
+popular language by TVL with a lead over the next EVM DSL by a factor of ten. For code reuse, it
+uses object oriented patterns where smart contracts are treated as class objects that take advantage
+of multiple inheritance. The compiler is written in C++, with plans to migrate to Rust in a future
+release.</p>
+<p>Variable contract fields are stored in persistent storage unless their value is known at compile
+time (constant) or at deploy time (immutable). Methods are defined within the scope of the contract
+and may be declared as pure, view, payable, or by default, non-payable but state-modifying. Pure
+methods do not read from the execution environment and they may not read or write persistent
+storage; that is to say, given the same input(s), pure methods will always return the same output(s)
+and they will never create side effects. View methods may read from persistent storage or execution
+environment, but they may not write to persistent storage and they may not create side effects, such
+as appending transaction logs. Payable methods may read and write persistent storage, read from the
+execution environment, produce side effects, and can receive Ether which is optionally attached with
+the call. Non-payable methods are the same as payable methods, but they have a runtime check to
+assert there is no Ether attached to the current execution context.</p>
+<blockquote>
+<p>Note: Attaching Ether to a transaction is separate from paying the gas fees, attached Ether is
+received by the contract, which may choose to accept or reject it by reverting the context.</p>
+</blockquote>
+<p>Methods may also specify one of four visibility modifiers when declared within the scope of a
+contract; they may be private, internal, public, or external. Private methods are accessible
+internally via <code>jump</code> instructions within the current contract. Any inheriting contracts may not
+access private methods directly. Internal methods are also internally accessible via jump
+instructions, however, inheriting contracts may use internal methods directly. Public methods can be
+accessed by external contracts via <code>call</code> instructions, creating a new execution context and they
+may be accessed internally with jumps when the method is called directly. Public methods may also be
+accessed from the same contract but in a new execution context via a <code>call</code> by prepending <code>this.</code> to
+the method call. External methods may only be accessed by a <code>call</code> instruction, either from a
+different contract or within the same contract, by prepending <code>this.</code> to the method to call.</p>
+<blockquote>
+<p>Note: <code>jump</code> instructions manipulate the program counter, <code>call</code> instructions create a new
+execution context for the duration of the target contract's execution. It is much more gas
+efficient to use jumps instead of calls when possible.</p>
+</blockquote>
+<p>Solidity also features libraries that may be defined in one of three ways. First is the external
+library, which is a stateless contract that is separately deployed to the chain, dynamically linked
+to the calling contract, and is accessed via a <code>delegatecall</code> instruction. This is the least common
+approach, as tooling around external libraries is subpar, <code>delegatecall</code> is expensive as it must
+load additional code from persistent storage, and it requires multiple transactions for deployment.
+Internal libraries are defined in the same way as external libraries, except every method must be
+defined as internal. At compile time, internal libraries are embedded into the final contract and
+unused methods in the library are removed during the dead-code analysis phase. Third is similar to
+the internal library, but instead of defining data structures and functionality within a library
+block, they are defined at the file level and can be imported and used within the final contract
+directly. The third method offers better ergonomics with custom data structures, application of
+functions to structures in the global scope, and, to a limited degree, aliasing operators to certain
+functions.</p>
+<p>The compiler offers two optimization pipelines. First is the instruction-level optimizer, which
+performs optimization passes on the final bytecode. The second and more recent addition uses the Yul
+language (detailed later) as an intermediate representation (IR) in the compilation process, which
+then performs optimization passes on the generated Yul code.</p>
+<p>To interface with public and external methods in contracts, Solidity specifies an Application Binary
+Interface (ABI) standard for interfacing with its contracts. The Solidity ABI, at the time of
+writing, is treated as the defacto standard for EVM DSL's. Ethereum Request for Comment (ERC)
+standards that specify an external interface universally do so in accordance with Solidity's ABI
+specification and style-guide. Other languages tend to conform to Solidity's ABI specification with
+rare and minor deviations.</p>
+<p>Solidity also offers inline Yul blocks, allowing low level access to the EVM instruction set. The
+Yul blocks contain a subset of Yul functionality detailed in the Yul section. This is most commonly
+used for gas optimization, taking advantage of features not supported in the high level syntax, and
+customizing layouts of storage, memory, and calldata.</p>
+<p>Due to Solidity's popularity, developer tooling is very mature and well designed. Foundry is a tool
+that particularly stands out in this regard.</p>
+<p>A simple contract in Solidity may be defined as follows:</p>
+<pre><code class="language-solidity">// SPDX-License-Identifier: MIT
+pragma solidity 0.8.19;
+
+contract CountTracker {
+    uint256 public count;
+
+    function increment() external {
+        count += 1;
+    }
+}
+</code></pre>
+<h3 id="vyper"><a class="header" href="#vyper">Vyper</a></h3>
+<p>Vyper is a high level language with Python-like syntax. It is nearly a Python subset with only a few
+minor exceptions. It is the second most popular EVM DSL at the time of writing. Vyper optimizes for
+safety, readability, audit-ability, and gas efficiency. It opts out of object oriented patterns,
+inline assembly, and, at the time of writing, does not support code reuse. The compiler is written
+in Python.</p>
+<p>Variables stored in persistent storage are declared at the file level. If their value is known at
+compile time, they may be declared as <code>constant</code>, if their value is known at deploy time, they may
+be declared as <code>immutable</code>, if they are marked public, the final contract will expose a read-only
+function for that variable. Constant and immutable values are accessed internally by their names,
+but mutable variables in persistent storage may be accessed by prepending <code>self.</code> to the variable
+name. This is useful in preventing namespace collisions between storage variables and function
+arguments and local variables.</p>
+<p>Functions are defined much like Solidity, but with a pythonic syntax, opting for function attributes
+to indicate visibility and mutability. Functions marked <code>@external</code> are accessible from external
+contracts via a <code>call</code> instruction. Functions marked <code>@internal</code> are accessible only from within the
+same contract and must be prefixed with <code>self.</code>. Functions marked <code>@pure</code> may not read from the
+execution environment or persistent storage and they may not write persistent storage or create any
+side effects. Functions marked <code>@view</code> may read from the execution environment or persistent
+storage, but they may not write to persistent storage or create side effects. Functions marked
+<code>@payable</code> may read or write persistent storage, create side effects, read from the execution
+environment, and may receive Ether attached to the call. Functions without a mutability attribute
+are non-payable, that is they are the same as payable functions but without the ability to receive
+Ether.</p>
+<p>The Vyper compiler also opts to store local variables in memory rather than on the stack. This
+allows for simpler and generally more efficient contracts, as well as fixes a common error seen in
+other high level languages, the <code>stack too deep</code> error. However, this comes with a few tradeoffs.</p>
+<p>First, since memory layout must be known at compile time, the maximum capacity of dynamic types must
+also be known at compile time. There is also the tradeoff of large memory allocations resulting in
+non-linear gas consumption as mentioned in the EVM overview section. However, this gas cost remains
+negligible for many use cases.</p>
+<p>While Vyper does not support inline assembly, it enables more built-in functions to ensure nearly
+every feature in Solidity and Yul is also accessible in Vyper. Low level bitwise operations,
+external calls, and proxy contract operations are accessible via built-ins and custom storage
+layouts are possible by providing an override file at compile time.</p>
+<p>While Vyper does not have such an extensive suite of developer tooling, Vyper has more tightly
+integrated tooling and can also be plugged into Solidity developer tooling. Notable Vyper tooling
+includes the Titanaboa interpreter with many built-in tools for EVM and Vyper related
+experimentation and development as well as Dasy, a Lisp built on top of Vyper that features
+compile-time code execution.</p>
+<p>A simple contract in Vyper may be defined as follows:</p>
+<pre><code class="language-py"># @version 0.3.7
+
+counter: public(uint256)
+
+@external
+def increment():
+    self.counter += 1
+</code></pre>
+<h3 id="fe"><a class="header" href="#fe">Fe</a></h3>
+<p>Fe is a high level language with Rust-like syntax. It is currently under active development with
+most features yet to come. The compiler is mostly written in Rust, however, it uses Yul as its IR,
+relying on the Yul optimizer which is currently written in C++. This is expected to change with the
+inclusion of their rust-native backend, Sonatina. Fe uses modules for code sharing, thus object
+oriented patterns are not used and instead code is reused via a module-based system where variables,
+types, and functions are declared within a module and are importable in a similar way to Rust.</p>
+<p>Persistent storage variables are declared at the contract level and are not publicly accessible
+without a manually defined getter function. Constants may be declared at the file or module level
+and are accessible internally within the contract. Immutable, deploy time variables are currently
+not supported.</p>
+<p>Methods may be declared at the module level or within a contract. By default, they are pure and
+private. To make a contract method public, its definition must be prefixed with the <code>pub</code> keyword.
+This makes it accessible externally. To read from the persistent storage variables, the first
+argument in the method must be <code>self</code>, which gives the method read-only access to any local storage
+variable by prefixing <code>self.</code> to the variable name. To read and write persistent storage, the first
+argument must be <code>mut self</code>. The <code>mut</code> keyword indicates the contract's storage is mutable for the
+duration of the method's execution. Accessing environment variables is done by passing the method a
+<code>Context</code> argument. Usually named <code>ctx</code>, the context type implements methods that read the execution
+environment's values.</p>
+<p>Functions and custom types may be declared at the module level. Module items are all private by
+default and are inaccessible unless prefixed with the <code>pub</code> keyword. This is not to be confused with
+the contract-level <code>pub</code> keyword, though. Public members of a module are accessible only internally
+within the final contract or other modules.</p>
+<p>At the time of writing, inline assembly is not supported and instead, instructions are wrapped by
+compiler intrinsics, or special functions that are resolved to instructions at compile time.</p>
+<p>Fe intends to follow Rust’s syntax as well as its type system, enabling type aliasing, enums with
+subtypes, traits, and generics. At the time of writing this is limited, but in progress. Traits can
+be defined and implemented for different types but generics are not supported, nor are trait
+constraints. Enums support subtypes and may have methods implemented on them but they are not
+possible to encode in external functions. While Fe’s type system is still developing, it shows
+promise in enabling more safe and compile-time checked code for developers to write.</p>
+<p>A simple contract in Fe may be defined as follows:</p>
+<pre><code class="language-rs">contract CountTracker {
+    count: u256
+
+    pub fn count(self) -&gt; u256 {
+        return self.count
+    }
+
+    pub fn increment(mut self) {
+        self.count += 1
+    }
+}
+</code></pre>
+<h3 id="huff"><a class="header" href="#huff">Huff</a></h3>
+<p>Huff is an assembly language with manual stack control and minimal abstractions on the EVM's
+instruction set. Code reuse is enabled by <code>#include</code> directives that resolve any included Huff files
+at compile time. Originally written by the Aztec team for extremely optimized elliptic curve
+arithmetic, the compiler was later rewritten in Typescript, then again in Rust.</p>
+<p>Constants must be defined at compile time, immutables are currently unsupported, and persistent
+storage variables are not explicitly defined in the language. Since named storage variables are a
+high level abstraction, writing to persistent storage is done in Huff by using the storage opcodes,
+<code>sstore</code> to write and <code>sload</code> to read. Custom storage layouts may be user defined or it can follow
+the convention of starting at zero and incrementing with each variable by using the
+<code>FREE_STORAGE_POINTER</code> compiler intrinsic. Making storage variables accessible externally requires
+manually defining a code path that can read and return the variable to the caller.</p>
+<p>External functions are also abstractions introduced by high level languages, so there is no concept
+of external functions in Huff. However, most projects follow, to varying degrees, the ABI
+specifications of other high level languages, most commonly Solidity. A common pattern is to define
+a <code>dispatcher</code> that loads raw calldata and uses it to check for matching function selectors. If one
+is met, then its subsequent code is executed. Since dispatchers are user defined, they may follow
+different patterns for dispatching. Solidity orders the selectors in its dispatcher alphabetically
+by name, Vyper orders the selectors numerically and performs a binary search at runtime, most Huff
+dispatchers are ordered by expected function use frequency, and rarely, jump tables are used. At the
+time of writing, jump tables are not natively supported in the EVM, so introspection instructions
+like <code>codecopy</code> are required to make this possible.</p>
+<p>Internal function are defined with the <code>#define fn</code> directive and may accept template arguments for
+flexibility and the expected stack depth at the start and end of the function. Since these functions
+are internal, they are not accessible externally and <code>jump</code> instructions are used to interact with
+it internally.</p>
+<p>Other control flow such as conditionals and loops can be defined with jump destinations. Jump
+destinations are defined with an identifier followed by a colon. They may be jumped to by pushing
+the identifier and executing a jump instruction. This is resolved to bytecode offsets at compile
+time.</p>
+<p>Macros are defined with the <code>#define macro</code> directive and are otherwise syntactically identical to
+internal functions. They key difference is macros do not generate <code>jump</code> instructions at compile
+time, rather, the body of the macro is duplicated directly into each invocation within the file.</p>
+<p>This creates the tradeoff of less arbitrary jumps to the benefit of runtime gas costs and at the
+expense of overall codesize when called more than once. The <code>MAIN</code> macro is treated as the
+contract's entry-point and the first instruction inside its body will be the first instruction in
+the runtime bytecode.</p>
+<p>Other intrinsics compiler intrinsics include event hash generation for logging, function selector
+generation for dispatching, error selector generation for error handling, and introspection
+intrinsics such as codesize checkers for internal functions and macros.</p>
+<p>A simple contract in Huff may be defined as follows:</p>
+<blockquote>
+<p>Note: The stack comments such as <code>// [count]</code> are not required or enforced, they are just commonly
+used to indicate the stack's state at the end of that line's execution.</p>
+</blockquote>
+<pre><code class="language-solidity">#define constant COUNT_SLOT = FREE_STORAGE_POINTER()
+
+#define macro MAIN() = takes (0) returns (0) {
+    0x00 calldataload 0xe0 shr
+    dup1 __FUNC_SIG(&quot;count&quot;) eq is_count jumpi
+    dup1 __FUNC_SIG(&quot;increment&quot;) eq is_increment jumpi
+    pop 0x00 dup1 revert
+
+    is_count:
+        [COUNT_SLOT]    // [count_slot]
+        sload           // [count]
+        0x00            // [pointer, count]
+        mstore          // []
+        msize           // [size]
+        0x00            // [pointer, size]
+        return          // return to caller
+
+    is_increment:
+        [COUNT_SLOT]    // [count_slot]
+        sload           // [count]
+        0x01            // [one, count]
+        add             // [count_plus_one]
+        [COUNT_SLOT]    // [count_slot, count_plus_one]
+        swap1           // [count_plus_one, count_slot]
+        sstore          // []
+        stop            // halt execution
+}
+</code></pre>
+<h3 id="etk"><a class="header" href="#etk">ETK</a></h3>
+<p>EVM Tool Kit, or ETK, is an assembly language with manual stack management and minimal abstractions.
+Code can be reused by the <code>%include</code> and <code>%import</code> directives. The compiler is written in Rust.</p>
+<p>A notable difference between Huff and ETK is Huff adds minor abstractions for initcode, also known
+as constructor code, which may be overridden by defining a special <code>CONSTRUCTOR</code> macro. In ETK,
+these are not abstracted away, the initcode and runtime code must be defined together.</p>
+<p>Much like Huff, ETK reads and writes persistent storage via the <code>sload</code> and <code>sstore</code> instructions.
+There are no constant or immutable keywords, however, constants can be emulated with one of two
+kinds of macros in ETK, expression macros. Expression macros do not resolve to instructions, but
+rather numeric values that can be used in other instructions. For example, it may not generate a
+<code>push</code> instruction in its entirety, but it may generate a number to be included in a <code>push</code>
+instruction.</p>
+<p>As previously mentioned, external functions are high level language concepts, so exposing code paths
+externally requires the creation of a function selector dispatcher.</p>
+<p>Internal functions are not explicitly definable like in other languages, instead jump destinations
+can be given user-defined aliases and jumped to by their name. This also allows for other control
+flow such as loops and conditionals.</p>
+<p>As previously mentioned, ETK supports two kinds of macros. First is the expression macro, which may
+take an arbitrary number of arguments and return a numeric value that may be used with other
+instructions. Expression macros do not generate instructions, they generate immediate, or constant,
+values. Instruction macros, however, accept an arbitrary number of arguments and generate an
+arbitrary number of instructions at compile time. Instruction macros in ETK behave similarly to how
+Huff macros behave.</p>
+<p>A simple ETK contract may be defined as follows:</p>
+<pre><code class="language-solidity">// initcode.etk
+%push(end - start)
+dup1
+%push(start)
+returndatasize
+codecopy
+returndatasize
+return
+
+start:
+%include(&quot;main.etk&quot;)
+end:
+
+// main.etk
+
+%def slot()
+    0x00
+%end
+
+start:
+    push1 0x00
+    calldataload
+    push1 0xe0
+    shr
+    dup1
+    push4 selector(&quot;count()&quot;)
+    eq
+    push1 is_count
+    jumpi
+    push4 selector(&quot;increment()&quot;)
+    eq
+    push1 is_increment
+    jumpi
+    push1 0x00
+    dup1
+    revert
+    is_count:
+        jumpdest
+        push1 slot()
+        sload
+        push1 0x00
+        mstore
+        msize
+        push1 0x00
+        return
+    is_increment:
+        jumpdest
+        push1 slot()
+        sload
+        push1 0x01
+        add
+        push1 slot()
+        sstore
+        stop
+end:
+</code></pre>
+<h3 id="yul"><a class="header" href="#yul">Yul</a></h3>
+<p>Yul is an assembly language with high level control flow and largely abstracted stack management. It
+is a part of the Solidity toolchain and may optionally be used within the Solidity compilation
+pipeline. Code reuse is not supported in Yul, as it is meant to be a compilation target rather than
+a standalone language. The compiler is written in C++ with plans to migrate to Rust with the rest of
+the Solidity pipeline.</p>
+<p>In Yul, code is separated into objects which may contain code, data, and nested objects. As such,
+there are no constants or external functions. A function selector dispatcher will need to be defined
+to expose code paths externally.</p>
+<p>Most instructions, disregarding stack and control flow instructions, are exposed as functions in
+Yul. For example, an instruction that pops two values and pushes one would be wrapped in a function
+that takes two arguments and returns one. Instructions can be nested for brevity, or they can be
+assigned to temporary variables that may be passed to other instructions. A conditional branch may
+use an <code>if</code> block that executes if a value is nonzero, but there is no <code>else</code> block, so handling
+multiple codepaths would require a <code>switch</code> that may handle an arbitrary number of cases and a
+<code>default</code> fallback option. Looping may be performed with the <code>for</code> loop; while its syntax looks
+different from other high level languages, it provides the same basic functionality. Internal
+functions may be defined with the <code>function</code> keyword and resembles a similar syntax to high level
+languages’ function definitions.</p>
+<p>Most functionality in Yul is exposed within Solidity using inline assembly blocks. This allows
+developers to break abstraction and write either custom functionality or use features available in
+Yul before they are available in the high level syntax. However, using this feature requires a deep
+understanding of Solidity’s behavior in regards to calldata, memory, and storage.</p>
+<p>There are also functions unique to standalone Yul dialects. The <code>datasize</code>, <code>dataoffset</code>, and
+<code>datacopy</code> functions operate on Yul objects by their string alias. The <code>setimmutable</code> and
+<code>loadimmutable</code> functions allow immutable arguments to be set and loaded in the constructor, though
+their use is limited. The <code>linkersymbol</code> function allows for dynamic external library linking. The
+<code>memoryguard</code> function indicates to the compiler that only a given memory range will be allocated,
+allowing the compiler to perform additional optimizations with memory beyond the guard. Finally,
+<code>verbatim</code> allows for instructions unknown to the Yul compiler to be used.</p>
+<p>A simple Yul contract may be defined as follows:</p>
+<pre><code class="language-solidity">object &quot;CounterTracker&quot; {
+    code {
+        let runtimesize := datasize(&quot;runtime&quot;)
+        datacopy(0x00, dataoffset(&quot;runtime&quot;), runtimesize)
+        return(0x00, runtimesize)
+    }
+    object `runtime` {
+        code {
+            switch shr(0xe0, calldataload(0x00))
+            case 0x06661abd {
+                count()
+            }
+            case 0xd09de08a {
+                increment()
+            }
+            default {
+                revert(0x00, 0x00)
+            }
+
+            function count() {
+                mstore(0x00, sload(0x00))
+                return(0x00, 0x20)
+            }
+
+            function increment() {
+                sstore(0x00, add(0x01, sload(0x00)))
+            }
+        }
+    }
+}
+</code></pre>
+<h2 id="features-of-a-great-evm-dsl"><a class="header" href="#features-of-a-great-evm-dsl">Features of a Great EVM DSL</a></h2>
+<p>A great EVM DSL would learn from the pros and cons of each language listed here and more. The basics
+includes nearly everything featured in modern languages such as conditionals, pattern matching,
+loops, functions, and more. Code should be explicit with minimal implicit abstractions usually added
+for the sake of code aesthetic or readability. In high stakes, correctness critical environments,
+each line should be explicitly interpretable. In addition, a well defined module system should be at
+the core of any great language. It should be clear what items are defined in what scope, and what
+may be accessed. By default, every item in a module should be private, with only explicitly public
+items exposed externally. Reusing code within a single project is a start, but there should also be
+a tightly integrated package manager for using externally defined code.</p>
+<p>As mentioned previously, efficiency is important in resource constrained environments like the EVM.
+Efficiency is achieved by providing low cost abstractions such as compile-time code execution via
+macros, a rich type system for creating well designed, reusable libraries, and wrappers for common
+on-chain interactions. Macros generate code at compile time, which is great for reducing boilerplate
+on common operations and in cases like Huff, it can be used to make a code size vs runtime
+efficiency tradeoff. A rich type system allows for more expressive code, more compile-time checks to
+catch bugs before runtime, and, when coupled with type-checked compiler intrinsics, it may remove
+most of the need for inline assembly. Generics also allow for nullable values such as external code
+to be wrapped in <code>option</code> types or fallible operations like external calls to be wrapped in <code>result</code>
+types. These two types are an example of how library writers can force developers to handle each
+outcome by either defining both codepaths or reverting the transaction on the failed outcome.
+Remember, however, that these are compile-time abstractions and are resolved to simple conditional
+jumps at runtime. Forcing the developer to handle every outcome at compile-time increases the
+initial development time, but to the benefit of far fewer surprises at runtime.</p>
+<p>Flexibility is also important for developer ergonomics, so while the default scenario for complex
+operations should be the safe and possibly less efficient route, sometimes a more efficient codepath
+or unsupported feature needs to be used. For this, inline assembly should be exposed to the
+developer, but with zero guard rails. Solidity’s inline assembly has some guard rails for the sake
+of simplicity and better optimizer passes, but when a developer needs full control of the execution
+environment, they should be granted exactly that.</p>
+<p>Miscellaneous features that would be nice to include would be attributes for functions and other
+items to be manipulated at compile time. An <code>inline</code> attribute may take the body of a simple
+function and duplicate it to each invocation instead of creating more jumps for efficiency. An
+<code>abi</code> attribute may allow for a manual override of the ABI generated for a given external function
+to accommodate languages with different code style conventions. An optionally defined, configurable
+function dispatcher that allows for customization within a high level language would allow for
+additional optimizations for codepaths expected to be used more often, for example, checking if the
+selector is <code>transfer</code> or <code>transferFrom</code> before <code>name</code>, would be a great addition as well.</p>
+<h2 id="conclusions-1"><a class="header" href="#conclusions-1">Conclusions</a></h2>
+<p>EVM smart contract DSL design has come a long way and has a long way to go. Each language makes its
+own unique design decisions and I look forward to seeing how each of these develop in the future. As
+developers, it is in our best interest to learn as many languages as possible for a few reasons.
+First, learning many languages and seeing how they differ and how they are similar will deepen our
+understanding of programming and the underlying machine architecture. Second, it is well understood
+within the tech community that languages have deep network effects and strong retention properties.
+It is no mistake that large scale actors are all building their own programming languages from C#,
+Swift, and Kotlin to Solidity, Sway, and Cairo. Learning to switch between these languages
+seamlessly offers unparalleled flexibility in a software engineering career. Finally, it is
+important to understand the absurd amount of work that goes into each and every one of these
+languages. While none are perfect, countless talented people have dedicated massive amounts of
+effort into creating a safe and pleasant experience for developers like us.</p>
+<p>I hope you enjoyed this brief dive into the state of EVM DSL design, if you enjoyed this article and
+want to see more, subscribe below and follow me on <a href="https://twitter.com/jtriley_eth">Twitter</a> for
+regular updates.</p>
+<p>Until next time, good hacking 🤘</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="the-ether-deck-1"><a class="header" href="#the-ether-deck-1">The Ether Deck</a></h1>
+<p><em>jtriley.eth; 17 May, 2023</em></p>
+<hr />
+<h2 id="overview"><a class="header" href="#overview">Overview</a></h2>
+<p><a href="https://github.com/jtriley-eth/ether-deck">The Ether Deck</a>, further known as the “deck”, is an
+opinionated, optimized, extensible, multi-signature smart contract wallet. It is written in Huff and
+tested extensively using a Foundry-based fuzz and unit testing suite. There are four built-in
+functions for handling authentication, signature count threshold, shard management, and a
+generalized executor. The main interface to any functionality on the deck is through a signed
+syscall. Shards may extend the core functionality by assigning selectors to contract addresses in
+local storage. Encoding data to send to the deck is atypical and uses a packed calldata encoding
+scheme, making it a suitable choice for layer 1 Ethereum as well as layer 2 rollups that commit
+calldata to l1 storage.</p>
+<h2 id="core"><a class="header" href="#core">Core</a></h2>
+<p>The core of the deck is the syscall. This takes a target address, call value, payload, and a list of
+signatures. The deck loads the required signature count threshold, or number of signatures required
+to execute, then checks each signature. All signatures must come from authorized accounts and too
+few signatures will fail. Once the signatures are validated, the target address is called with the
+respective value and payload.</p>
+<p>Setters for authorized accounts, threshold, and shards exist on the deck but must be accessed via a
+syscall where the target is the deck itself. This prevents unauthorized state modification.</p>
+<p>Signature verification uses a tight encoding and makes specific assumptions that allow for
+computational efficiency gains without breaking invariants. More on this in the documentation.</p>
+<h2 id="shards"><a class="header" href="#shards">Shards</a></h2>
+<p>Shards are extensions to the deck. These can be assigned via a mapping of selectors to addresses
+where the address is the target and the selector prefixes the payload. A few example shards are
+provided in the repository enabling bundled multi-calls, token standard compliance, and public
+storage readers. However, any smart contract can be delegated as a shard. There are a few security
+considerations that should be reviewed in the documentation's
+<a href="https://github.com/jtriley-eth/ether-deck#shards">shard security section</a> before delegating to just
+any contract.</p>
+<p>Since shards require extreme caution when using, a tool to screen shards for potentially dangerous
+opcodes is included in the scripts directory of the repository. This does not guarantee security,
+nor does a potentially dangerous opcodes guarantee a vulnerability. This scanner simply reports what
+opcodes are involved and what they can potentially do. Shards can be categorized as stateless,
+read-only, and stateful.</p>
+<p>Stateless shards do not read from the local contract's storage. An example of this is the
+<code>ERC721Receiver</code> and <code>ERC1155Receiver</code> compliance shard called “recv”. Recv simply returns the
+selector give to it, indicating the deck is capable of receiving <code>ERC721</code> and <code>ERC1155</code> tokens.</p>
+<p>Read-only shards may read from the local contract's storage or make external read-only calls to
+other contracts. No state changes are possible with a read-only shard. An example would be the
+public storage reader, or “pubstore” shard. Pubstore takes a storage key as an argument, loads the
+value from storage, then returns it to the caller. This is useful for reading the deck's storage.</p>
+<p>Stateful shards have full control over the deck. They may make external calls, read and write local
+storage, append transaction logs, and even self destruct. Extreme caution must be taken when setting
+stateful shards. However, they can be useful. The multicaller shard is capable of bundling external
+calls into a single transaction and executing them atomically.</p>
+<h2 id="testing-and-security"><a class="header" href="#testing-and-security">Testing and Security</a></h2>
+<p>Full security implications are documented in full in the documentation including assumptions,
+invariants, and other considerations. It is important to note that while testing is extensive, at
+the time of writing, it is not audited. A bug bounty program will be released shortly and if
+external interest is sufficient, an audit will be scheduled.</p>
+<h2 id="next-steps"><a class="header" href="#next-steps">Next Steps</a></h2>
+<p>While there are basic tools for interfacing with the deck, it is incompatible with existing client
+tooling by design. It is optimized for on-chain computation, not compatibility. More tooling is
+under development for interfacing with the deck in a more intuitive way. However, it is important to
+note this is not targeting general users, this is built for users that have deep experience and
+knowledge of smart contract wallets and the EVM more broadly.</p>
+<h2 id="conclusion-1"><a class="header" href="#conclusion-1">Conclusion</a></h2>
+<p>The Ether Deck makes highly opinionated choices in favor of on-chain gas optimization and instead
+offloads the user experience to the client tooling that interfaces with it, allowing for incredibly
+cheap transaction execution. Shards may extend the functionality of the deck and make its own
+decisions on transaction execution and encoding.</p>
+<p>If you enjoy this article and relevant work consider subscribing, as more work on the deck and other
+interesting projects are in progress.</p>
+<p>Until next time, good hacking 🤘</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr.min.js"></script>
+        <script src="mark.min.js"></script>
+        <script src="searcher.js"></script>
+
+        <script src="clipboard.min.js"></script>
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
+
+        <!-- Custom JS scripts -->
+        <script src="src/static/solidity.min.js"></script>
+
+        <script>
+        window.addEventListener('load', function() {
+            window.setTimeout(window.print, 100);
+        });
+        </script>
+
+    </div>
+    </body>
+</html>

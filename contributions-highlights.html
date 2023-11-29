@@ -1,0 +1,318 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Contributions - the jtriley.eth book</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+    </head>
+    <body>
+    <div id="body-container">
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded "><a href="introduction.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item expanded "><a href="contributions-highlights.html" class="active"><strong aria-hidden="true">2.</strong> Contributions</a></li><li class="chapter-item expanded "><a href="articles.html"><strong aria-hidden="true">3.</strong> Articles</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="articles/type-theory.html"><strong aria-hidden="true">3.1.</strong> Type Theory</a></li><li class="chapter-item expanded "><a href="articles/the-edge-programming-language.html"><strong aria-hidden="true">3.2.</strong> The Edge Programming Language</a></li><li class="chapter-item expanded "><a href="articles/the-vyper-compiler.html"><strong aria-hidden="true">3.3.</strong> The Vyper Compiler</a></li><li class="chapter-item expanded "><a href="articles/evm-language-design.html"><strong aria-hidden="true">3.4.</strong> EVM Language Design</a></li><li class="chapter-item expanded "><a href="articles/the-ether-deck.html"><strong aria-hidden="true">3.5.</strong> The Ether Deck</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">the jtriley.eth book</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h2 id="contributions"><a class="header" href="#contributions">Contributions</a></h2>
+<ul>
+<li><a href="#contributions">Contributions</a>
+<ul>
+<li><a href="#eip-6909">EIP-6909</a></li>
+<li><a href="#solady">Solady</a></li>
+<li><a href="#snekmate">Snekmate</a></li>
+<li><a href="#uniswap-v4-flashloan-template">Uniswap V4 Flashloan Template</a></li>
+<li><a href="#huff-style-guide">Huff Style Guide</a></li>
+<li><a href="#artemis">Artemis</a></li>
+<li><a href="#ether-deck">Ether Deck</a></li>
+<li><a href="#counter-exploit-toolkit">Counter Exploit Toolkit</a></li>
+</ul>
+</li>
+</ul>
+<h3 id="eip-6909"><a class="header" href="#eip-6909">EIP-6909</a></h3>
+<p>The <a href="https://eips.ethereum.org/EIPS/eip-6909">EIP-6909 Minimal Multi-Token Interface</a> is a
+simplified and more efficient alternative to the 
+<a href="https://eips.ethereum.org/EIPS/eip-1155">EIP-1155 Multi-Token Standard</a>.</p>
+<p>This removes the callbacks which often go unused, removes the constraints on batching to open the
+design space for bespoke batch implementations, removes the token recipient contract check, and
+specifies a hybrid operator-allowance permission system.</p>
+<p>Links:</p>
+<ul>
+<li><a href="https://eips.ethereum.org/EIPS/eip-6909">Specification</a></li>
+<li><a href="https://ethereum-magicians.org/t/eip-6909-multi-token-standard/13891">Discussion</a></li>
+<li><a href="https://github.com/jtriley-eth/ERC-6909">Reference Implementation</a></li>
+<li><a href="https://github.com/jtriley-eth/erc6909-examples">Example Usage</a></li>
+</ul>
+<h3 id="solady"><a class="header" href="#solady">Solady</a></h3>
+<p>milady.</p>
+<p>The <a href="https://github.com/Vectorized/solady">Solady</a> repository contains optimized Solidity snippets.
+The scope of my contributions are on the implementation of an upgradeable proxy conforming to
+<a href="https://eips.ethereum.org/EIPS/eip-1967">EIP-1967 Proxy Storage Slots</a>.</p>
+<p>We implemented the
+<a href="https://github.com/Vectorized/solady/blob/main/src/utils/ERC1967Factory.sol">ERC1967Factory</a> which
+deploys an EIP-1967 compliant proxy contract based on a prototype written in the Huff assembly
+language under the name <a href="https://github.com/jtriley-eth/minimum-viable-proxy">Minimum Viable Proxy</a>.</p>
+<p>Links:</p>
+<ul>
+<li><a href="https://github.com/Vectorized/solady/blob/main/src/utils/ERC1967Factory.sol">Factory</a></li>
+<li><a href="https://eips.ethereum.org/EIPS/eip-1967">EIP-1967 Specification</a></li>
+<li><a href="https://github.com/jtriley-eth/minimum-viable-proxy">Prototype Implementation</a></li>
+<li><a href="https://x.com/jtriley_eth/status/1642984618277359616">Overview Thread</a></li>
+</ul>
+<h3 id="snekmate"><a class="header" href="#snekmate">Snekmate</a></h3>
+<p>The <a href="https://github.com/pcaversaccio/snekmate">Snekmate</a> repository contains modular, optimized
+Vyper contracts. The scope of my contributions are on the implementation of the
+<a href="https://eips.ethereum.org/EIPS/eip-1155">EIP-1155 Multi-Token Standard</a>.</p>
+<p>We implemented the specification in Vyper with modularity as a primary focus ahead of the planned
+module system for the Vyper language.</p>
+<blockquote>
+<p>Lore: This implementation eventually lead to the creation of the <a href="#eip-6909">EIP-6909</a>
+specification.</p>
+</blockquote>
+<p>Links:</p>
+<ul>
+<li><a href="https://github.com/pcaversaccio/snekmate/blob/main/src/tokens/ERC1155.vy">EIP-1155</a></li>
+<li><a href="https://eips.ethereum.org/EIPS/eip-1155">Specification</a></li>
+</ul>
+<h3 id="uniswap-v4-flashloan-template"><a class="header" href="#uniswap-v4-flashloan-template">Uniswap V4 Flashloan Template</a></h3>
+<p>The <a href="https://github.com/jtriley-eth/uni-v4-core-flashloans">Uniswap V4 Flashloan Template</a> was built
+as a simple example of how to use the Uniswap V4 flash accounting systems for arbitrage or
+liquidations. The singleton architecture for Uniswap V4 enables high volume atomic flash loans.</p>
+<p>Links:</p>
+<ul>
+<li><a href="https://github.com/jtriley-eth/uni-v4-core-flashloans">Implementation</a></li>
+<li><a href="https://github.com/Uniswap/v4-core">Uniswap V4 Core</a></li>
+</ul>
+<h3 id="huff-style-guide"><a class="header" href="#huff-style-guide">Huff Style Guide</a></h3>
+<p>The <a href="https://github.com/jtriley-eth/huff-style-guide">Huff Style Guide</a> serves as a mostly
+reasonable style guideline for production Huff contracts. It focuses on readability, documentation,
+and intuitive control flow. It is inspired by AirBnB's
+<a href="https://github.com/airbnb/javascript">Javascript Style Guide</a>.</p>
+<p>Links:</p>
+<ul>
+<li><a href="https://github.com/jtriley-eth/huff-style-guide">Style Guide</a></li>
+</ul>
+<h3 id="artemis"><a class="header" href="#artemis">Artemis</a></h3>
+<p>Paradigm's <a href="https://github.com/paradigmxyz/artemis">Artemis</a> MEV framework focuses on simplicity,
+modularity, and performance. The scope of my contributions are on the Huff language implementation
+of the <a href="https://github.com/paradigmxyz/artemis/blob/main/crates/strategies/opensea-sudo-arb/contracts/src/huff/SudoOpenseaArb.huff">SudoSwap x Opensea arbitrage strategy</a>.</p>
+<p>The Huff implementation saves around 3800 gas per transaction when executing SudoSwap x Opensea
+arbitrage transactions and still maintains feature parity with the Solidity implementation.</p>
+<blockquote>
+<p>Lore: This implementation eventually lead to the creation of the
+<a href="https://github.com/jtriley-eth/huff-style-guide">Huff Style Guide</a>.</p>
+</blockquote>
+<p>Links:</p>
+<ul>
+<li><a href="https://github.com/paradigmxyz/artemis">Artemis</a></li>
+<li><a href="https://github.com/paradigmxyz/artemis/blob/main/crates/strategies/opensea-sudo-arb/contracts">Strategy Documentation</a></li>
+</ul>
+<h3 id="ether-deck"><a class="header" href="#ether-deck">Ether Deck</a></h3>
+<p>The <a href="https://github.com/jtriley-eth/ether-deck">Ether Deck</a> is an EVM multi-signature smart wallet
+built for power users. Its calldata encoding scheme is bespoke, featuring custom function selectors,
+packed pre-ordered signatures, and a fallback mechanism to enable extensibility. Extensibility
+includes token recipient extensions, call aggregation, batch storage readers, and more.</p>
+<p>The Ether Deck is a nod to the term &quot;cyberdeck&quot; referred to in cyberpunk media as personal
+computers, often pieced together by hackers and techies. All naming schemes in the deck, for better
+or for worse, all followed cyberpunk media, with multi-signature calls named &quot;syscalls&quot;, extensions
+named &quot;shards&quot;, and the batch storage reader named &quot;spider&quot;.</p>
+<p>Links:</p>
+<ul>
+<li><a href="https://github.com/jtriley-eth/ether-deck">Implementation</a></li>
+<li><a href="./articles.html#the-ether-deck">Article</a></li>
+</ul>
+<h3 id="counter-exploit-toolkit"><a class="header" href="#counter-exploit-toolkit">Counter Exploit Toolkit</a></h3>
+<blockquote>
+<p>Warning: Research Purposes Only. Don't rug people. Don't rug yourself. Don't get rugged.</p>
+</blockquote>
+<p>The <a href="https://github.com/jtriley-eth/counter-exploit-toolkit">Counter Exploit Toolkit</a> is both an
+experiment of the security implications of upgradeable proxies and a commentary on court-ordered
+smart contract mutation.</p>
+<p>Upgradeable proxies can be upgraded to arbitrary addresses. This contract, if upgraded to, can
+manipulate arbitrary storage slots which may contain accounting logic, remove tokens or ether, and
+if any account has an EIP-20 style approval on the contract it may steal the tokens from the account
+in question.</p>
+<ul>
+<li><a href="https://github.com/jtriley-eth/counter-exploit-toolkit">Counter Exploit Toolkit</a></li>
+</ul>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="introduction.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+                            <a rel="next" href="articles.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="introduction.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+                    <a rel="next" href="articles.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr.min.js"></script>
+        <script src="mark.min.js"></script>
+        <script src="searcher.js"></script>
+
+        <script src="clipboard.min.js"></script>
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
+
+        <!-- Custom JS scripts -->
+        <script src="src/static/solidity.min.js"></script>
+
+
+    </div>
+    </body>
+</html>

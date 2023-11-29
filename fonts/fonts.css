@@ -1,0 +1,98 @@
+
+/* open-sans-300 - latin_vietnamese_latin-ext_greek-ext_greek_cyrillic-ext_cyrillic */
+@font-face {
+  font-family: 'Monaspace Argon';
+  font-style: normal;
+  font-weight: 300;
+  src: local('Monaspace Argon Light'), local('MonaspaceArgon-Light'),
+       url('MonaspaceArgon-Light.woff') format('woff');
+}
+
+/* open-sans-300italic - latin_vietnamese_latin-ext_greek-ext_greek_cyrillic-ext_cyrillic */
+@font-face {
+  font-family: 'Monaspace Argon';
+  font-style: italic;
+  font-weight: 300;
+  src: local('Monaspace Argon Light Italic'), local('MonaspaceArgon-LightItalic'),
+       url('MonaspaceArgon-LightItalic.woff') format('woff');
+}
+
+/* open-sans-regular - latin_vietnamese_latin-ext_greek-ext_greek_cyrillic-ext_cyrillic */
+@font-face {
+  font-family: 'Monaspace Argon';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Monaspace Argon Regular'), local('MonaspaceArgon-Regular'),
+       url('MonaspaceArgon-Regular.woff') format('woff');
+}
+
+/* open-sans-italic - latin_vietnamese_latin-ext_greek-ext_greek_cyrillic-ext_cyrillic */
+@font-face {
+  font-family: 'Monaspace Argon';
+  font-style: italic;
+  font-weight: 400;
+  src: local('Monaspace Argon Italic'), local('MonaspaceArgon-Italic'),
+       url('MonaspaceArgon-Italic.woff') format('woff');
+}
+
+/* open-sans-600 - latin_vietnamese_latin-ext_greek-ext_greek_cyrillic-ext_cyrillic */
+@font-face {
+  font-family: 'Monaspace Argon';
+  font-style: normal;
+  font-weight: 600;
+  src: local('Monaspace Argon SemiBold'), local('MonaspaceArgon-SemiBold'),
+       url('MonaspaceArgon-SemiBold.woff') format('woff');
+}
+
+/* open-sans-600italic - latin_vietnamese_latin-ext_greek-ext_greek_cyrillic-ext_cyrillic */
+@font-face {
+  font-family: 'Monaspace Argon';
+  font-style: italic;
+  font-weight: 600;
+  src: local('Monaspace Argon SemiBold Italic'), local('MonaspaceArgon-SemiBoldItalic'),
+       url('MonaspaceArgon-SemiBoldItalic.woff') format('woff');
+}
+
+/* open-sans-700 - latin_vietnamese_latin-ext_greek-ext_greek_cyrillic-ext_cyrillic */
+@font-face {
+  font-family: 'Monaspace Argon';
+  font-style: normal;
+  font-weight: 700;
+  src: local('Monaspace Argon Bold'), local('MonaspaceArgon-Bold'),
+       url('MonaspaceArgon-Bold.woff') format('woff');
+}
+
+/* open-sans-700italic - latin_vietnamese_latin-ext_greek-ext_greek_cyrillic-ext_cyrillic */
+@font-face {
+  font-family: 'Monaspace Argon';
+  font-style: italic;
+  font-weight: 700;
+  src: local('Monaspace Argon Bold Italic'), local('MonaspaceArgon-BoldItalic'),
+       url('MonaspaceArgon-BoldItalic.woff') format('woff');
+}
+
+/* open-sans-800 - latin_vietnamese_latin-ext_greek-ext_greek_cyrillic-ext_cyrillic */
+@font-face {
+  font-family: 'Monaspace Argon';
+  font-style: normal;
+  font-weight: 800;
+  src: local('Monaspace Argon ExtraBold'), local('MonaspaceArgon-ExtraBold'),
+       url('MonaspaceArgon-ExtraBold.woff') format('woff');
+}
+
+/* open-sans-800italic - latin_vietnamese_latin-ext_greek-ext_greek_cyrillic-ext_cyrillic */
+@font-face {
+  font-family: 'Monaspace Argon';
+  font-style: italic;
+  font-weight: 800;
+  src: local('Monaspace Argon ExtraBold Italic'), local('MonaspaceArgon-ExtraBoldItalic'),
+       url('MonaspaceArgon-ExtraBoldItalic.woff') format('woff');
+}
+
+/* source-code-pro-500 - latin_vietnamese_latin-ext_greek_cyrillic-ext_cyrillic */
+@font-face {
+  font-family: 'Monaspace Krypton';
+  font-style: normal;
+  font-weight: 500;
+  src: url('MonaspaceKrypton-Regular.woff') format('woff');
+}

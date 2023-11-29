@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Introduction - the jtriley.eth book</title>
+        <title>Articles - the jtriley.eth book</title>
 
 
         <!-- Custom HTML head -->
@@ -81,7 +81,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="introduction.html" class="active"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item expanded "><a href="contributions-highlights.html"><strong aria-hidden="true">2.</strong> Contributions</a></li><li class="chapter-item expanded "><a href="articles.html"><strong aria-hidden="true">3.</strong> Articles</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="articles/type-theory.html"><strong aria-hidden="true">3.1.</strong> Type Theory</a></li><li class="chapter-item expanded "><a href="articles/the-edge-programming-language.html"><strong aria-hidden="true">3.2.</strong> The Edge Programming Language</a></li><li class="chapter-item expanded "><a href="articles/the-vyper-compiler.html"><strong aria-hidden="true">3.3.</strong> The Vyper Compiler</a></li><li class="chapter-item expanded "><a href="articles/evm-language-design.html"><strong aria-hidden="true">3.4.</strong> EVM Language Design</a></li><li class="chapter-item expanded "><a href="articles/the-ether-deck.html"><strong aria-hidden="true">3.5.</strong> The Ether Deck</a></li></ol></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="introduction.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item expanded "><a href="contributions-highlights.html"><strong aria-hidden="true">2.</strong> Contributions</a></li><li class="chapter-item expanded "><a href="articles.html" class="active"><strong aria-hidden="true">3.</strong> Articles</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="articles/type-theory.html"><strong aria-hidden="true">3.1.</strong> Type Theory</a></li><li class="chapter-item expanded "><a href="articles/the-edge-programming-language.html"><strong aria-hidden="true">3.2.</strong> The Edge Programming Language</a></li><li class="chapter-item expanded "><a href="articles/the-vyper-compiler.html"><strong aria-hidden="true">3.3.</strong> The Vyper Compiler</a></li><li class="chapter-item expanded "><a href="articles/evm-language-design.html"><strong aria-hidden="true">3.4.</strong> EVM Language Design</a></li><li class="chapter-item expanded "><a href="articles/the-ether-deck.html"><strong aria-hidden="true">3.5.</strong> The Ether Deck</a></li></ol></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -142,30 +142,49 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="introduction"><a class="header" href="#introduction">Introduction</a></h1>
-<div style="display:flex;width:100%;justify-content:center;">
-    <img src="static/jtriley.png" width="300px" style="border-radius:150px;" />
-</div>
-<p>My name is Riley (jtriley). I'm a smart contract engineer specializing in language design, the
-Ethereum Virtual Machine, runtime efficiency optimization, and technical writing. I also
-authored the <a href="https://eips.ethereum.org/EIPS/eip-6909">Minimal Multi-Token Interface</a> Ethereum
-Improvement Proposal and have contributed to multiple open source smart contract libraries and
-projects.</p>
-<p>For more on my personal experience, see the <a href="./contributions-highlights.html">Contribution Highlights</a>
-page and for my previous articles see the <a href="./articles.html">Articles</a> section.</p>
-<h2 id="quicc-links"><a class="header" href="#quicc-links">Quicc Links</a></h2>
+                        <h2 id="articles"><a class="header" href="#articles">Articles</a></h2>
 <ul>
-<li><a href="https://github.com/jtriley-eth">GitHub</a></li>
-<li><a href="https://jtriley.substack.com">Substack</a></li>
-<li><a href="https://twitter.com/jtriley_eth">The Website Application Formerly Known As &quot;Twitter&quot;</a></li>
+<li><a href="#articles">Articles</a>
+<ul>
+<li><a href="#the-vyper-compiler">The Vyper Compiler</a></li>
+<li><a href="#the-ether-deck">The Ether Deck</a></li>
+<li><a href="#ethereum-virtual-machine-language-design">Ethereum Virtual Machine Language Design</a></li>
+<li><a href="#constructing-zk-snark-circuits">Constructing ZK-SNARK Circuits</a></li>
+<li><a href="#the-fuel-vm-architecture">The Fuel VM Architecture</a></li>
 </ul>
+</li>
+</ul>
+<h3 id="the-vyper-compiler"><a class="header" href="#the-vyper-compiler">The Vyper Compiler</a></h3>
+<p><a href="https://open.substack.com/pub/jtriley/p/the-vyper-compiler?r=1qyfrf&amp;utm_campaign=post&amp;utm_medium=web">The Vyper Compiler</a>
+is a deep dive into the behavior of the Vyper language's compiler, from its syntax to its
+intermediate representation to its generated bytecode.</p>
+<h3 id="the-ether-deck"><a class="header" href="#the-ether-deck">The Ether Deck</a></h3>
+<p><a href="https://open.substack.com/pub/jtriley/p/the-ether-deck?r=1qyfrf&amp;utm_campaign=post&amp;utm_medium=web">The Ether Deck</a>
+is an article diving into the Ether Deck project, an optimized EVM multi-signature smart wallet
+implemented in the Huff language. See more about the projects in the
+<a href="./contributions-highlights.html#ether-deck">contributions</a> section.</p>
+<h3 id="ethereum-virtual-machine-language-design"><a class="header" href="#ethereum-virtual-machine-language-design">Ethereum Virtual Machine Language Design</a></h3>
+<p><a href="https://open.substack.com/pub/jtriley/p/ethereum-virtual-machine-language?r=1qyfrf&amp;utm_campaign=post&amp;utm_medium=web">Ethereum Virtual Machine Language Design</a>
+is an exploration of the state of the art in EVM smart contract domain specific languages. It
+examines the syntax, abstractions, and behaviors of Solidity, Vyper, Fe, Huff, ETK, and Yul.</p>
+<h3 id="constructing-zk-snark-circuits"><a class="header" href="#constructing-zk-snark-circuits">Constructing ZK-SNARK Circuits</a></h3>
+<p><a href="https://open.substack.com/pub/jtriley/p/constructing-zk-snark-circuits?r=1qyfrf&amp;utm_campaign=post&amp;utm_medium=web">Constructing ZK-SNARK Circuits</a>
+is a guide to creating ZK-SNARK circuits with the Halo2 crate built by the ZCash team and used by
+other organizations creating PLONKish circuits. This uses Rust in an attempt to understand how the
+higher level ZK-SNARK domain specific languages behave under the hood.</p>
+<h3 id="the-fuel-vm-architecture"><a class="header" href="#the-fuel-vm-architecture">The Fuel VM Architecture</a></h3>
+<p><a href="https://open.substack.com/pub/jtriley/p/the-fuel-virtual-machine-architecture?r=1qyfrf&amp;utm_campaign=post&amp;utm_medium=web">The Fuel VM Architecture</a>
+is a deep dive into the Fuel VM architecture and how it differs from the Ethereum VM.</p>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="contributions-highlights.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
 
-                            <a rel="next" href="contributions-highlights.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next" href="articles/type-theory.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
 
@@ -175,8 +194,11 @@ page and for my previous articles see the <a href="./articles.html">Articles</a>
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="contributions-highlights.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
 
-                    <a rel="next" href="contributions-highlights.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next" href="articles/type-theory.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
             </nav>

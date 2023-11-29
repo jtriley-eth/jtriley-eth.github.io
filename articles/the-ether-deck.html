@@ -1,0 +1,257 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>The Ether Deck - the jtriley.eth book</title>
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="../favicon.svg">
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+    </head>
+    <body>
+    <div id="body-container">
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded "><a href="../introduction.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item expanded "><a href="../contributions-highlights.html"><strong aria-hidden="true">2.</strong> Contributions</a></li><li class="chapter-item expanded "><a href="../articles.html"><strong aria-hidden="true">3.</strong> Articles</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../articles/type-theory.html"><strong aria-hidden="true">3.1.</strong> Type Theory</a></li><li class="chapter-item expanded "><a href="../articles/the-edge-programming-language.html"><strong aria-hidden="true">3.2.</strong> The Edge Programming Language</a></li><li class="chapter-item expanded "><a href="../articles/the-vyper-compiler.html"><strong aria-hidden="true">3.3.</strong> The Vyper Compiler</a></li><li class="chapter-item expanded "><a href="../articles/evm-language-design.html"><strong aria-hidden="true">3.4.</strong> EVM Language Design</a></li><li class="chapter-item expanded "><a href="../articles/the-ether-deck.html" class="active"><strong aria-hidden="true">3.5.</strong> The Ether Deck</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">the jtriley.eth book</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="the-ether-deck"><a class="header" href="#the-ether-deck">The Ether Deck</a></h1>
+<p><em>jtriley.eth; 17 May, 2023</em></p>
+<hr />
+<h2 id="overview"><a class="header" href="#overview">Overview</a></h2>
+<p><a href="https://github.com/jtriley-eth/ether-deck">The Ether Deck</a>, further known as the “deck”, is an
+opinionated, optimized, extensible, multi-signature smart contract wallet. It is written in Huff and
+tested extensively using a Foundry-based fuzz and unit testing suite. There are four built-in
+functions for handling authentication, signature count threshold, shard management, and a
+generalized executor. The main interface to any functionality on the deck is through a signed
+syscall. Shards may extend the core functionality by assigning selectors to contract addresses in
+local storage. Encoding data to send to the deck is atypical and uses a packed calldata encoding
+scheme, making it a suitable choice for layer 1 Ethereum as well as layer 2 rollups that commit
+calldata to l1 storage.</p>
+<h2 id="core"><a class="header" href="#core">Core</a></h2>
+<p>The core of the deck is the syscall. This takes a target address, call value, payload, and a list of
+signatures. The deck loads the required signature count threshold, or number of signatures required
+to execute, then checks each signature. All signatures must come from authorized accounts and too
+few signatures will fail. Once the signatures are validated, the target address is called with the
+respective value and payload.</p>
+<p>Setters for authorized accounts, threshold, and shards exist on the deck but must be accessed via a
+syscall where the target is the deck itself. This prevents unauthorized state modification.</p>
+<p>Signature verification uses a tight encoding and makes specific assumptions that allow for
+computational efficiency gains without breaking invariants. More on this in the documentation.</p>
+<h2 id="shards"><a class="header" href="#shards">Shards</a></h2>
+<p>Shards are extensions to the deck. These can be assigned via a mapping of selectors to addresses
+where the address is the target and the selector prefixes the payload. A few example shards are
+provided in the repository enabling bundled multi-calls, token standard compliance, and public
+storage readers. However, any smart contract can be delegated as a shard. There are a few security
+considerations that should be reviewed in the documentation's
+<a href="https://github.com/jtriley-eth/ether-deck#shards">shard security section</a> before delegating to just
+any contract.</p>
+<p>Since shards require extreme caution when using, a tool to screen shards for potentially dangerous
+opcodes is included in the scripts directory of the repository. This does not guarantee security,
+nor does a potentially dangerous opcodes guarantee a vulnerability. This scanner simply reports what
+opcodes are involved and what they can potentially do. Shards can be categorized as stateless,
+read-only, and stateful.</p>
+<p>Stateless shards do not read from the local contract's storage. An example of this is the
+<code>ERC721Receiver</code> and <code>ERC1155Receiver</code> compliance shard called “recv”. Recv simply returns the
+selector give to it, indicating the deck is capable of receiving <code>ERC721</code> and <code>ERC1155</code> tokens.</p>
+<p>Read-only shards may read from the local contract's storage or make external read-only calls to
+other contracts. No state changes are possible with a read-only shard. An example would be the
+public storage reader, or “pubstore” shard. Pubstore takes a storage key as an argument, loads the
+value from storage, then returns it to the caller. This is useful for reading the deck's storage.</p>
+<p>Stateful shards have full control over the deck. They may make external calls, read and write local
+storage, append transaction logs, and even self destruct. Extreme caution must be taken when setting
+stateful shards. However, they can be useful. The multicaller shard is capable of bundling external
+calls into a single transaction and executing them atomically.</p>
+<h2 id="testing-and-security"><a class="header" href="#testing-and-security">Testing and Security</a></h2>
+<p>Full security implications are documented in full in the documentation including assumptions,
+invariants, and other considerations. It is important to note that while testing is extensive, at
+the time of writing, it is not audited. A bug bounty program will be released shortly and if
+external interest is sufficient, an audit will be scheduled.</p>
+<h2 id="next-steps"><a class="header" href="#next-steps">Next Steps</a></h2>
+<p>While there are basic tools for interfacing with the deck, it is incompatible with existing client
+tooling by design. It is optimized for on-chain computation, not compatibility. More tooling is
+under development for interfacing with the deck in a more intuitive way. However, it is important to
+note this is not targeting general users, this is built for users that have deep experience and
+knowledge of smart contract wallets and the EVM more broadly.</p>
+<h2 id="conclusion"><a class="header" href="#conclusion">Conclusion</a></h2>
+<p>The Ether Deck makes highly opinionated choices in favor of on-chain gas optimization and instead
+offloads the user experience to the client tooling that interfaces with it, allowing for incredibly
+cheap transaction execution. Shards may extend the functionality of the deck and make its own
+decisions on transaction execution and encoding.</p>
+<p>If you enjoy this article and relevant work consider subscribing, as more work on the deck and other
+interesting projects are in progress.</p>
+<p>Until next time, good hacking 🤘</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../articles/evm-language-design.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../articles/evm-language-design.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr.min.js"></script>
+        <script src="../mark.min.js"></script>
+        <script src="../searcher.js"></script>
+
+        <script src="../clipboard.min.js"></script>
+        <script src="../highlight.js"></script>
+        <script src="../book.js"></script>
+
+        <!-- Custom JS scripts -->
+        <script src="../src/static/solidity.min.js"></script>
+
+
+    </div>
+    </body>
+</html>
