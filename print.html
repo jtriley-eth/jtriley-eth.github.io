@@ -82,7 +82,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="introduction.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item expanded "><a href="contributions-highlights.html"><strong aria-hidden="true">2.</strong> Contributions</a></li><li class="chapter-item expanded "><a href="articles.html"><strong aria-hidden="true">3.</strong> Articles</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="articles/type-theory.html"><strong aria-hidden="true">3.1.</strong> Type Theory</a></li><li class="chapter-item expanded "><a href="articles/the-edge-programming-language.html"><strong aria-hidden="true">3.2.</strong> The Edge Programming Language</a></li><li class="chapter-item expanded "><a href="articles/the-vyper-compiler.html"><strong aria-hidden="true">3.3.</strong> The Vyper Compiler</a></li><li class="chapter-item expanded "><a href="articles/evm-language-design.html"><strong aria-hidden="true">3.4.</strong> EVM Language Design</a></li><li class="chapter-item expanded "><a href="articles/the-ether-deck.html"><strong aria-hidden="true">3.5.</strong> The Ether Deck</a></li></ol></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="introduction.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item expanded "><a href="contributions-highlights.html"><strong aria-hidden="true">2.</strong> Contributions</a></li><li class="chapter-item expanded "><a href="articles.html"><strong aria-hidden="true">3.</strong> Articles</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="articles/type-theory.html"><strong aria-hidden="true">3.1.</strong> Type Theory</a></li><li class="chapter-item expanded "><a href="articles/the-edge-programming-language.html"><strong aria-hidden="true">3.2.</strong> The Edge Programming Language</a></li><li class="chapter-item expanded "><a href="articles/the-vyper-compiler.html"><strong aria-hidden="true">3.3.</strong> The Vyper Compiler</a></li><li class="chapter-item expanded "><a href="articles/evm-language-design.html"><strong aria-hidden="true">3.4.</strong> EVM Language Design</a></li><li class="chapter-item expanded "><a href="articles/the-ether-deck.html"><strong aria-hidden="true">3.5.</strong> The Ether Deck</a></li><li class="chapter-item expanded "><a href="articles/type-driven-solidity.html"><strong aria-hidden="true">3.6.</strong> Type Driven Solidity</a></li></ol></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -1860,6 +1860,450 @@ decisions on transaction execution and encoding.</p>
 <p>If you enjoy this article and relevant work consider subscribing, as more work on the deck and other
 interesting projects are in progress.</p>
 <p>Until next time, good hacking 🤘</p>
+<div style="break-before: page; page-break-before: always;"></div><h2 id="type-driven-solidity"><a class="header" href="#type-driven-solidity">Type Driven Solidity</a></h2>
+<p>In Solidity, objected orientation masquerades as contract orientation. Storage layouts are generated through C3 linearization followed by slot packing. External interfaces are obfuscated behind impenetrable walls of abstract contracts and virtual methods.</p>
+<p>It does not have to be like this.</p>
+<p>Despite the rudimentary type theory of Solidity, we can abuse its blind spots, type aliasing, and function call syntax to create clean, efficient, and idiomatic contracts.</p>
+<h3 id="principles"><a class="header" href="#principles">Principles</a></h3>
+<ol>
+<li>The external interface to a contract is unified under one identifier, under one scope.</li>
+<li>Storage is encapsulated into one product type.</li>
+<li>Invariants are enforced at the composition of associated types.</li>
+<li>Functions are free unless they construct a type.</li>
+</ol>
+<h4 id="1-interface-unification"><a class="header" href="#1-interface-unification">1. Interface Unification</a></h4>
+<p>Traditionally, abstractions are defined in abstract contracts and the final contract inherits all parents.</p>
+<pre><code class="language-solidity">// SPDX-License-Identifier: AGPL-3.0-only
+pragma solidity 0.8.25;
+
+abstract contract Context {
+    function _msgSender() internal virtual view returns (address) {
+        return msg.sender;
+    }
+}
+
+abstract contract Owned is Context {
+    address public owner;
+
+    modifier onlyOwner() {
+        require(_msgSender() == owner);
+        _;
+    }
+
+    function transferOwnership(address newOwner) public onlyOwner {
+        owner = newOwner;
+    }
+}
+
+abstract contract ERC20 {
+    event Transfer(address indexed sender, address indexed receiver, uint256 amount);
+    event Approve(address indexed owner, address indexed spender, uint256 amount);
+
+    uint256 public totalSupply;
+    mapping(address =&gt; uint256) public balanceOf;
+    mapping(address =&gt; mapping(address =&gt; uint256) public allowance;
+
+    function transfer(address receiver, uint256 amount) public returns (bool) {
+        balanceOf[msg.sender] -= amount;
+        balanceOf[receiver] += amount;
+        emit Transfer(msg.sender, receiver, amount);
+        return true;
+    }
+
+    function transferFrom(address sender, address receiver, uint256 amount) public returns (bool) {
+        allowance[msg.sender][sender] -= amount;
+        balanceOf[msg.sender] -= amount;
+        balanceOf[receiver] += amount;
+        emit Transfer(sender, receiver, amount);
+        return true;
+    }
+
+    function approve(address spender, uint256 amount) public returns (bool) {
+        allowance[msg.sender][spender] = amount;
+        emit Approve(msg.sender, spender, amount);
+        return true;
+    }
+
+    function _mint(address receiver, uint256 amount) internal {
+        balanceOf[msg.sender][receiver] += amount;
+        totalSupply += amount;
+    }
+}
+
+contract Token is Owned, ERC20 {
+    function mint(address receiver, uint256 amount) public onlyOwner {
+        _mint(receiver, amount);
+    }
+}
+</code></pre>
+<pre><code class="language-mermaid">classDiagram
+  Contex &lt;|-- Owned
+  Owned &lt;|-- Token
+  ERC20 &lt;|-- Token
+
+    class Context {
+        &lt;&lt;Abstract&gt;&gt;
+        -_msgSender() address
+    }
+
+    class Owned {
+        &lt;&lt;Abstract&gt;&gt;
+        +address owner
+        +transferOwnership(address)
+        -onlyOwner()
+    }
+
+    class ERC20 {
+        &lt;&lt;Abstract&gt;&gt;
+        +totalSupply() address
+        +balanceOf(address) uint256
+        +allowance(address,address) uint256
+        +transfer(address,uint256) bool
+        +transferFrom(address,address,uint256) bool
+        +approve(address,uint256) bool
+        -_mint(address,uint256)
+    }
+
+    class Token {
+        +mint(address,uint256)
+    }
+</code></pre>
+<p>This is a simple example, but inheritance tree complexity notoriously cascades quickly.</p>
+<p>So what do?</p>
+<blockquote>
+<p>Accept intermediate complexity in search of a better abstraction.</p>
+<ul>
+<li>Sandi Metz</li>
+</ul>
+</blockquote>
+<p>First, linearize the contract.</p>
+<pre><code class="language-solidity">// SPDX-License-Identifier: AGPL-3.0-only
+pragma solidity 0.8.25;
+
+contract Token {
+    event Transfer(address indexed sender, address indexed receiver, uint256 amount);
+    event Approve(address indexed owner, address indexed spender, uint256 amount);
+
+    address public owner;
+    uint256 public totalSupply;
+    mapping(address =&gt; uint256) public balanceOf;
+    mapping(address =&gt; mapping(address =&gt; uint256) public allowance;
+
+    modifier onlyOwner() {
+        require(_msgSender() == owner);
+        _;
+    }
+
+    function transfer(address receiver, uint256 amount) public returns (bool) {
+        balanceOf[msg.sender] -= amount;
+        balanceOf[receiver] += amount;
+        emit Transfer(msg.sender, receiver, amount);
+        return true;
+    }
+
+    function transferFrom(address sender, address receiver, uint256 amount) public returns (bool) {
+        allowance[msg.sender][sender] -= amount;
+        balanceOf[msg.sender] -= amount;
+        balanceOf[receiver] += amount;
+        emit Transfer(sender, receiver, amount);
+        return true;
+    }
+
+    function approve(address spender, uint256 amount) public returns (bool) {
+        allowance[msg.sender][spender] = amount;
+        emit Approve(msg.sender, spender, amount);
+        return true;
+    }
+
+    function _mint(address receiver, uint256 amount) internal {
+        balanceOf[msg.sender][receiver] += amount;
+        totalSupply += amount;
+    }
+
+    function transferOwnership(address newOwner) public onlyOwner {
+        owner = newOwner;
+    }
+
+    function _msgSender() internal virtual view returns (address) {
+        return msg.sender;
+    }
+}
+</code></pre>
+<p>This decomposition gives some insight into whether the abstractions tucked away in the inheritance tree is useful or not.</p>
+<ul>
+<li><code>_msgSender</code> is an abstraction for meta transaction support, but we're not using meta transactions.</li>
+<li><code>onlyOwner</code> is cool, but it's used in only two places, <code>transferOwnership</code> and <code>mint</code>. This reduces the tracing we have to do through modifiers and we actually reduce the codesize by two lines. Auditors <em>HATE</em> this <em>ONE TRICK</em>.</li>
+<li><code>_mint</code> is only used in the <code>mint</code> function, no need to decompose the two.</li>
+</ul>
+<pre><code class="language-solidity">// SPDX-License-Identifier: AGPL-3.0-only
+pragma solidity 0.8.25;
+
+contract Token {
+    event Transfer(address indexed sender, address indexed receiver, uint256 amount);
+    event Approve(address indexed owner, address indexed spender, uint256 amount);
+
+    address public owner;
+    uint256 public totalSupply;
+    mapping(address =&gt; uint256) public balanceOf;
+    mapping(address =&gt; mapping(address =&gt; uint256) public allowance;
+
+    function transfer(address receiver, uint256 amount) public returns (bool) {
+        balanceOf[msg.sender] -= amount;
+        balanceOf[receiver] += amount;
+        emit Transfer(msg.sender, receiver, amount);
+        return true;
+    }
+
+    function transferFrom(address sender, address receiver, uint256 amount) public returns (bool) {
+        allowance[msg.sender][sender] -= amount;
+        balanceOf[msg.sender] -= amount;
+        balanceOf[receiver] += amount;
+        emit Transfer(sender, receiver, amount);
+        return true;
+    }
+
+    function approve(address spender, uint256 amount) public returns (bool) {
+        allowance[msg.sender][spender] = amount;
+        emit Approve(msg.sender, spender, amount);
+        return true;
+    }
+
+    function mint(address receiver, uint256 amount) public {
+        require(msg.sender == caller);
+        balanceOf[msg.sender][receiver] += amount;
+        totalSupply += amount;
+    }
+
+    function transferOwnership(address newOwner) public {
+        require(msg.sender == caller);
+        owner = newOwner;
+    }
+}
+</code></pre>
+<p>This is nice and clean, but we have no code reuse. This means not only do we net more lines of code, but each instance of the <code>owner</code> logic must be tested and audited independently. Auditors <em>LOVE</em> this <em>ONE TRICK</em>.</p>
+<p>With this, we lean into principle #2.</p>
+<h4 id="2-type-unification"><a class="header" href="#2-type-unification">2. Type Unification</a></h4>
+<p>Through a type theory lens, the <code>contract</code> type encapsulates fields (storage) with associated functions to interface with the fields. The <code>struct</code> type also encapsulates fields (local variables) with associated functions to interface with the fields. We call this a product type, as the collection of fields represents a cartesian product of each field's type.</p>
+<p>The following contract contains the same storage layout as the above.</p>
+<pre><code class="language-solidity">// SPDX-License-Identifier: AGPL-3.0-only
+pragma solidity 0.8.25;
+
+struct Storage {
+    address owner;
+    uint256 totalSupply;
+    mapping(address =&gt; uint256) balanceOf;
+    mapping(address =&gt; mapping(address =&gt; uint256) allowance;
+}
+
+contract Token {
+    Storage self;
+
+    function transfer(address receiver, uint256 amount) public returns (bool) {
+        self.balanceOf[msg.sender] -= amount;
+        self.balanceOf[receiver] += amount;
+        emit Transfer(msg.sender, receiver, amount);
+        return true;
+    }
+
+    function transferFrom(address sender, address receiver, uint256 amount) public returns (bool) {
+        self.allowance[msg.sender][sender] -= amount;
+        self.balanceOf[msg.sender] -= amount;
+        self.balanceOf[receiver] += amount;
+        emit Transfer(sender, receiver, amount);
+        return true;
+    }
+
+    function approve(address spender, uint256 amount) public returns (bool) {
+        self.allowance[msg.sender][spender] = amount;
+        emit Approve(msg.sender, spender, amount);
+        return true;
+    }
+
+    function mint(address receiver, uint256 amount) public {
+        require(msg.sender == self.caller);
+        self.balanceOf[msg.sender][receiver] += amount;
+        self.totalSupply += amount;
+    }
+
+    function transferOwnership(address newOwner) public {
+        require(msg.sender == self.owner);
+        self.owner = newOwner;
+    }
+}
+</code></pre>
+<p>On the surface, this looks strictly like more lines of code, but by breaking out the storage into a unified type, we get the benefit of distinguishing storage writes from local variable assignment out of the box.</p>
+<p>But we get a much more powerful feature through decomposition and recomposition under principle #3.</p>
+<h4 id="3-invariant-composition"><a class="header" href="#3-invariant-composition">3. Invariant Composition</a></h4>
+<p>An invariant is a constrained relationship between values.</p>
+<p>The core ERC20 invariant is that the <code>totalSupply</code> is the sum of all <code>balanceOf</code> values for all addresses. In the original contract, this invariant is enforced at each mutation of <code>balanceOf</code> and <code>totalSupply</code>; this is in the <code>_mint</code> function by increasing the <code>balanceOf</code> and <code>totalSupply</code> values with overflow checks, and in the <code>transfer</code> and <code>transferFrom</code> functions by decreasing one <code>balanceOf</code> with an underflow check and increasing another.</p>
+<p>We can instead compose the <code>balanceOf</code> mapping and <code>totalSupply</code> integer to enforce invariants through its api.</p>
+<pre><code class="language-solidity">// SPDX-License-Identifier: AGPL-3.0-only
+pragma solidity 0.8.25;
+
+struct Accounting {
+    mapping(address =&gt; uint256) balanceOf;
+    uint256 totalSupply;
+}
+
+using { mint, transfer } for Accounting global;
+
+function mint(Accounting self, address receiver, uint256 amount) {
+    self.balanceOf[receiver] += amount;
+    self.totalSupply += amount;
+}
+
+function transfer(address sender, address receiver, uint256 amount) {
+    self.balanceOf[sender] -= amount;
+    self.balanceOf[receiver] += amount;
+}
+</code></pre>
+<p>The invariants are enforced within the api of the type, <code>.mint</code> and <code>.transfer</code>.</p>
+<p>A neat byproduct of this pattern is we can actually test the type itself in isolation to assert its invariants hold, then we can compose this type into other types that rely on this invariant, and finally we can test the final contract, ensuring the invariants hold.</p>
+<p>We'll rewrite the contract again with this abstraction.</p>
+<pre><code class="language-solidity">// SPDX-License-Identifier: AGPL-3.0-only
+pragma solidity 0.8.25;
+
+import { Accounting } from &quot;./types/Accounting.sol&quot;;
+
+struct Storage {
+    address owner;
+    Accounting accounting;
+    mapping(address =&gt; mapping(address =&gt; uint256) allowance;
+}
+
+contract Token {
+    Storage self;
+
+    function transfer(address receiver, uint256 amount) public returns (bool) {
+        self.accounting.transfer(msg.sender, receiver, amount);
+        emit Transfer(msg.sender, receiver, amount);
+        return true;
+    }
+
+    function transferFrom(address sender, address receiver, uint256 amount) public returns (bool) {
+        self.allowance[msg.sender][sender] -= amount;
+        self.accounting.transfer(sender, receiver, amount);
+        emit Transfer(sender, receiver, amount);
+        return true;
+    }
+
+    function approve(address spender, uint256 amount) public returns (bool) {
+        self.allowance[msg.sender][spender] = amount;
+        emit Approve(msg.sender, spender, amount);
+        return true;
+    }
+
+    function mint(address receiver, uint256 amount) public {
+        require(msg.sender == self.caller);
+        self.accounting.mint(receiver, amount);
+    }
+
+    function transferOwnership(address newOwner) public {
+        require(msg.sender == self.owner);
+        self.owner = newOwner;
+    }
+}
+</code></pre>
+<p>Clean.</p>
+<h4 id="4-free-the-functions"><a class="header" href="#4-free-the-functions">4. Free The Functions</a></h4>
+<p>There are a number of ways to define internal functions, the two most relevant to this design pattern are as follows.</p>
+<pre><code class="language-solidity">// SPDX-License-Identifier: AGPL-3.0-only
+pragma solidity 0.8.25;
+
+type FieldElement is uint256;
+
+uint256 constant CURVE_ORDER = 0x00;
+
+function add(FieldElement lhs, FieldElement rhs) pure returns (FieldElement output) {
+    assembly { output := addmod(lhs, rhs, CURVE_ORDER) }
+}
+
+library LibFieldElement {
+    function toFieldElement(uint256 number) internal pure returns (FieldElement output) {
+        assembly { output := mod(number, MAX_ELEMENT) }
+    }
+}
+</code></pre>
+<p>Types, functions, and constants should be free when possible. However, when functions construct the type, generally in the form of <code>newType</code>, <code>toType</code>/<code>fromType</code> or <code>asType</code>, we group these together under a library with the naming convention <code>LibType</code>.</p>
+<p>Expanding on this:</p>
+<ul>
+<li><code>newType</code> is for constructing the type either from nothing or from its relevant components.</li>
+<li><code>toType</code>/<code>fromType</code> is for mutating or performing checks an another, possibly similar type for conversion to the target type.</li>
+<li><code>asType</code> is for converting from another, possibly similar type to the target type without mutations or checks. In other words, <code>asType</code> is isomorphic between two types that implement this method.</li>
+</ul>
+<p>Grouping type constructors under a unified library also bypasses namespace issues, where two instances of <code>fromUint256(uint256)</code> may collide despite differing return types.</p>
+<h3 id="applications"><a class="header" href="#applications">Applications</a></h3>
+<h4 id="mutex"><a class="header" href="#mutex">Mutex</a></h4>
+<p>A mutex can lock code paths to prevent reentrancy attacks.</p>
+<pre><code class="language-solidity">// SPDX-License-Identifier: AGPL-3.0-only
+pragma solidity 0.8.25;
+
+struct Mutex {
+    bool locked;
+}
+
+using { isLocked, lock, unlock } for Mutex global;
+
+function isLocked(Mutex storage self) view returns (bool locked) {
+    assembly { locked := tload(self.slot) }
+}
+
+function lock(Mutex storage self) {
+    assembly {
+        tstore(self.slot, 0x01)
+    }
+}
+
+function unlock(Mutex storage self) {
+    assembly { tstore(self.slot, 0x00) }
+}
+</code></pre>
+<h4 id="interface-replacement"><a class="header" href="#interface-replacement">Interface Replacement</a></h4>
+<p>Defining a type with the name of an interface, then implementing methods that match what the interface would be allows for opinionated functionality.</p>
+<p>As an example, the following executes an external transfer function but without allocating new memory and including checks that the external call succeeds and it returns either true or nothing at all.</p>
+<pre><code class="language-solidity">// SPDX-License-Identifier: AGPL-3.0-only
+pragma solidity 0.8.25;
+
+type ERC20 is address;
+
+using { transfer } for ERC20 global;
+
+function transfer(ERC20 erc20, address receiver, uint256 amount) {
+    assembly (&quot;memory-safe&quot;) {
+        mstore(0x00, 0xa9059cbb00000000000000000000000000000000000000000000000000000000)
+        mstore(0x04, receiver)
+        mstore(0x24, amount)
+
+        let ok := call(gas(), erc20, 0x00, 0x00, 0x44, 0x00, 0x20)
+        ok := and(ok, or(iszero(returndatasize()), mload(0x00)))
+
+        if iszero(ok) { revert(0x00, 0x00) }
+
+        mstore(0x24, 0x00)
+    }
+}
+</code></pre>
+<h4 id="singleton-defi-architectures"><a class="header" href="#singleton-defi-architectures">Singleton Defi Architectures</a></h4>
+<p>Defi singletons are an alternative to the distributed architecture. This allows for a unified contract to manage all functionality, state, approvals, and balances.</p>
+<p>By defining the protocol through a single storage product type, we can expand on its functionality by mapping an integer representing the pool/market identifier to the product type.</p>
+<pre><code class="language-solidity">// SPDX-License-Identifier: AGPL-3.0-only
+pragma solidity 0.8.25;
+
+import { CFMM } from &quot;./types/CFMM.sol&quot;;
+
+struct Storage {
+    mapping(uint256 =&gt; CFMM) cfmm;
+}
+
+contract Protocol {
+    Storage self;
+
+    // -- snip
+}
+</code></pre>
+<h3 id="conclusion-2"><a class="header" href="#conclusion-2">Conclusion</a></h3>
+<p>There are alternatives to object oriented patterns in solidity, creating abstractions from data types and function application. Adoption, migration, and promotion takes time, this cannot happen overnight, but we can create better abstractions for the future.</p>
+<p>Until next time.</p>
 
                     </main>
 
